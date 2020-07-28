@@ -1,0 +1,373 @@
+﻿
+@model WatanART.BLL.ViewModels.UserObjVM
+
+
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+    label.save {
+        width: 100%;
+    }
+
+        label.save i {
+            margin-left: 0;
+            float: left;
+            font-size: 20px;
+            margin-top: 20px;
+            color: #a0a0a0;
+        }
+
+    .select2-hidden-accessible {
+        display: none;
+    }
+</style>
+<link href="~/Areas/Admin/Js/select2-bootstrap.css" rel="stylesheet" />
+<link href="~/Areas/Admin/Js/select2.css" rel="stylesheet" />
+<div id="ribbon">
+    <span class="ribbon-button-alignment">
+        <span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh" rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true">
+            <i class="fa fa-refresh"></i>
+        </span>
+    </span>
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+        <li><a href="../../admin/Shared/Index">@WatanART.Localization.Resource.MenuHome</a></li>
+        <li><a href="@Url.Action("Index")">@WatanART.Localization.Resource.UsersLists</a></li>
+        <li>@WatanART.Localization.Resource.Update</li>
+    </ol>
+</div>
+<div id="content">
+    <!-- widget grid -->
+    <section id="widget-grid" class="">
+        <!-- START ROW -->
+        <div class="row">
+            <!-- NEW COL START -->
+            <article class="col-sm-12 col-md-12 col-lg-12">
+                <div class="jarviswidget" id="wid-id-4" data-widget-editbutton="false" data-widget-custombutton="false">
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                        <h2>@WatanART.Localization.Resource.Update </h2>
+
+                    </header>
+                    <!-- widget div-->
+                    <div>
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body">
+
+                            @using (Html.BeginForm("Add", "currency", FormMethod.Post, new
+                            {
+                                @class = "form-horizontal",
+                                data_bv_message = "This value is not valid",
+                                data_bv_feedbackicons_valid = "glyphicon glyphicon-ok",
+                                data_bv_feedbackicons_invalid = "glyphicon glyphicon-remove",
+                                data_bv_feedbackicons_validating = "glyphicon glyphicon-refresh",
+                                role = "form",
+                                enctype = "multipart/form-data",
+                                id = "frmForm"
+                            }))
+                            {
+
+                                <div class="form-horizontal">
+                                    @Html.HiddenFor(model => model.UserID)
+                                    @Html.HiddenFor(model => model.Email)
+
+
+                                    <div class="form-group">
+
+
+
+                                        @Html.Label(WatanART.Localization.Resource.FullName, new { @class = "col-lg-2 control-label" })
+                                        <div class="col-md-10">
+                                            @Html.TextBoxFor(m => m.FullName, new
+                                       {
+                                           @class = "form-control",
+                                           data_bv_notempty = "true",
+                                           data_bv_notempty_message = @WatanART.Localization.Resource.Required,
+                                           data_bv_stringlength = "true",
+                                           data_bv_stringlength_min = "1",
+                                           data_bv_stringlength_max = "200",
+                                           data_bv_stringlength_message = @WatanART.Localization.Resource.StringLengthErrorMessage_200,
+                                           placeholder = @WatanART.Localization.Resource.FullName
+                                       })
+
+                                            @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group">
+
+
+
+                                        @Html.Label(WatanART.Localization.Resource.PhoneNumber, new { @class = "col-lg-2 control-label" })
+                                        <div class="col-md-10">
+                                            @Html.TextBoxFor(m => m.Phone, new
+                                       {
+                                           @class = "form-control",
+                                           data_bv_notempty = "true",
+                                           data_bv_notempty_message = @WatanART.Localization.Resource.Required,
+                                           data_bv_regexp = "true",
+                                           pattern = @"^[0-9]{11,15}$",
+                                           data_bv_regexp_message = @WatanART.Localization.Resource.ValidatePhoneMessage,
+                                           placeholder = WatanART.Localization.Resource.PhoneNumber
+                                       })
+
+                                            @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                                        </div>
+
+
+                                    </div>
+
+
+
+
+
+
+
+                                    <div class="form-group">
+                                        @Html.Label(WatanART.Localization.Resource.country, new { @class = "col-lg-2 control-label" })
+                                        <div class="col-lg-4">
+
+                                            <select class="form-control  SELECT2" name="country2" id="country2" data-bv-notempty="true" data-bv-notempty-message="@WatanART.Localization.Resource.Required">
+                                                @if (Model.CountryID.Value == 0)
+                                                {
+                                                    <option selected disabled value="0">@WatanART.Localization.Resource.ChooseCountry</option>
+
+                                                }
+                                                @if (ViewBag.country != null)
+                                                {
+                                                    foreach (var item in ViewBag.country as IEnumerable<WatanART.BLL.ViewModels.CountryVM>)
+                                                    {
+                                                        if (Model.CountryID == item.ID)
+                                                        {
+                                                            <option selected value="@item.ID">@item.Title</option>
+                                                        }
+
+                                                        else
+                                                        {
+                                                            <option value="@item.ID">@item.Title</option>
+                                                        }
+
+                                                    }
+                                                }
+                                            </select>
+
+                                        </div>
+
+
+
+
+                                    </div>
+
+
+
+                                    <div class="form-group">
+                                        @Html.Label(WatanART.Localization.Resource.city, new { @class = "col-lg-2 control-label" })
+                                        <div class="col-lg-4">
+
+                                            <select class="form-control  SELECT2" name="city2" id="city2" data-bv-notempty="true" data-bv-notempty-message="@WatanART.Localization.Resource.Required">
+                                                @if (ViewBag.City != null)
+                                                {
+                                                    foreach (var item in ViewBag.City as IEnumerable<WatanART.BLL.ViewModels.CityVM>)
+                                                    {
+                                                        if (Model.cityID == item.ID)
+                                                        {
+                                                            <option selected value="@item.ID">@item.Title</option>
+                                                        }
+                                                        else
+                                                        {
+                                                            <option value="@item.ID">@item.Title</option>
+                                                        }
+                                                    }
+                                                }
+                                            </select>
+
+                                        </div>
+
+
+
+
+                                    </div>
+
+
+
+                                    <div class="form-group">
+                                        <div class="col-lg-2">
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <label>@WatanART.Localization.Resource.PromoCode : @Model.Promocode</label>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <label>@WatanART.Localization.Resource.Avalibletimestousethecode : @Model.AvailableTime</label>
+                                        </div>
+
+
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <div class="col-md-offset-2 col-md-5">
+                                            <input type="button" value="@WatanART.Localization.Resource.BtnSave" class="m-left btn btn-info" onclick="Submit();" />
+                                        </div>
+
+                                        @*<div class="col-md-offset-2 col-md-5">
+                                                <input type="button" value="close" class="m-left btn btn-info" onclick="close();" />
+                                            </div>*@
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                        <!-- end widget div -->
+
+                    </div>
+                    <!-- end widget -->
+            </article>
+            <!-- END COL -->
+        </div>
+        <!-- END ROW -->
+    </section>
+    <!-- end widget grid -->
+</div>
+<script>
+    $(document).ready(function () {
+        $(".SELECT2").select2();
+
+
+        $('#country2').on('change', function () {
+            debugger;
+            var contryid = $(this).find(":selected").val();
+            setCityList(contryid)
+        });
+
+
+        function setCityList(id) {
+            if (id != '' && id != null && id > 0) {
+                debugger
+                var selected = id;
+                cat = id;
+                // alert(selected);
+                //$("#CatograyID").val(selected);
+                var href2 = '@Url.Action("cityList", "Users")';
+                $.ajax({
+                    url: href2,
+                    data: { ID: id },
+                    cache: false,
+                    type: "GET",
+                    contentType: 'application/json; charset=utf-8',
+
+                    success: function (data) {
+                        $('#city2').empty();
+                        $('#city2').val(0);
+                        // $('#Citylist').append('<option selected disabled>Select</option>');
+                        if (data != null) {
+
+                            for (var x = 0; x < data.length; x++) {
+
+                                @*if ('@Helpers.CultureHelper.IsRighToLeft()') {*@
+                                $('#city2').append('<option value="' + data[x].ID + '">' + data[x].Title + '</option>');
+                                    //} else {
+                                    //    $('#city').append('<option value="' + data[x].CityID + '">' + data[x].NameEn + '</option>');
+                                    //}
+                                    //$('#DirectManagerID option').eq(1).attr('selected', 'selected');
+
+                                }
+                            }
+
+                        $('#city2').trigger('change');
+
+                        },
+                        error: function (reponse) {
+                            $('#city2').empty();
+                            $("#city2").val(0);
+                            $('#city2').trigger('change');
+                            $('#city2').append('<option selected disabled>Select</option>');
+                        }
+                    });
+
+
+            }
+
+        }
+
+    });
+
+
+
+
+
+    function Submit() {
+        $('#frmForm').bootstrapValidator('validate');
+        var FullName = $("#FullName").val();
+        if (FullName.includes("#") || FullName.includes("=")) {
+            alert("not valid # , = in FullName");
+        }
+        else if ($('#frmForm').has('.has-error').length === 0) {
+            submitInsert();
+        } else {
+            // alert("notvalid");
+        }
+
+    }
+    function submitInsert() {
+        debugger;
+
+
+        var UserID = $("#UserID").val();
+        var Email = $("#Email").val();
+        var FullName = $("#FullName").val();
+        var Phone = $("#Phone").val();
+        var CountryID = $("#country2 option:selected").val();
+        var cityID = $("#city2 option:selected").val();
+
+
+
+        var url = '@Url.Action("UpdateUser", "Users")';
+        $.ajax({
+            url: url,
+            data: {
+                UserID: UserID, Email: Email, FullName: FullName, Phone: Phone, CountryID: CountryID, cityID: cityID
+            },
+
+
+            cache: false,
+            type: "POST",
+            success: function (data) {
+
+                var dataRes = data;
+                if (data == 'Success') {
+
+
+                    swal({
+                        text: "@WatanART.Localization.Resource.DataSavedSuccessfully ",
+                        //timer: 5000
+                    }).then(
+                       function () {
+                           var href = "/Admin/Users/Index";
+                           window.location.href = href;
+
+                       })
+
+
+                } else {
+                    swal("@WatanART.Localization.Resource.ErrorOccurred");
+                }
+
+
+            }
+        });
+        //}
+
+    }
+
+</script>
+
+
+

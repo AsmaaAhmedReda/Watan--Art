@@ -1,0 +1,280 @@
+a{color:#f5a33a}
+a:hover{color:#f5a33a;opacity:.9}
+.modal-header {
+    background-color: #f5a33a !important;
+    color: #fff;
+}
+.close:not(:disabled):not(.disabled) {
+    color: #f5a33a;
+    opacity: 1;
+    font-size: 20px;
+}
+.cropper-container + .cropper-container{display: none !important}
+.login-form .form-group .btn {
+    float: right;
+    margin-left: 5px;
+}
+.form-group{min-height: 39px}
+.forget-password{float: left}
+.btn-primary{background-color: #4d4646;border-color: #4d4646}
+.btn-secondary {
+    background-color: #f5a43b;
+    border-color: #f5a43b;
+}
+.btn-primary:hover, .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle{background-color: #4d4646;border-color: #4d4646;opacity: .88}
+.btn-secondary:hover{background-color: #f5a43b;border-color: #f5a43b;opacity: .88}
+.sign-social-img a:hover{color: #fff;opacity: .88}
+.carousel-inner{height: auto}
+.btn-group.d-flex.flex-row {z-index: 999;}
+.account-dropdown{
+    box-shadow: 2px 7px 12px #88888821;
+    -webkit-box-shadow: 2px 7px 12px #88888821;
+    -moz-box-shadow: 2px 7px 12px #88888821;
+}
+.side-menu{z-index: 9999 !important}
+.d-flex input{width: 100%}
+input#txt_Coupon{margin-bottom: 15px}
+
+
+
+.tooltip-icon {
+  display: inline;
+  position: relative;
+}
+.tooltip-icon:hover:after{
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  justify-content: center;
+  background: #444;
+  border-radius: 8px;
+  color: #fff;
+  content: attr(title);
+  margin: -82px auto 0;
+  font-size: 16px;
+  padding: 13px;
+  width: 220px;
+}
+.tooltip-icon:hover:before{
+  border: solid;
+  border-color: #444 transparent;
+  border-width: 12px 6px 0 6px;
+  content: "";
+  left: 45%;
+  bottom: 30px;
+  position: absolute;
+}
+.modal-header{display:block}
+
+@media (min-width: 1200px){
+.container {
+    max-width: 1230px;
+}
+.footer-nav span{font-size:16px}
+.footer-nav i{font-size:22px}
+
+}
+@media (max-width: 1200px){
+    .about img{margin-bottom:10px}
+    .footer-nav span{font-size: 14px}
+    .footer-nav i{font-size: 22px}
+    .dropdown-item{padding-left: 7px}
+}
+@media screen and (max-width:991px){
+    .slider-3d .slider>img{height:auto !important}
+    .header-right img{max-width:20px}
+    .header-right i.fa-user-circle-o {
+        font-size: 20px;
+        line-height: 29px;
+    }
+    .header-right a span{font-size:13px}
+    .header-right:first-of-type{margin-left:40px}
+    footer .footer-block:last-child{padding-left:0}
+    footer .footer-block{padding-right:0}
+    .footer-nav i{font-size:18px;margin-right:5px}
+    .footer-nav span{font-size:13px}
+    .icons i {font-size: 16px; padding: 5px 0px;}
+    .account-dropdown{top: 57px}
+}
+@media (max-width: 768px) {
+  .justify-content-end{
+    justify-content: flex-start!important;
+  }
+    .fixed-top .align-items-center {
+      flex-flow: row;
+  }
+.navbar-collapse:not(.show) {
+    display: block;
+}
+.shapes-imgs .col-md-6:first-child {
+    padding-right: 15px;
+    margin-bottom: 30px;
+}
+.shapes-imgs .col-md-6:last-child {
+    padding-left: 15px;
+}
+#myCarousel-2 {
+    height: auto;
+    padding-bottom: 30px;
+}
+.myCarousel-2-img {
+    background-size: cover !important;
+    height: 300px;
+    -webkit-clip-path:none;
+    clip-path:none;
+}
+#myCarousel-2 .carousel-caption {
+    margin-top: 0px;
+}
+#myCarousel-2 .carousel-indicators {
+    flex-direction: row;
+}
+#myCarousel-2 p {
+margin-bottom: 0px;
+}
+.carousel-caption {
+    right: 15%;
+    bottom: 0px;
+    padding-bottom: 0px;
+}
+.slider-3d .slider>.navContainer{
+  width: auto !important;
+  position: static !important;
+}
+.footer-block{
+  margin-top: 20px;
+}
+.order-details-head{
+  flex-flow: column;
+  align-items: flex-start;
+}
+.order-details-head p{
+  margin-left: 0px !important;
+}
+.order-history-list {
+    flex-flow: column;
+}
+.complete{
+  margin-bottom: 20px;
+}
+.make-order{
+  margin-bottom: 5px;
+}
+.thumbnails img{
+  height:230px;
+}
+.header-right:first-of-type{margin-left:0}
+.video iframe{height:auto}
+    .cropper-crop-box {left: -55px !important;}
+    .col-md-1.align-right{width: auto}
+    .icons i{font-size: 16px;padding: 6px}
+    .order .col-md-2{width: auto}
+    .account-dropdown a{font-size: .9rem}
+    .account-dropdown{right: 0}
+    .row.align-items-center .col-md-2{padding: 0}
+    .col-md-5.d-flex.justify-content-end{padding: 0}
+    .shipping-sidebar .col-md-6{width: 50%}
+}
+@media (max-width: 420px){
+  .docs-toggles > .btn-group{
+    flex-flow: column;
+  }
+  .page {
+    padding-top: 124px;
+  }
+  .about .col-md-6{
+    margin-bottom: 10px;
+  }
+  .about .col-md-6:last-child {
+      padding-left: 15px;
+  }
+  .about .col-md-6:first-child {
+      padding-right: 15px;
+  }
+.side-menu {
+   background: rgba(50,50,50,0.9);
+}
+  .fixed-top .align-items-center {
+    flex-flow: column;
+}
+.header-right:first-child {
+    margin-left: 0px;
+}
+.header-right{
+  padding: 0;
+}
+footer .footer-block{
+  padding-right: 0px;
+}
+footer .footer-block:last-child {
+    padding-left: 0px;
+}
+#myCarousel{
+  height: 350px;
+  overflow: hidden;
+}
+.carousel-control-next, .carousel-control-prev {
+    top: 100px;
+}
+.header-right span{
+  font-size: 12px;
+}
+.header-right i.fa-user-circle-o{
+  /* font-size: 23px; */
+}
+/* .header-right a img{
+  width: 23px;
+} */
+header .justify-content-end{
+  flex-flow: column;
+}
+.header-right {
+    margin-left: 0px;
+}
+.page{
+    padding-top: 175px;
+}
+.num {
+    display: block;
+    width: 100%;
+    border-radius: 0;
+    margin-bottom: 10px;
+}
+.print-num {
+    margin-right: 15px;
+}
+.docs-toggles .flex-row{
+  flex-flow: wrap;
+}
+.docs-toggles .flex-row label{
+  margin-bottom: 10px;
+}
+label.btn-upload {
+    margin-bottom: 1px !important;
+}
+.navbar-brand {
+    display: inline;
+    float: right;
+    margin-top: -30px;
+}
+.navbar-brand {height:35px}
+.toggle-menu{margin-top:5px}
+.navbar-brand img {
+    height: 33px;
+    margin-top: -8px;
+}
+    .size-buttons .btn-primary{padding: 5px 1px}
+    .sign-social-img{margin-top: 10px}
+    .modal-body{padding-bottom: 32px}
+    .forget-password{float: none}
+    .login-form .form-group .btn{float: none;margin-top: 6px}
+    .sign-social-img{float: none}
+    .sign-social-img a{padding: 10px 17px}
+    label{font-size: .85rem}
+    .form-control{font-size: .8rem}
+    .h5, h5{font-size: 1rem}
+    .btn{font-size: .8rem}
+    .account-dropdown a{font-size: .8rem}
+    .account-dropdown{right: auto}
+    .col-md-5.d-flex.justify-content-end{padding-left: 10px}
+}

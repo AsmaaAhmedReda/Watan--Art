@@ -1,0 +1,155 @@
+﻿@model IEnumerable <WatanART.BLL.ViewModels.PatternVM>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    int I = 1;
+}
+
+
+<div id="ribbon">
+    <span class="ribbon-button-alignment">
+        <span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh" rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true">
+            <i class="fa fa-refresh"></i>
+        </span>
+    </span>
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+        <li><a href="../../admin/Shared/Index">@WatanART.Localization.Resource.MenuHome</a></li>
+        <li>@WatanART.Localization.Resource.pattern</li>
+    </ol>
+</div>
+<div id="content">
+
+    <!-- widget grid -->
+    <section id="widget-grid" class="">
+
+        <!-- START ROW -->
+        <div class="row">
+            <!-- NEW COL START -->
+            <article class="col-sm-12 col-md-12 col-lg-12">
+                <!-- Widget ID (each widget will need unique ID)-->
+                <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-2" data-widget-editbutton="false">
+                    <!-- widget options:
+                        usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+                        data-widget-colorbutton="false"
+                        data-widget-editbutton="false"
+                        data-widget-togglebutton="false"
+                        data-widget-deletebutton="false"
+                        data-widget-fullscreenbutton="false"
+                        data-widget-custombutton="false"
+                        data-widget-collapsed="true"
+                        data-widget-sortable="false"
+                    -->
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                        <h2>@WatanART.Localization.Resource.pattern </h2>
+                    </header>
+                    <!-- widget div-->
+                    <div>
+
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body widget-body1">
+                            @*<a href="@Url.Action("Edit")" class="btn btn-labeled btn-primary"> <span class="btn-label"><i class="fa fa-plus-square-o"></i></span>@WatanART.Localization.Resource.AddNewRecord </a>*@
+                        </div>
+                        <div class="widget-body">
+                           @if (Model != null && Model.Count() > 0)
+                           {
+                            <table id="datatable_tabletoolsNew" class="table table-striped table-bordered table-hover" width="100%">
+                                <thead>
+                                    @*<tr class="header">
+                                        <th class="hasinput" width="8%">
+                                            <input type="text" class="form-control" placeholder="#" />
+                                        </th>
+                                        <th class="hasinput">
+                                            <input type="text" class="form-control" placeholder="@WatanART.Localization.Resource.TitleAr">
+                                        </th>
+                                        <th class="hasinput">
+                                            <input type="text" class="form-control" placeholder="@WatanART.Localization.Resource.TitleEn" />
+                                        </th>
+                                        <th class="hasinput">
+                                            <input type="text" class="form-control" placeholder="@WatanART.Localization.Resource.Price" />
+                                        </th>
+                                        <th class="hasinput">
+                                        </th>
+                                      
+                                        
+                                    </tr>*@
+                                    <tr class="header">
+                                        <th data-class="expand">#</th>
+                                        <th data-hide="phone">@WatanART.Localization.Resource.NameAr</th>
+                                        <th data-hide="phone">@WatanART.Localization.Resource.NameEn</th>
+                                        <th data-hide="phone">@WatanART.Localization.Resource.Localprice</th>
+                                        <th data-hide="phone">@WatanART.Localization.Resource.Worldprice</th>
+                                        <th data-hide="phone">@WatanART.Localization.Resource.Operations</th>
+                                       
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@I</td>
+                                            @*<td>@Html.DisplayFor(modelItem => item.ID)</td>*@
+                                            <td>@Html.DisplayFor(modelItem => item.PatternTextAR)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.PatternTextEN)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.Price)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.OutPrice)</td>
+                                            @*<td>
+                                                @Html.Partial("ImageDisplayPV", item.NewsImage + "")
+                                            </td>*@
+                                            <td>
+                                                <a href="@Url.Action("Update", new { id = item.ID})" class="btn btn-labeled btn-success"> <span class="btn-label"><i class="fa fa-edit"></i></span>@WatanART.Localization.Resource.Edit </a>
+                                                @*<a href="javascript:void(0);" onclick="DeleteItem(@item.ID,this);" class="btn btn-labeled btn-danger"> <span class="btn-label"><i class="fa fa-trash-o"></i></span>@WatanART.Localization.Resource.Delete </a>*@
+                                            </td>
+                                           
+                                        </tr>
+                                        I++;
+                                    }
+                                </tbody>
+                            </table>
+
+
+                               
+
+                           }
+                           else
+                           {
+                            <div> @WatanART.Localization.Resource.NoDataFound </div>
+                           }
+                        </div>
+                        <!-- end widget content -->
+                    </div>
+                    <!-- end widget div -->
+                </div>
+                <!-- end widget -->
+            </article>
+            <!-- END COL -->
+        </div>
+        <!-- END ROW -->
+    </section>
+    <!-- end widget grid -->
+</div>
+<script type="text/javascript">
+   
+    function DeleteItem(ID, control) {
+        var url = "/admin/Pattern/Delete";
+        var data = { 'ID': ID };
+        General_DeleteItem(ID, control, data, url, "@WatanART.Localization.Resource.DeleteMessageConfirmation", "@WatanART.Localization.Resource.RecordDeletedSuccessfully", "@WatanART.Localization.Resource.ErrorOccurred");
+
+    }
+   
+</script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+
+

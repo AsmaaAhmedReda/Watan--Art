@@ -1,0 +1,62 @@
+﻿@model IEnumerable<WatanART.BLL.ViewModels.CareerPositionVM>
+
+@{
+    var Pageobj = ViewBag.PageObj as WatanART.BLL.ViewModels.PaggingVM;
+    Pageobj = Pageobj == null ? new WatanART.BLL.ViewModels.PaggingVM() { CurrentPage = 1, TotalPages = 1 } : Pageobj;
+
+    Pageobj.AjaxMetod = "ReloadTable(this)";
+}
+@if (Model != null && Model.Count() > 0)
+{
+
+<table id="datatable_tabletools" class="table table-striped table-bordered table-hover" width="100%">
+    <thead>
+        <tr class="header">
+            <th class="hasinput">
+                <input type="text" class="form-control" placeholder="@WatanART.Localization.Resource.ID" />
+            </th>
+            <th class="hasinput">
+                <input type="text" class="form-control" placeholder="@WatanART.Localization.Resource.CareerPositionAR">
+            </th>
+            <th class="hasinput">
+                <input type="text" class="form-control" placeholder="@WatanART.Localization.Resource.CareerPositionEN" />
+            </th>
+            <th class="hasinput">
+            </th>
+            <th class="hasinput">
+            </th>
+        </tr>
+        <tr class="header">
+            <th data-class="expand">@Html.DisplayNameFor(model => model.CareerPositionID)</th>
+            <th data-hide="phone">@Html.DisplayNameFor(model => model.CareerPositionAR)</th>
+            <th data-hide="phone">@Html.DisplayNameFor(model => model.CareerPositionEN)</th>
+            <th data-hide="phone">@WatanART.Localization.Resource.Operations</th>
+            <th data-hide="phone">@WatanART.Localization.Resource.Activate</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.CareerPositionID)</td>
+                <td>@Html.DisplayFor(modelItem => item.CareerPositionAR)</td>
+                <td>@Html.DisplayFor(modelItem => item.CareerPositionEN)</td>
+                <td>
+                    <a href="@Url.Action("EditCareerPosition", new { id = item.CareerPositionID})" class="btn btn-labeled btn-success"> <span class="btn-label"><i class="fa fa-edit"></i></span>@WatanART.Localization.Resource.Edit </a>
+                    <a href="javascript:void(0);" onclick="DeleteItem(@item.CareerPositionID,this);" class="btn btn-labeled btn-danger"> <span class="btn-label"><i class="fa fa-trash-o"></i></span>@WatanART.Localization.Resource.Delete </a>
+                </td>
+
+                <td>
+                    @Html.CheckBoxFor(modelItem => item.IsActive, new { @onchange = "ActiveDective(" + @item.CareerPositionID + ",this)" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Html.Partial("LazyPaggingPV")
+
+}
+else {
+<div > @WatanART.Localization.Resource.NoDataFound </div>
+}

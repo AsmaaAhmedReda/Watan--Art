@@ -1,0 +1,241 @@
+﻿<!DOCTYPE html>
+<html lang="en-us" id="extr-page">
+<head>
+    <meta charset="utf-8">
+    <title> Watan Art</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <!-- #CSS Links -->
+    <!-- Basic Styles -->
+    <link rel="stylesheet" type="text/css" media="screen" href="~/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="~/assets/css/font-awesome.min.css">
+    <!-- SmartAdmin Styles : Caution! DO NOT change the order -->
+    <link rel="stylesheet" type="text/css" media="screen" href="~/assets/css/smartadmin-production-plugins.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="~/assets/css/smartadmin-production.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="~/assets/css/smartadmin-skins.min.css">
+    <!-- SmartAdmin RTL Support -->
+    <link rel="stylesheet" type="text/css" media="screen" href="~/assets/css/smartadmin-rtl.min.css">
+    <!-- We recommend you use "your_style.css" to override SmartAdmin
+         specific styles this will also ensure you retrain your customization with each SmartAdmin update.
+    <link rel="stylesheet" type="text/css" media="screen" href="css/your_style.css"> -->
+    <!-- Demo purpose only: goes with demo.js, you can delete this css when designing your own WebApp -->
+    <link rel="stylesheet" type="text/css" media="screen" href="~/assets/css/demo.min.css">
+    <!-- #FAVICONS -->
+    <link rel="shortcut icon" href="~/img/700apps-logo.png" type="image/x-icon">
+    <link rel="icon" href="~/img/logo_web_2(2).png" type="image/x-icon">
+    <!-- #GOOGLE FONT -->
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700">
+    <!-- #APP SCREEN / ICONS -->
+    <!-- Specifying a Webpage Icon for Web Clip
+         Ref: https://developer.apple.com/library/ios/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html -->
+    <link rel="apple-touch-icon" href="~/assets/img/splash/sptouch-icon-iphone.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="~/assets/img/splash/touch-icon-ipad.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="~/assets/img/splash/touch-icon-iphone-retina.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="~/assets/img/splash/touch-icon-ipad-retina.png">
+
+    <!-- iOS web-app metas : hides Safari UI Components and Changes Status Bar Appearance -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <!-- Startup image for web apps -->
+    <link rel="apple-touch-startup-image" href="~/assets/img/splash/ipad-landscape.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)">
+    <link rel="apple-touch-startup-image" href="~/assets/img/splash/ipad-portrait.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)">
+    <link rel="apple-touch-startup-image" href="~/assets/img/splash/iphone.png" media="screen and (max-device-width: 320px)">
+
+
+    <script src="~/assets/js/jquery-2.0.3.min.js"></script>
+    <script src="~/assets/js/jquery.js"></script>
+</head>
+
+<body class="animated fadeInDown">
+    <header id="header">
+        <div id="logo-group">
+            <span id="logo"> <img src="~/assets/img/logo_web_1.png" alt="SmartAdmin"> </span>
+        </div>
+
+        <!-- pulled right: nav area -->
+        <div class="pull-right">
+            <!-- multiple lang dropdown : find all flags in the flags page -->
+            <ul class="header-dropdown-list hidden-xs">
+                <li>
+                    @if (WatanART.Helpers.CultureHelper.CurrentCulture == 0)
+                    {
+                        <a href="~/Home/ChangeCurrentCulture/1" class="dropdown-toggle" title="@WatanART.Localization.Resource.CurrentLangauge" style="line-height:40px!important;margin-top: 8px;">
+                            <i class="fa fa-globe" aria-hidden="true"></i><span class="chosen-lang"> @WatanART.Localization.Resource.CurrentLangauge</span>
+                        </a>
+                        <script>
+                            var Lang = "en";
+                            $('body').removeClass("smart-rtl")
+                        </script>
+                    }
+                    else
+                    {
+                        <a href="../Home/ChangeCurrentCulture/0" class="dropdown-toggle" title="@WatanART.Localization.Resource.CurrentLangauge" style="line-height:40px!important;margin-top: 8px;">
+                            <i class="fa fa-globe" aria-hidden="true"></i><span class="chosen-lang"> @WatanART.Localization.Resource.CurrentLangauge</span>
+                        </a>
+                        <script>
+                            var Lang = "ar";
+                          $('body').addClass("smart-rtl")
+                        </script>
+                    }
+                </li>
+            </ul>
+            <!-- end multiple lang -->
+        </div>
+        <!-- end pulled right: nav area -->
+    </header>
+    <div id="main" role="main">
+        <!-- MAIN CONTENT -->
+        <div id="content" class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 hidden-xs hidden-sm">
+                </div>
+
+                @RenderBody()
+
+            </div>
+        </div>
+    </div>
+
+    <div id="dialog_simple" title="@WatanART.Localization.Resource.ProjectName">
+        <p id="PopUpMessageText">
+
+        </p>
+    </div>
+    <!--================================================== -->
+    <!-- PACE LOADER - turn this on if you want ajax loading to show (caution: uses lots of memory on iDevices)-->
+    @*<script src="~/assets/js/plugin/pace/pace.min.js"></script>*@
+    <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script> if (!window.jQuery) { document.write('<script src="~/assets/js/libs/jquery-2.1.1.min.js"><\/script>'); } </script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <script> if (!window.jQuery.ui) { document.write('<script src="~/assets/js/libs/jquery-ui-1.10.3.min.js"><\/script>'); } </script>
+    <!-- IMPORTANT: APP CONFIG -->
+    <script src="~/assets/js/app.config.js"></script>
+    <!-- JS TOUCH : include this plugin for mobile drag / drop touch events-->
+    <script src="~/assets/js/plugin/jquery-touch/jquery.ui.touch-punch.min.js"></script>
+    <!-- BOOTSTRAP JS -->
+    <script src="~/assets/js/bootstrap/bootstrap.min.js"></script>
+
+    <script src="~/assets/js/notification/SmartNotification.min.js"></script>
+    <!-- JARVIS WIDGETS -->
+    <script src="~/assets/js/smartwidgets/jarvis.widget.min.js"></script>
+    <!-- EASY PIE CHARTS -->
+    <script src="~/assets/js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js"></script>
+    <!-- SPARKLINES -->
+    <script src="~/assets/js/plugin/sparkline/jquery.sparkline.min.js"></script>
+    <!-- JQUERY VALIDATE -->
+    <script src="~/assets/js/plugin/jquery-validate/jquery.validate.min.js"></script>
+    <!-- JQUERY MASKED INPUT -->
+    <script src="~/assets/js/plugin/masked-input/jquery.maskedinput.min.js"></script>
+    <!-- JQUERY SELECT2 INPUT -->
+    <script src="~/assets/js/plugin/select2/select2.min.js"></script>
+    <!-- JQUERY UI + Bootstrap Slider -->
+    <script src="~/assets/js/plugin/bootstrap-slider/bootstrap-slider.min.js"></script>
+    <!-- browser msie issue fix -->
+    <script src="~/assets/js/plugin/msie-fix/jquery.mb.browser.min.js"></script>
+    <!-- FastClick: For mobile devices -->
+    <script src="~/assets/js/plugin/fastclick/fastclick.min.js"></script>
+
+
+    <!-- JQUERY VALIDATE -->
+    <script src="~/assets/js/plugin/jquery-validate/jquery.validate.min.js"></script>
+
+    <!-- JQUERY MASKED INPUT -->
+    <script src="~/assets/js/plugin/masked-input/jquery.maskedinput.min.js"></script>
+    <script src="~/assets/js/plugin/bootstrapvalidator/bootstrapValidator.min.js"></script>
+    <!--[if IE 8]>
+
+        <h1>Your browser is out of date, please update your browser by going to www.microsoft.com/download</h1>
+
+    <![endif]-->
+    <!-- MAIN APP JS FILE -->
+    <script src="~/assets/js/app.min.js"></script>
+    <script src="~/assets/js/speech/voicecommand.min.js"></script>
+    <!-- SmartChat UI : plugin -->
+    <script src="~/assets/js/smart-chat-ui/smart.chat.ui.min.js"></script>
+    <script src="~/assets/js/smart-chat-ui/smart.chat.manager.min.js"></script>
+
+
+    @RenderSection("scripts", required: false)
+
+    <script type="text/javascript">
+
+        // DO NOT REMOVE : GLOBAL FUNCTIONS!
+
+        $(document).ready(function () {
+
+            /* DO NOT REMOVE : GLOBAL FUNCTIONS!
+             *
+             * pageSetUp(); WILL CALL THE FOLLOWING FUNCTIONS
+             *
+             * // activate tooltips
+             * $("[rel=tooltip]").tooltip();
+             *
+             * // activate popovers
+             * $("[rel=popover]").popover();
+             *
+             * // activate popovers with hover states
+             * $("[rel=popover-hover]").popover({ trigger: "hover" });
+             *
+             * // activate inline charts
+             * runAllCharts();
+             *
+             * // setup widgets
+             * setup_widgets_desktop();
+             *
+             * // run form elements
+             * runAllForms();
+             *
+             ********************************
+             *
+             * pageSetUp() is needed whenever you load a page.
+             * It initializes and checks for all basic elements of the page
+             * and makes rendering easier.
+             *
+             */
+            pageSetUp();
+            /*
+               * ALL PAGE RELATED SCRIPTS CAN GO BELOW HERE
+               * eg alert("my home function");
+               *
+               * var pagefunction = function() {
+               *   ...
+               * }
+               * loadScript("js/plugin/_PLUGIN_NAME_.js", pagefunction);
+               *
+               * TO LOAD A SCRIPT:
+               * var pagefunction = function (){
+               *  loadScript(".../plugin.js", run_after_loaded);
+               * }
+               *
+               * OR
+               *
+               * loadScript(".../plugin.js", run_after_loaded);
+               */
+        })
+
+        function ViewMessagePopup(PopUpMessageText) {
+            $('#PopUpMessageText').text(PopUpMessageText)
+            $('#dialog_simple').dialog({
+                autoOpen: false,
+                width: 600,
+                resizable: false,
+                modal: true,
+                title: "@WatanART.Localization.Resource.ProjectName",
+                buttons: [{
+                    html: "<i class='fa fa-times'></i>&nbsp; @WatanART.Localization.Resource.Close",
+                    "class": "btn btn-default",
+                    click: function () {
+                        $(this).dialog("close");
+                    }
+                }]
+            });
+
+            $('#dialog_simple').dialog('open');
+        }
+    </script>
+</body>
+</html>

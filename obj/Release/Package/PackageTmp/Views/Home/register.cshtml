@@ -1,0 +1,307 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_WebSiteLayout.cshtml";
+    ViewBag.Title = "register";
+}
+
+
+@*<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.css" />*@
+<style>
+    input[type=checkbox], input[type=radio] {
+        display: inline-block;
+        width: 14px;
+        float: left;
+        margin-top: 5px;
+        margin-right: 26px;
+    }
+
+    .terms {
+    }
+
+    .terms-text {
+        display: block;
+    }
+</style>
+<div class="page registeration">
+    <div class="container">
+        <h3 class="page-title">@WatanART.Localization.Resource.Registeration</h3>
+        <form id="frmRegister">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-form-label">@WatanART.Localization.Resource.FullName *</label>
+
+                        <input type="text"
+                               required
+                               data_bv_notempty="true"
+                               class="form-control"
+                               id="fullname"
+                               placeholder="@WatanART.Localization.Resource.FullName">
+
+                        @*<span class="requirtxt">*</span>*@
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-form-label">@WatanART.Localization.Resource.PhoneNumber *</label>
+                        <input type="text" class="form-control" id="phone" placeholder="@WatanART.Localization.Resource.PhoneNumber">
+                        @*<span class="requirtxt">*</span>*@
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+
+                        <label for="inputEmail3" class="col-form-label">@WatanART.Localization.Resource.EMail *</label>
+                        <input type="email" class="form-control" id="email" placeholder="@WatanART.Localization.Resource.EMail">
+                        @*<span class="requirtxt">*</span>*@
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+
+
+                        <label for="inputEmail3" class="col-form-label">@WatanART.Localization.Resource.country *</label>
+                        <div class="form-group">
+                            <select id="CountryID" class="form-control" name="CountryID" required data-bv-notempty="true" onchange="viewCities();">
+                                <option value="-1">@WatanART.Localization.Resource.ChooseCountry</option>
+                                @foreach (SelectListItem item in ((IEnumerable<SelectListItem>)ViewData["allcountries"]))
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            </select>
+                            @*<span class="requirtxt">*</span>*@
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="inputEmail3" class="col-form-label">@WatanART.Localization.Resource.Password *</label>
+                    <input type="password" class="form-control" id="password" placeholder="@WatanART.Localization.Resource.Password">
+                    @*<span class="requirtxt">*</span>*@
+                </div>
+                <div class="col-md-6">
+                    <label for="inputEmail3" class="col-form-label">@WatanART.Localization.Resource.city *</label>
+                    <div class="form-group">
+                        <select class="form-control" id="cityid">
+                            <option value="-1">@WatanART.Localization.Resource.ChooseCity</option>
+                        </select>
+                        @*<span class="requirtxt">*</span>*@
+                    </div>
+
+
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-form-label">@WatanART.Localization.Resource.ConfirmPassword *</label>
+                        <input type="password" class="form-control" id="confirmpassword" placeholder="@WatanART.Localization.Resource.ConfirmPassword">
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-form-label terms-text">@WatanART.Localization.Resource.termsandconditions</label>
+                        <input type="checkbox" id="chk_terms" class="form-control">
+                        <a class="terms" href="javascript:void(0)" data-toggle="modal" id="btnlogin" style="display:inline;" data-target="#terms-model"><i class="fa fa-user-circle-o" aria-hidden="true"></i><span>@WatanART.Localization.Resource.termsandconditions</span></a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <button type="button" id="btnRegister" onclick="register();" class="btn btn-secondary disabled">@WatanART.Localization.Resource.signup</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal fade" id="terms-model" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModal3Label">@WatanART.Localization.Resource.termsandconditions</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form role="form" method="POST" action="profile.html" class="login-form">
+                <div class="modal-body">
+                    <div class="form-group">
+                        @ViewBag.Terms
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">@WatanART.Localization.Resource.Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+
+    $("#chk_terms").click(function(){
+        if($(this).prop("checked") == true){
+            $("#btnRegister").addClass('btn-primary').removeClass('btn-secondary').removeClass('disabled');
+            }
+            else if($(this).prop("checked") == false){
+                $("#btnRegister").addClass('btn-secondary').addClass('disabled').removeClass('btn-primary');
+            }
+
+    });
+    function viewCities()
+    {
+        $("#cityid").html("");
+        var htmlContent="";
+        var CountryID=$("#CountryID").val();
+        var MethodParam = { "CountryID": CountryID};
+        $.ajax({
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            async: false,
+            data: JSON.stringify(MethodParam),
+            url: "/home/ViewCities",
+            success: function (data) {
+                if (data.length > 0) {
+                    htmlContent+='<option value="-1">@WatanART.Localization.Resource.ChooseCity</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        htmlContent+="<option value="+data[i].ID+">"+data[i].Title+"</option>";
+                    }
+                    $("#cityid").html(htmlContent);
+                }
+            }
+        });
+    }
+
+
+    function register()
+    {
+        var FullName=$("#fullname").val();
+        var Email= $("#email").val();
+        var Password= $("#password").val();
+        var Phone=$("#phone").val();
+        var RegisterType=1;
+        var cityID = $("#cityid").val();
+        var CountryID=$("#CountryID").val();
+        var confirmPassword= $("#confirmpassword").val();
+
+
+        if (FullName.trim()=="" || Email.trim()=="" || Password.trim()=="" || Phone.trim()=="" || cityID=="-1" || CountryID=="-1" || confirmPassword=="") {
+
+            if (FullName.trim()=="") {
+                $('#fullname').css('border-color', 'red');
+            }
+            else {
+                $('#fullname').css('border-color', '');
+            }
+
+            if (Email.trim()=="") {
+                $('#email').css('border-color', 'red');
+            }
+            else {
+                $('#email').css('border-color', '');
+            }
+
+            if (Password.trim()=="") {
+                $('#password').css('border-color', 'red');
+            }
+            else {
+                $('#password').css('border-color', '');
+            }
+
+            if (Phone.trim()=="") {
+                $('#phone').css('border-color', 'red');
+            }
+            else {
+                $('#phone').css('border-color', '');
+            }
+
+            if (confirmPassword.trim()=="") {
+                $('#confirmpassword').css('border-color', 'red');
+            }
+            else {
+                $('#confirmpassword').css('border-color', '');
+            }
+
+            if (CountryID=="-1") {
+                $('#CountryID').css('border-color', 'red');
+            }
+            else {
+                $('#CountryID').css('border-color', '');
+            }
+
+
+            if (cityID=="-1") {
+                $('#cityid').css('border-color', 'red');
+            }
+            else {
+                $('#cityid').css('border-color', '');
+            }
+            return false;
+        }
+
+        var chkPhone= telephoneCheck(Phone);
+        if (chkPhone==false) {
+            alert("@WatanART.Localization.Resource.validateMobileNumber");
+            return false;
+        }
+
+        debugger;
+        var checkEmail=isValidEmailAddress(Email);
+        if (checkEmail==false) {
+            alert("@WatanART.Localization.Resource.EnterVALIDEmailAddress");
+            return false;
+        }
+
+        if (Password.trim() != confirmPassword.trim()) {
+            alert('@WatanART.Localization.Resource.ConfirmPasswordIdenticalMessage');
+            return false;
+        }
+
+        var MethodParam = { "FullName": FullName, "Email": Email, "Password": Password, "Phone": Phone, "RegisterType": RegisterType, "cityID": cityID, "CountryID": CountryID, "FB": "", "Fcm_Token": "", "Language": @WatanART.Helpers.CultureHelper.CurrentCulture };
+        $.ajax({
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            async: false,
+            data: JSON.stringify(MethodParam),
+            url: "/api/Users/RegisterWebSite",
+            success: function (data) {
+                debugger;
+                if (data.result.message != "") {
+
+                    setCookie('UserID',data.result.obj.UserID,1);
+                    setCookie('UserName',data.result.obj.FullName,1);
+
+                    $("#btnlogin").hide();
+                    $("#profile").show();
+                    $("#profileMenu").show();
+                    $("#userMenu").show();
+
+                    $("#loggedname").text(data.result.obj.FullName);
+                    $("#login-model").modal('toggle');
+
+                    $(".modal-backdrop.show").hide();
+
+
+                    if ('@ViewBag.oldlink'=="/Home/shipping_order") {
+                        window.location.href = "/Home/shipping_order";
+                    }else {
+                        window.location.href = "/home/index";
+                    }
+                    
+                }
+                else {
+                    alert("@WatanART.Localization.Resource.ErrorOccurred");
+                }
+            }
+        });
+    }
+    </script>
+}

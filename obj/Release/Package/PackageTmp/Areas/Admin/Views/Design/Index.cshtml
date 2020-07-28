@@ -1,0 +1,198 @@
+﻿
+@model IEnumerable<WatanART.BLL.ViewModels.DesignVM>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    int I = 1;
+}
+
+<div id="ribbon">
+    <span class="ribbon-button-alignment">
+        <span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh" rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true">
+            <i class="fa fa-refresh"></i>
+        </span>
+    </span>
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+        <li><a href="../../admin/Shared/Index">@WatanART.Localization.Resource.MenuHome</a></li>
+        <li>@WatanART.Localization.Resource.DesignList</li>
+    </ol>
+</div>
+<div id="content">
+
+    <!-- widget grid -->
+    <section id="widget-grid" class="">
+
+        <!-- START ROW -->
+        <div class="row">
+            <!-- NEW COL START -->
+            <article class="col-sm-12 col-md-12 col-lg-12">
+                <!-- Widget ID (each widget will need unique ID)-->
+                <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-2" data-widget-editbutton="false">
+
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                        <h2>@WatanART.Localization.Resource.MenuDesign </h2>
+                    </header>
+                    <!-- widget div-->
+                    <div>
+
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                       
+                        <div class="widget-body">
+                            @if (Model != null && Model.Count() > 0)
+                            {
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="btn-group">
+                                            @*<button id="sample_editable_1_new" class="btn sbold green">
+                                                Add New*@
+
+
+                                            @*</button>*@
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="btn-group pull-right">
+                                            <button class="btn green  btn-outline dropdown-toggle" data-toggle="dropdown">
+                                                Tools
+                                                <i class="fa fa-angle-down"></i>
+                                            </button>
+
+                                            <ul class="dropdown-menu pull-right" id="sample_3_tools">
+                                                <li>
+                                                    <a href="javascript:;" data-action="0" class="tool-action">
+                                                        <i class="icon-printer"></i> Print
+                                                    </a>
+                                                </li>
+
+                                                <li>
+                                                    <a href="javascript:;" data-action="2" class="tool-action">
+                                                        <i class="icon-doc"></i> PDF
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" data-action="3" class="tool-action">
+                                                        <i class="icon-paper-clip"></i> Excel
+                                                    </a>
+                                                </li>
+
+
+
+                                            </ul>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                //id = "datatable_tabletoolsNew"
+                                <table class="table table-striped table-bordered table-hover" width="100%">
+
+
+                                    <thead>
+
+                                        <tr class="header">
+                                            <th data-class="expand">#</th>
+                                            <th data-hide="expand">@WatanART.Localization.Resource.Image</th>
+                                            <th data-hide="expand">@WatanART.Localization.Resource.NameAr</th>
+                                            <th data-hide="expand">@WatanART.Localization.Resource.NameEn</th>
+                                            <th data-hide="expand">@WatanART.Localization.Resource.Status</th>
+                                            <th data-hide="expand">@WatanART.Localization.Resource.CategoryMain</th>
+                                            <th data-hide="expand">@WatanART.Localization.Resource.Designername</th>
+                                            <th data-hide="expand"></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+
+
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td>@I</td>
+                                                <td>
+                                                    @Html.Partial("ImageDisplayPV", item.Image + "")
+                                                </td>
+                                                <td>@Html.DisplayFor(modelItem => item.DesignNameAR)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.DesignNameEN)</td>
+                                                <td>
+                                                  
+                                                                                                        @if (item.status == "W")
+                                                                                                        {
+
+                                                                                                                <span class="label label-primary">
+                                                                                                                @WatanART.Localization.Resource.WaitingStatus
+                                                                                                                </span>
+                                                                                                                }
+                                                                                                                else
+                                                                                                                {
+
+                                                                                                                }
+</td>
+                                                <td>
+                                                   
+                                                       @item.CatName
+                                                    
+                                                </td>
+
+
+                                                <td>
+                                                    @item.DesignerName
+                                                </td>
+                                           
+                                                <td></td>
+                                            </tr>
+                                            I++;
+                                        }
+                                    </tbody>
+                                </table>
+
+
+
+
+                            }
+                            else
+                            {
+                                <div> @WatanART.Localization.Resource.NoDataFound </div>
+                            }
+                        </div>
+                        <!-- end widget content -->
+                    </div>
+                    <!-- end widget div -->
+                </div>
+                <!-- end widget -->
+            </article>
+            <!-- END COL -->
+        </div>
+        <!-- END ROW -->
+    </section>
+    <!-- end widget grid -->
+</div>
+<script type="text/javascript">
+    function ReloadTable(e) {
+
+        var catID = $("#CatID").val();
+
+        General_ReloadTable(e, "/Admin/Category/ViewModules?CurrentPage=", "&catID=" + catID);
+
+    }
+    function DeleteItem(ID, control) {
+        var url = "/admin/Category/Delete";
+        var data = { 'ID': ID };
+        General_DeleteItemnew(ID, control, data, url, "@WatanART.Localization.Resource.DeleteMessageConfirmation", "@WatanART.Localization.Resource.RecordDeletedSuccessfully", "@WatanART.Localization.Resource.ErrorOccurred");
+
+    }
+
+</script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+
+

@@ -1,0 +1,356 @@
+﻿
+@model WatanART.BLL.ViewModels.OrderWithDetailsVM
+ @using WatanART.BLL.BussinessLayer
+@{
+    ViewBag.Title = "OrderDetails";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    Generic _Generic = new Generic();
+    //var i = 0;
+}
+
+<link href="~/assets/css/Detailesstyle.css" rel="stylesheet"/>
+
+@if (WatanART.Helpers.CultureHelper.CurrentCulture == 1)
+{
+    <style>
+
+     body {
+text-align: right;
+direction: rtl;
+ }
+ .block i {
+     margin-left: 10px;
+     margin-right: 0px;
+     float: right;
+ }
+ .block {
+     padding: 10px 0px 0px 10px;
+ }
+ .card i {
+    margin-right: 0px;
+    margin-left: 5px;
+}
+.card b {
+    display: inline-block;
+}
+.card-title {
+    margin-left: 0px;
+    margin-right: 15px;
+}
+.list-group{
+  padding-right: 0px;
+}
+
+    </style>
+}
+<style>
+    #ViewManagerPhoto{
+     width: 100% !important;
+    height: 150px !important;
+    }
+
+    .btn-primary {
+    background-color: #fff !important;
+    border-color: #fff !important;
+}
+    .title {
+    background: #f39c12;
+    color: #fff;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+    .download i {
+    color: #f39c12 !important;
+}
+    .btn-primary.active, .btn-primary.focus, .btn-primary:active, .btn-primary:focus, .btn-primary:hover, .open>.dropdown-toggle.btn-primary {
+    color: #f39c12 !IMPORTANT;
+    background-color: #275b89;
+    border-color: #1f496d;
+}
+.block span{
+    font-size:12px;
+}
+</style>
+<link href="~/Areas/Admin/Js/select2-bootstrap.css" rel="stylesheet" />
+<link href="~/Areas/Admin/Js/select2.css" rel="stylesheet" />
+<div id="ribbon">
+    <span class="ribbon-button-alignment">
+        <span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh" rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true">
+            <i class="fa fa-refresh"></i>
+        </span>
+    </span>
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+        <li><a href="../../admin/Shared/Index">@WatanART.Localization.Resource.MenuHome</a></li>
+        <li><a href="@Url.Action("Index")">@WatanART.Localization.Resource.OrderList</a></li>
+        <li>@WatanART.Localization.Resource.OrderDetails</li>
+    </ol>
+</div>
+<div id="content">
+    <!-- widget grid -->
+    <section id="widget-grid" class="">
+        <!-- START ROW -->
+        <div class="row">
+            <!-- NEW COL START -->
+            <article class="col-sm-12 col-md-12 col-lg-12">
+                <div class="jarviswidget" id="wid-id-4" data-widget-editbutton="false" data-widget-custombutton="false">
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                        <h2>@WatanART.Localization.Resource.OrderDetails </h2>
+
+                    </header>
+                    <!-- widget div-->
+                    <div>
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body">
+                            @if (Model != null && Model.Order.ID > 0)
+                            {
+                            
+                     <div class="row">
+                    <div class="col-md-4">
+                        <div class="block">
+                            <p><i class="fa fa-user" aria-hidden="true"></i><label>@WatanART.Localization.Resource.UserName :</label><span>@ViewBag.username</span></p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="block">
+                            <p><i class="fa fa-phone" aria-hidden="true"></i><label>@WatanART.Localization.Resource.PhoneNumber :</label><span>@Model.Order.PhoneNumber</span></p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="block">
+                            <p><i class="fa fa-globe" aria-hidden="true"></i><label>@WatanART.Localization.Resource.country :</label><span>@ViewBag.country</span></p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="block">
+                            <p><i class="fa fa-map-marker" aria-hidden="true"></i><label>@WatanART.Localization.Resource.city :</label><span>@ViewBag.City</span></p>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <div class="block">
+                            <p><i class="fa fa-map-marker" aria-hidden="true"></i><label>@WatanART.Localization.Resource.Address  :</label><span>@Model.Order.Address1</span></p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="block">
+                            <p><i class="fa fa-money" aria-hidden="true"></i><label>@WatanART.Localization.Resource.PaymentMethod :</label><span>@ViewBag.buytype</span></p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="block">
+                            <p><i class="fa fa-calendar" aria-hidden="true"></i><label>@WatanART.Localization.Resource.date :</label><span>@Model.Order.CreatedDate.ToString("dd/MM/yyyy")</span></p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="block">
+                            <p><i class="fa fa-money" aria-hidden="true"></i>
+                            <label>@WatanART.Localization.Resource.TotalCost :</label><span>@Model.Order.ItemsCost</span> 
+                            + <label>@WatanART.Localization.Resource.ChargePrice :</label><span> @Model.Order.ChargePrice</span>
+                            </p>
+                       
+                         </div>
+                    </div>
+
+                         <div class="col-md-4">
+                             <div class="block">
+                                 <p>
+                                     <i class="fa fa-money" aria-hidden="true"></i>
+                                     <label>@WatanART.Localization.Resource.Total :</label><span> @(Model.Order.ItemsCost +Model.Order.ChargePrice) </span>
+                                 </p>
+
+                             </div>
+                         </div>
+                    <div class="col-md-4">
+                        <div class="block">
+                            <p><i class="fa fa-cubes" aria-hidden="true"></i><label>@WatanART.Localization.Resource.Count :</label><span>@Model.Order.TotalCount</span></p>
+                        </div>
+                    </div>
+                        
+
+                         <div class="col-md-4">
+                             <div class="block">
+                                 <p><i class="fa fa-money" aria-hidden="true"></i><label>@WatanART.Localization.Resource.PromoCode :</label><span>@Model.Order.CouponCode</span></p>
+                             </div>
+                         </div>
+                        
+                         <div class="col-md-4">
+                             <div class="block">
+                                 <p><i class="fa fa-money" aria-hidden="true"></i><label>@WatanART.Localization.Resource.DiscountRate :</label>
+                                                                          @if (String.IsNullOrEmpty(Model.Order.CouponCode) || Model.Order.CouponCode == "-")
+                                                                          {
+                                                                            <span>0 %</span>
+                                                                          }
+                                                                          else
+                                                                          {
+                                                                            <span>@Model.Order.DiscountRate %</span>
+                                                                          }
+                                                                             </p>
+                             </div>
+                         </div>
+
+                         @*<div class="col-md-4">
+                             <div class="block">
+                                 <p><i class="fa fa-money" aria-hidden="true"></i><label>@WatanART.Localization.Resource.Unitprice :</label><span>@Model.Order.onePiecePrice</span></p>
+                             </div>
+                         </div>
+
+                         <div class="col-md-4">
+                             <div class="block">
+                                 <p><i class="fa fa-money" aria-hidden="true"></i><label>@WatanART.Localization.Resource.piecesprice3 :</label><span>@Model.Order.threePiecePrice</span></p>
+                             </div>
+                         </div>*@
+                </div>
+                 <br />
+                <hr />
+                <br />
+                <div class="cards">
+                    <div class="row">
+                               
+                                            @if (Model != null && Model.OrderDetils.Count > 0)
+                                            {
+                                                foreach (var item in Model.OrderDetils)
+                                                {
+                                                  
+
+                                        <div class="col-md-4">
+                                            <div class="card" style="width: 18rem;">
+
+                                                @if (item.OrderType != 0)
+                                                {
+                                                    //i= i + 1;
+
+                                                    @*<ul class="list-group list-group-flush">*@
+                                                    foreach (var t in item.images as IEnumerable<WatanART.BLL.ViewModels.OrderImagesVM>)
+                                                    {
+                                                        @Html.Partial("ImageDisplayPV", t.PrintscreenImg + "")
+                                                        if (t.Color != "" && t.Color != null)
+                                                        {
+                                                            <li class="list-group-item"><i class="fa fa-cubes" aria-hidden="true"></i><b>@WatanART.Localization.Resource.color </b>:<span> #@t.Color</span></li>
+                                                        }
+
+                                                        if (t.Style != "" && t.Style != null)
+                                                        {
+                                                            <li class="list-group-item"><i class="fa fa-cubes" aria-hidden="true"></i><b>@WatanART.Localization.Resource.Styles </b>:<span><a href="@_Generic.GetFilePath("UploadedImages", t.Style)" download class="btn btn-primary download"><i class="fa fa-download" aria-hidden="true"></i>Download</a>  </span></li>
+
+                                                        }
+                                                        <li class="list-group-item"><i class="fa fa-cubes" aria-hidden="true"></i><b>@WatanART.Localization.Resource.MainImg  </b>:<span><a href="@_Generic.GetFilePath("UploadedImages", t.Image)" download class="btn btn-primary download"><i class="fa fa-download" aria-hidden="true"></i>Download</a> </span></li>
+                                                        <li class="list-group-item"><i class="fa fa-cubes" aria-hidden="true"></i><b>@WatanART.Localization.Resource.PrintScreen  </b>:<span><a href="@_Generic.GetFilePath("UploadedImages", t.PrintscreenImg)" download class="btn btn-primary download"><i class="fa fa-download" aria-hidden="true"></i>Download</a> </span></li>
+
+                                                        if (t.text != "" && t.text != null)
+                                                        {
+                                                            <li class="list-group-item"><i class="fa fa-cubes" aria-hidden="true"></i><b>@WatanART.Localization.Resource.text </b>:<span>@t.text  </span></li>
+                                                            <li class="list-group-item"><i class="fa fa-cubes" aria-hidden="true"></i><b>@WatanART.Localization.Resource.textfont </b>:<span>@t.text_font  </span></li>
+
+                                                            <li class="list-group-item"><i class="fa fa-cubes" aria-hidden="true"></i><b>@WatanART.Localization.Resource.textcolor </b>:<span>#@t.text_color  </span></li>
+                                                            <li class="list-group-item"><i class="fa fa-cubes" aria-hidden="true"></i><b>@WatanART.Localization.Resource.textsize </b>:<span>@t.text_size  </span></li>
+
+                                                        }
+
+                                                        if (t.Size != "" && t.Size != null)
+                                                        {
+                                                            <li class="list-group-item"><i class="fa fa-cubes" aria-hidden="true"></i><b>@WatanART.Localization.Resource.Size </b>:<span>@t.Size  </span></li>
+
+                                                        }
+                                                    }
+
+                                                    @*</ul>*@
+
+                                                }
+                                                else
+                                                {
+                                                    @Html.Partial("ImageDisplayPV", item.MainImage + "")
+                                                    <div class="card-body title">
+                                                        <h5 class="card-title"><a href="@_Generic.GetFilePath("UploadedImages", item.MainImage)" download class="btn btn-primary download"><i class="fa fa-download" aria-hidden="true"></i>Download</a></h5>
+                                                    </div>
+
+                                                }
+                                                <ul class="list-group list-group-flush">
+                                                    <li class="list-group-item">
+                                                        <i class="fa fa-question-circle" aria-hidden="true"></i><b>
+                                                            @if (item.OrderType == 0)
+                                                            {
+                                                                @WatanART.Localization.Resource.pattern
+                                                            }
+                                                            else
+                                                            {
+                                                                @WatanART.Localization.Resource.Product
+                                                            }
+
+
+                                                        </b>:<span> @item.Pattern</span>
+                                                    </li>
+
+                                                    <li class="list-group-item"><i class="fa fa-cubes" aria-hidden="true"></i><b>@WatanART.Localization.Resource.Quantity </b>:<span> @item.Quantiy</span></li>
+                                                    @*<li class="list-group-item"><i class="fa fa-money" aria-hidden="true"></i><b>@WatanART.Localization.Resource.Unitprice </b>:<span> @Model.Order.onePiecePrice</span></li>*@
+                                                    @*<li class="list-group-item"><i class="fa fa-money" aria-hidden="true"></i><b>@WatanART.Localization.Resource.Unitprice </b>:<span> @Model.Order.onePiecePrice</span></li>*@
+                                                    @*@if (WatanART.Helpers.CultureHelper.CurrentCulture == 1)
+            {
+                <li class="list-group-item"><i class="fa fa-hand-o-left" aria-hidden="true"></i><b>@WatanART.Localization.Resource.TotalCost </b>:<span> @(item.PiecePrice * item.Quantiy)</span></li>
+            }
+            else
+            {
+                <li class="list-group-item"><i class="fa fa-hand-o-right" aria-hidden="true"></i><b>@WatanART.Localization.Resource.TotalCost </b>:<span> @(item.PiecePrice * item.Quantiy)</span></li>
+            }*@
+
+
+                                                </ul>
+                                            </div>
+                                    </div>
+                                                }
+
+                                            }
+                                     
+                               </div>
+                            </div>
+
+
+                            }
+
+
+                        </div>
+                        <!-- end widget content -->
+
+                    </div>
+                    <!-- end widget div -->
+
+                </div>
+                <!-- end widget -->
+            </article>
+            <!-- END COL -->
+        </div>
+        <!-- END ROW -->
+    </section>
+    <!-- end widget grid -->
+</div>
+<script type="text/javascript">
+    // DO NOT REMOVE : GLOBAL FUNCTIONS!
+
+    $(document).ready(function () {
+
+
+        $(".SELECT2").select2();
+
+    });
+
+
+</script>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+
+
+
+

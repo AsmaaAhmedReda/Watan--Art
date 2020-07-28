@@ -1,0 +1,814 @@
+﻿
+@{
+    ViewBag.Title = WatanART.Localization.Resource.MenuContactUs;
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    #infowindow-content .title {
+        font-weight: bold;
+    }
+
+    #infowindow-content {
+        display: none;
+    }
+
+    #map #infowindow-content {
+        display: inline;
+    }
+
+    .pac-card {
+        margin: 10px 10px 0 0;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        background-color: #fff;
+        font-family: Roboto;
+    }
+
+    #pac-container {
+        padding-bottom: 12px;
+        margin-right: 12px;
+    }
+
+    .pac-controls {
+        display: inline-block;
+        padding: 5px 11px;
+    }
+
+        .pac-controls label {
+            font-family: Roboto;
+            font-size: 13px;
+            font-weight: 300;
+        }
+
+    #pac-input {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        margin-left: 12px;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+        width: 300px;
+    }
+
+        #pac-input:focus {
+            border-color: #4d90fe;
+        }
+
+    #title {
+        color: #fff;
+        background-color: #4d90fe;
+        font-size: 25px;
+        font-weight: 500;
+        padding: 6px 12px;
+    }
+
+    #target {
+        width: 345px;
+    }
+</style>
+@model  WatanART.BLL.ViewModels.SettingObjVM
+<div id="ribbon">
+    <span class="ribbon-button-alignment">
+        <span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh" rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true">
+            <i class="fa fa-refresh"></i>
+        </span>
+    </span>
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+        <li><a href="../../admin/Shared/Index">@WatanART.Localization.Resource.MenuHome</a></li>
+        <li>@WatanART.Localization.Resource.MenuContactUs</li>
+    </ol>
+</div>
+<div id="content">
+    <!-- widget grid -->
+    <section id="widget-grid" class="">
+        <!-- START ROW -->
+        <div class="row">
+            <!-- NEW COL START -->
+            <article class="col-sm-12 col-md-12 col-lg-12">
+                <div class="jarviswidget" id="wid-id-4" data-widget-editbutton="false" data-widget-custombutton="false">
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                        <h2>@WatanART.Localization.Resource.MenuContactUs </h2>
+
+                    </header>
+                    <!-- widget div-->
+                    <div>
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body">
+                            @*<form id="smart-form-register" class="smart-form">*@
+                            @using (Html.BeginForm(null, null, FormMethod.Post, new
+                            {
+                                @class = "form-horizontal",
+                                data_bv_message = "This value is not valid",
+                                data_bv_feedbackicons_valid = "glyphicon glyphicon-ok",
+                                data_bv_feedbackicons_invalid = "glyphicon glyphicon-remove",
+                                data_bv_feedbackicons_validating = "glyphicon glyphicon-refresh",
+                                role = "form",
+                                enctype = "multipart/form-data",
+                                id = "frmForm"
+                            }))
+                            {
+                                @*<input type="hidden" id="ModuleID" name="ModuleID" value="@Model.ModuleID" class="formdata" />
+                                    <input type="hidden" id="ModuleCatID" name="ModuleCatID" value="@Model.ModuleCatID" class="formdata" />*@
+
+                                <fieldset>
+                                   
+                                    <div class="form-group">
+                                        <label class="control-label col-lg-2">@WatanART.Localization.Resource.IosAppUrl </label>
+                                      
+                                        <div class="col-lg-4">
+
+
+                                            <input type="text" name="IosAppUrl" id="IosAppUrl" class="form-control" data-bv-notempty="true"
+                                                   data-bv-notempty-message="@WatanART.Localization.Resource.Required"  
+                                                   value="@Model.IosAppUrl"
+                                                    data-bv-regexp = "true"  
+                                                    pattern = "((www\.|(http|https|ftp|news|file|)+\:\/\/)?[&#95;.a-z0-9-]+\.[a-z0-9\/&#95;:@@=.+?,##%&~-]*[^.|\'|\# |!|\(|?|,| |>|<|;|\)])"
+                                                    data-bv-regexp-message = "@WatanART.Localization.Resource.ErrorMessageURL"
+                                                   
+                                           />
+                                        </div>
+
+
+
+                                        <label class="control-label col-lg-2">@WatanART.Localization.Resource.AndriodAppUrl </label>
+
+                                        <div class="col-lg-4">
+
+
+                                            <input type="text" name="AndriodAppUrl" id="AndriodAppUrl" class="form-control" data-bv-notempty="true"
+                                                   data-bv-notempty-message="@WatanART.Localization.Resource.Required" value="@Model.AndriodAppUrl"
+                                                   data-bv-regexp="true"
+                                                   pattern = "((www\.|(http|https|ftp|news|file|)+\:\/\/)?[&#95;.a-z0-9-]+\.[a-z0-9\/&#95;:@@=.+?,##%&~-]*[^.|\'|\# |!|\(|?|,| |>|<|;|\)])"
+                                                   data-bv-regexp-message="@WatanART.Localization.Resource.ErrorMessageURL" />
+
+
+                                         
+                                        </div>
+                                        </div>
+
+
+                                    
+
+
+                                    <div class="form-group">
+
+
+                                        <label class="control-label col-lg-2">@WatanART.Localization.Resource.PhoneNumber </label>
+
+                                        <div class="col-lg-4">
+
+
+                                            <input type="text" name="PhoneNumber" id="PhoneNumber" class="form-control" data-bv-notempty="true"
+                                                   data-bv-notempty-message="@WatanART.Localization.Resource.Required" value="@Model.PhoneNumber"
+                                                   data-bv-regexp="true"
+                                                   pattern = "^[0-9\+]{1,}[0-9\-]{5,15}$"
+                                                   @*pattern = "^[2][0]{1}[0-9]{9,12}$"*@
+                                                 data-bv-regexp-message = @WatanART.Localization.Resource.ValidatePhoneMessage
+                                                   
+                                                    />
+                                        </div>
+
+
+
+
+                                        <label class="control-label col-lg-2">@WatanART.Localization.Resource.EMail </label>
+
+                                        <div class="col-lg-4">
+
+
+                                            <input type="text" name="EMail" id="EMail" class="form-control" data-bv-notempty="true"
+                                                   data-bv-notempty-message="@WatanART.Localization.Resource.Required" value="@Model.EMail"
+                                                     pattern ="^([\w-]+(?:\.[\w-]+)*)@@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$"
+                                                    data-bv-regexp="true"
+                                                     data-bv-regexp-message  = @WatanART.Localization.Resource.EnterVALIDEmailAddress
+                                                 />
+                                        </div>
+
+
+                                    </div>
+                                  
+                                    <div class="form-group">
+
+
+
+                                        <label class="control-label col-lg-2">@WatanART.Localization.Resource.FacebookUrl </label>
+
+                                        <div class="col-lg-4">
+
+
+                                            <input type="text" name="FacebookUrl" id="FacebookUrl" class="form-control" data-bv-notempty="true"
+                                                   data-bv-notempty-message="@WatanART.Localization.Resource.Required" value="@Model.FacebookUrl"
+                                                   data-bv-regexp="true"
+                                                  pattern = "((www\.|(http|https|ftp|news|file|)+\:\/\/)?[&#95;.a-z0-9-]+\.[a-z0-9\/&#95;:@@=.+?,##%&~-]*[^.|\'|\# |!|\(|?|,| |>|<|;|\)])"
+                                                   data-bv-regexp-message="@WatanART.Localization.Resource.ErrorMessageURL" />
+
+
+
+                                        </div>
+
+
+                                        <label class="control-label col-lg-2">@WatanART.Localization.Resource.TwitterUrl </label>
+
+                                        <div class="col-lg-4">
+
+
+                                            <input type="text" name="TwitterUrl" id="TwitterUrl" class="form-control" data-bv-notempty="true"
+                                                   data-bv-notempty-message="@WatanART.Localization.Resource.Required" value="@Model.TwitterUrl"
+                                                   data-bv-regexp="true"
+                                                 pattern = "((www\.|(http|https|ftp|news|file|)+\:\/\/)?[&#95;.a-z0-9-]+\.[a-z0-9\/&#95;:@@=.+?,##%&~-]*[^.|\'|\# |!|\(|?|,| |>|<|;|\)])"
+                                                   data-bv-regexp-message="@WatanART.Localization.Resource.ErrorMessageURL" />
+
+
+
+                                        </div>
+
+
+                                       
+                                    </div>
+                                    <div class="form-group">
+
+
+
+                                        <label class="control-label col-lg-2">@WatanART.Localization.Resource.InstagramUrl </label>
+
+                                        <div class="col-lg-4">
+
+
+                                            <input type="text" name="InstagramUrl" id="InstagramUrl" class="form-control" data-bv-notempty="true"
+                                                   data-bv-notempty-message="@WatanART.Localization.Resource.Required" value="@Model.InstagramUrl"
+                                                   data-bv-regexp="true"
+                                                  pattern = "((www\.|(http|https|ftp|news|file|)+\:\/\/)?[&#95;.a-z0-9-]+\.[a-z0-9\/&#95;:@@=.+?,##%&~-]*[^.|\'|\# |!|\(|?|,| |>|<|;|\)])"
+                                                   data-bv-regexp-message="@WatanART.Localization.Resource.ErrorMessageURL" />
+
+
+
+
+                                        </div>
+
+
+                                        <label class="control-label col-lg-2">@WatanART.Localization.Resource.YouTubeUrl </label>
+
+                                        <div class="col-lg-4">
+
+
+                                            <input type="text" name="YouTubeUrl" id="YouTubeUrl" class="form-control" data-bv-notempty="true"
+                                                   data-bv-notempty-message="@WatanART.Localization.Resource.Required" value="@Model.YouTubeUrl"
+                                                   data-bv-regexp="true"
+                                                   pattern = "((www\.|(http|https|ftp|news|file|)+\:\/\/)?[&#95;.a-z0-9-]+\.[a-z0-9\/&#95;:@@=.+?,##%&~-]*[^.|\'|\# |!|\(|?|,| |>|<|;|\)])"
+                                                   data-bv-regexp-message="@WatanART.Localization.Resource.ErrorMessageURL" />
+
+
+
+
+                                        </div>
+
+
+                                       
+                                        
+                                    </div>
+
+
+                                    
+
+
+                                    <div class="form-group" id="map">
+                                        @*<label class="control-label col-md-2">@WatanART.Localization.Resource.Location </label>*@
+                                        <div class="col-lg-10 ">
+                                            <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+                                            <div class="my-location"><div id="map_canvas" style="height: 250px;"></div></div>
+                                            <label style="display:none ;color:red" id="MapValid">@WatanART.Localization.Resource.Required</label>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group" style="display: none;">
+                                        <label class="control-label col-md-1">Longitute</label>
+                                        <div class="col-md-4 ">
+                                            @Html.TextBoxFor(model => model.Longtiude, new { @class = "form-control", @readonly = "readonly" })
+                                        </div>
+                                        <label class="control-label col-md-1">Latitude</label>
+                                        <div class="col-md-4 ">
+                                            @Html.TextBoxFor(model => model.Latitude, new { @class = "form-control", @readonly = "readonly" })
+                                        </div>
+                                    </div>
+
+
+                                    @*<div class="form-group">
+
+
+
+                                        @Html.LabelFor(m => m.Longtiude, new { @class = "col-lg-2 control-label" })
+                                        <div class="col-lg-4">
+                                            @Html.EditorFor(model => model.Longtiude, new
+                                       {
+                                           htmlAttributes = new
+                                           {
+                                               @class = "form-control",
+                                               data_bv_notempty = "true",
+                                               data_bv_notempty_message = @WatanART.Localization.Resource.Required,
+                                               pattern = @"^(\+|-)?(?:180(?:(?:\.0{1,7})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\.[0-9]{1,7})?))$",
+                                               data-bv-regexp-message = @WatanART.Localization.Resource.ErrorMessageLongitude,
+                                               placeholder = @WatanART.Localization.Resource.Longtiude
+                                           }
+                                       })
+
+                                            @Html.ValidationMessageFor(model => model.Longtiude, "", new { @class = "text-danger" })
+                                        </div>
+
+                                        @Html.LabelFor(m => m.Latitude, new { @class = "col-lg-2 control-label" })
+                                        <div class="col-lg-4">
+                                            @Html.EditorFor(model => model.Latitude, new
+                                       {
+                                           htmlAttributes = new
+                                           {
+                                               @class = "form-control",
+                                               data_bv_notempty = "true",
+                                               data_bv_notempty_message = @WatanART.Localization.Resource.Required,
+                                               pattern = @"^(\+|-)?(?:90(?:(?:\.0{1,7})?)|(?:[0-9]|[1-8][0-9])(?:(?:\.[0-9]{1,7})?))$",
+                                               data-bv-regexp-message = @WatanART.Localization.Resource.ErrorMessageLatitude,
+                                               placeholder = @WatanART.Localization.Resource.Latitude
+                                           }
+                                       })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.WebsiteLink, new { @class = "col-lg-2 control-label" })
+                                        <div class="col-lg-4">
+                                            @Html.TextBoxFor(m => m.WebsiteLink, new
+                                       {
+                                           @class = "form-control",
+                                           data_bv_notempty = "true",
+                                           data_bv_notempty_message = @WatanART.Localization.Resource.Required,
+                                           pattern = @"((www\.|(http|https|ftp|news|file|)+\:\/\/)?[&#95;.a-z0-9-]+\.[a-z0-9\/&#95;:@=.+?,##%&~-]*[^.|\'|\# |!|\(|?|,| |>|<|;|\)])",
+                                           data-bv-regexp-message = @WatanART.Localization.Resource.ErrorMessageURL,
+                                           placeholder = @WatanART.Localization.Resource.WebsiteLink
+                                       })
+
+                                            @Html.ValidationMessageFor(model => model.WebsiteLink, "", new { @class = "text-danger" })
+                                        </div>
+
+                                        @Html.LabelFor(m => m.LinkedInUrl, new { @class = "col-lg-2 control-label" })
+                                        <div class="col-lg-4">
+                                            @Html.TextBoxFor(m => m.LinkedInUrl, new
+                                       {
+                                           @class = "form-control",
+                                           data_bv_notempty = "true",
+                                           data_bv_notempty_message = @WatanART.Localization.Resource.Required,
+                                           pattern = @"((www\.|(http|https|ftp|news|file|)+\:\/\/)?[&#95;.a-z0-9-]+\.[a-z0-9\/&#95;:@=.+?,##%&~-]*[^.|\'|\# |!|\(|?|,| |>|<|;|\)])",
+                                           data-bv-regexp-message = @WatanART.Localization.Resource.ErrorMessageURL,
+                                           placeholder = @WatanART.Localization.Resource.LinkedInUrl
+                                       })
+                                            @Html.ValidationMessageFor(model => model.LinkedInUrl, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>*@
+                                   
+                                    <div class="form-group">
+                                        <label class="control-label col-lg-2">@WatanART.Localization.Resource.WebsiteLink </label>
+
+                                        <div class="col-lg-10">
+
+
+                                            <input type="text" name="WebsiteLink" id="WebsiteLink" class="form-control" data-bv-notempty="true"
+                                                   data-bv-notempty-message="@WatanART.Localization.Resource.Required" value="@Model.WebsiteLink"
+                                                   data-bv-regexp="true"
+                                                    pattern = "((www\.|(http|https|ftp|news|file|)+\:\/\/)?[&#95;.a-z0-9-]+\.[a-z0-9\/&#95;:@@=.+?,##%&~-]*[^.|\'|\# |!|\(|?|,| |>|<|;|\)])"
+                                                   data-bv-regexp-message="@WatanART.Localization.Resource.ErrorMessageURL" />
+                                        </div>
+
+
+
+
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label class="control-label col-lg-2">@WatanART.Localization.Resource.AddressAR </label>
+
+                                        <div class="col-lg-10">
+
+
+                                            <input type="text" name="AddressAr" id="AddressAr" class="form-control" data-bv-notempty="true"
+                                                   data-bv-notempty-message="@WatanART.Localization.Resource.Required" value="@Model.AddressAr"
+                                                 
+                                                    data-bv-stringlength = "true"
+                                                   data-bv-stringlength-min = "1"
+                                                    data-bv-stringlength-max = "150"
+                                                   data-bv-stringlength-message = @WatanART.Localization.Resource.StringLengthErrorMessage_150
+                                                   placeholder = @WatanART.Localization.Resource.AddressAR />
+                                        </div>
+
+
+
+
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label class="control-label col-lg-2">@WatanART.Localization.Resource.AddressEN </label>
+
+                                        <div class="col-lg-10">
+
+
+                                            <input type="text" name="AddressEn" id="AddressEn" class="form-control" data-bv-notempty="true"
+                                                   data-bv-notempty-message="@WatanART.Localization.Resource.Required" value="@Model.AddressEn"
+                                                 
+                                                   data-bv-stringlength="true"
+                                                   data-bv-stringlength-min="1"
+                                                   data-bv-stringlength-max="150"
+                                                   data-bv-stringlength-message=@WatanART.Localization.Resource.StringLengthErrorMessage_150
+                                                   placeholder=@WatanART.Localization.Resource.AddressEN />
+                                        </div>
+
+
+
+
+                                    </div>
+                                    @*<div class="form-group">
+                                        @Html.LabelFor(m => m.AddressAr, new { @class = "col-lg-2 control-label" })
+                                        <div class="col-lg-10">
+                                            @Html.TextBoxFor(m => m.AddressAr, new
+                                       {
+                                           @class = "form-control",
+                                           data_bv_notempty = "true",
+                                           data_bv_notempty_message = @WatanART.Localization.Resource.Required,
+                                           data_bv_stringlength = "true",
+                                           data_bv_stringlength_min = "1",
+                                           data_bv_stringlength_max = "150",
+                                           data_bv_stringlength_message = @WatanART.Localization.Resource.StringLengthErrorMessage_150,
+                                           placeholder = @WatanART.Localization.Resource.AddressAR
+                                       })
+
+                                            @Html.ValidationMessageFor(model => model.AddressAr, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.AddressEn, new { @class = "col-lg-2 control-label" })
+                                        <div class="col-lg-10">
+                                            @Html.TextBoxFor(m => m.AddressEn, new
+                                       {
+                                           @class = "form-control",
+                                           data_bv_notempty = "true",
+                                           data_bv_notempty_message = @WatanART.Localization.Resource.Required,
+                                           data_bv_stringlength = "true",
+                                           data_bv_stringlength_min = "1",
+                                           data_bv_stringlength_max = "150",
+                                           data_bv_stringlength_message = @WatanART.Localization.Resource.StringLengthErrorMessage_150,
+                                           placeholder = @WatanART.Localization.Resource.AddressEN
+                                       })
+
+                                            @Html.ValidationMessageFor(model => model.AddressEn, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>*@
+                                </fieldset>
+
+                                <div class="form-actions">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <button type="button" onclick="Submit();" class="btn btn-primary" id="btnSubmit">
+                                                <i class="fa fa-floppy-o"></i> @WatanART.Localization.Resource.BtnSave
+                                            </button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            @*</form>*@
+
+                        </div>
+                        <!-- end widget content -->
+
+                    </div>
+                    <!-- end widget div -->
+
+                </div>
+                <!-- end widget -->
+            </article>
+            <!-- END COL -->
+        </div>
+        <!-- END ROW -->
+    </section>
+    <!-- end widget grid -->
+</div>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyBSdKWm32SqMqAFoYmR_lZ9RjeWPJDJoHA&libraries=places&sensor=false"></script>
+<script type="text/javascript">
+    // DO NOT REMOVE : GLOBAL FUNCTIONS!
+
+
+    $(document).ready(function () {
+
+
+        var Longitute1 = $('#Longtiude').val();
+        var Latitude1 = $('#Latitude').val();
+        InitializeMap(Latitude1, Longitute1, "map_canvas");
+
+
+    });
+
+    function Submit() {
+        $('#frmForm').bootstrapValidator('validate');
+
+        if ($('#frmForm').has('.has-error').length === 0) {
+            submitInsert();
+        } else {
+            // alert("notvalid");
+        }
+
+    }
+
+
+
+    //$(function () {
+    //    $('#ModuleIsActive').change(function () {
+    //        if (this.checked) {
+    //            // Do something...
+    //            $(this).val("true");
+    //        } else {
+    //            $(this).val("false");
+    //        }
+    //    });
+    //});
+
+
+
+    function submitInsert() {
+        debugger;
+        var IosAppUrl = $("#IosAppUrl").val();
+        var AndriodAppUrl = $("#AndriodAppUrl").val();
+        var PhoneNumber = $('#PhoneNumber').val();
+        var EMail = $('#EMail').val();
+        var FacebookUrl = $("#FacebookUrl").val();
+        var TwitterUrl = $("#TwitterUrl").val();
+        var InstagramUrl = $("#InstagramUrl").val();
+        var YouTubeUrl = $("#YouTubeUrl").val();
+
+        var Longtiude = $("#Longtiude").val();
+        var Latitude = $("#Latitude").val();
+        var WebsiteLink = $("#WebsiteLink").val();
+        var AddressAr = $("#AddressAr").val();
+        var AddressEn = $("#AddressEn").val();
+
+       // var data2 = ConvertFormToJSON("frmForm");
+       // alert(data2);
+        var url = '@Url.Action("Updateajax", "Settings")';
+        $.ajax({
+            url: url,
+            data: {
+                IosAppUrl: IosAppUrl, AndriodAppUrl: AndriodAppUrl, PhoneNumber: PhoneNumber, EMail: EMail, FacebookUrl: FacebookUrl
+, TwitterUrl: TwitterUrl, InstagramUrl: InstagramUrl, YouTubeUrl: YouTubeUrl, Longtiude: Longtiude, Latitude: Latitude, WebsiteLink: WebsiteLink,
+AddressAr: AddressAr, AddressEn: AddressEn
+
+                        },
+
+
+            cache: false,
+            type: "POST",
+            success: function (data) {
+
+                var dataRes = data;
+                if (dataRes > 0) {
+
+
+                    swal({
+                        text: "@WatanART.Localization.Resource.DataSavedSuccessfully ",
+                        //timer: 5000
+                    }).then(
+                       function () {
+                           var href = "/Admin/Settings/ContactUs";
+                           window.location.href = href;
+
+                       })
+
+
+                } else {
+                    swal("@WatanART.Localization.Resource.ErrorOccurred");
+                }
+
+
+            }
+        });
+        //}
+
+    }
+
+
+
+
+
+
+
+
+</script>
+
+<script>
+    function InitializeMap(_lat, _long, mapId) {
+
+
+        var CurrentLongitude = 0.0;
+        var CurrentLatitude = 0.0;
+
+        var latitute = 0.0;
+        var longitute = 0.0;
+
+        latitute = _lat;
+        longitute = _long;
+
+
+        AddLocationToMap(latitute, longitute, mapId);
+
+
+        CurrentLongitude = $('#Longtiude').val();
+        CurrentLatitude = $('#Latitude').val();
+
+
+
+
+        if (CurrentLongitude != null && CurrentLongitude != '' && CurrentLongitude != 0) {
+
+            longitute = parseFloat(CurrentLongitude);
+        }
+        if (CurrentLatitude != null && CurrentLatitude != '' && CurrentLatitude != 0) {
+            latitute = parseFloat(CurrentLatitude);
+        }
+
+
+
+        if (longitute == 0 && latitute == 0) {
+
+
+            latitute = "25.346508237892778";
+            longitute = "55.428428649902344";
+            AddLocationToMap(latitute, longitute, mapId);
+            try {
+                if (navigator != null && navigator.geolocation) {
+
+                    try {
+                        navigator.geolocation.getCurrentPosition(function (position) {
+
+
+                            latitute = position.coords.latitude;
+                            longitute = position.coords.longitude;
+                            AddLocationToMap(latitute, longitute, mapId);
+
+
+                        });
+                    }
+                    catch (ee) {
+
+                        AddLocationToMap(latitute, longitute, mapId);
+                    }
+                }
+
+                else {
+
+                    AddLocationToMap(latitute, longitute, mapId);
+                }
+            }
+            catch (ee) {
+
+                AddLocationToMap(latitute, longitute, mapId);
+            }
+        }
+
+        else {
+            AddLocationToMap(latitute, longitute, mapId);
+        }
+
+
+
+
+        function AddLocationToMap(latitute, longitute, mapId) {
+            var marker; //step 1
+            google.maps.visualRefresh = true;
+            var searchBox = new google.maps.places.SearchBox(document.getElementById('pac-input')); //step 2 and add html
+            var myLatlng = new google.maps.LatLng(latitute, longitute);
+
+            // These are options that set initial zoom level, where the map is centered globally to start, and the type of map to show
+            var mapOptions = {
+                zoom: 10,
+                center: myLatlng,
+                mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
+            };
+
+            // This makes the div with id "map_canvas" a google map
+
+            var map = new google.maps.Map(document.getElementById(mapId), mapOptions);
+            $('#Longtiude').val(longitute);
+            $('#Latitude').val(latitute);
+
+            // This shows adding a simple pin "marker" - this happens to be the Tate Gallery in Liverpool!
+
+
+            map.controls[google.maps.ControlPosition.TOP_CENTER].push(document.getElementById('pac-input')); //step 3
+
+             marker = new google.maps.Marker({
+                position: myLatlng,
+                map: map,
+                draggable: true
+            });
+
+            google.maps.event.addListener(map, "click", function (event) {
+
+
+                var lat = event.latLng.lat();
+                var lng = event.latLng.lng();
+                // populate yor box/field with lat, lng
+                myLatlng = new google.maps.LatLng(lat, lng);
+                //AddLocationToMap(lat, lng, mapId);   //step 4
+                if (marker) {
+                    //if marker already was created change positon
+                    marker.setPosition(myLatlng);
+                } else {
+                    //create a marker
+                    marker = new google.maps.Marker({
+                        position: myLatlng,
+                        map: map,
+                        draggable: true
+                    });
+                }
+
+                $('#Longtiude').val(lng);
+                $('#Latitude').val(lat);
+
+
+
+            });
+
+            google.maps.event.addListener(searchBox, 'places_changed', function () {
+                searchBox.set('map', null);
+
+
+                var places = searchBox.getPlaces();
+
+                var bounds = new google.maps.LatLngBounds();
+                var i, place;
+                for (i = 0; place = places[i]; i++) {
+                    (function (place) {
+
+
+                        if (marker) {
+                            //if marker already was created change positon
+                            marker.setPosition(place.geometry.location);
+                        } else {
+                            //create a marker
+                            marker = new google.maps.Marker({
+                                position: place.geometry.location,
+                                map: map
+                            });
+                        }
+
+                        //marker = new google.maps.Marker({
+
+                        //    position: place.geometry.location
+                        //});
+                        debugger;
+                        var LatLnghh = place.geometry.location.toJSON();
+                        //console.log(place.geometry.location)
+                        $('#Longtiude').val(LatLnghh.lng);
+                        $('#Latitude').val(LatLnghh.lat);
+                        //$('#Long').val(LatLnghh.lng);
+                        //$('#Lat').val(LatLnghh.lat);
+                        //$('#Long').val(place.geometry.location.lat());
+                        // $('#Lat').val(place.geometry.location.lng());
+
+                        //marker.bindTo('map', searchBox, 'map');
+                        //google.maps.event.addListener(marker, 'map_changed', function () {
+                        //    if (!this.getMap()) {
+                        //        this.unbindAll();
+                        //    }
+                        //});
+                        bounds.extend(place.geometry.location);
+
+
+                    }(place));
+
+                }
+                map.fitBounds(bounds);
+                searchBox.set('map', map);
+                map.setZoom(Math.min(map.getZoom(), 12));
+
+            }); //step 5
+
+        }
+    }
+
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+
+

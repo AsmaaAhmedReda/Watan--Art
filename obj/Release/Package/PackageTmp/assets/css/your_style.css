@@ -1,0 +1,271 @@
+/*
+ * It is advised not to edit the smartadmin_production.css
+ * as this will override any changes you make in the 
+ * later versions of this theme. 
+ * 
+ * We advise that you use use this CSS to override 
+ * SmartAdmin styles. 
+ * 
+ * Rename the stylesheet to whatever your liking so it will stay
+ * unique to you with each update of SmartAdmin.
+ */
+
+/*
+ * INDEX
+ * 
+ * - HTML
+ * - BODY
+ * - CUSTOM STYLES
+ */
+body{
+    color:#2c3742;
+}
+#logo img {
+    width: 100%;
+}
+#logo {
+	width: 150px;
+	margin-top: 0;
+}
+.smart-style-2 .bg-color-red {
+    background: #C4161C !important;
+}
+.smart-style-2 nav ul .active > a, .smart-style-2 nav ul li.open > a, .smart-style-2 nav ul li.open > a b {
+    color: #f39c12 !important;
+}
+.smart-style-2 nav ul li a:hover, .smart-style-2 nav ul ul li > a:hover {
+    color: #f39c12 !important;
+}
+.bg-color-blueDark {
+    background-color: #2c3742 !important;
+}
+.smart-style-2 .bg-color-blue {
+    background: #f39c12 !important;
+}
+.bg-color-yellow {
+    background-color: #c4161c !important;
+}
+.badge{
+background-color: #c4161c;
+}
+.smart-style-2 .onoffswitch-inner::before {
+    background: #f39c12;
+    border-color: #f39c12 #f39c12 #f39c12;
+}
+.pagination > li > a, .pagination > li > span {color: #f39c12;}
+.smart-style-2 .pagination > .active > a, .smart-style-2 .pagination > .active > a:focus, .smart-style-2 .pagination > .active > a:hover, .smart-style-2 .pagination > .active > span, .smart-style-2 .pagination > .active > span:focus, .smart-style-2 .pagination > .active > span:hover {
+    background-color: #f39c12;
+}
+.pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {
+	background-color: #f39c12;
+	border-color: #f39c12;
+}
+a {
+    color: #f39c12;
+}
+.smart-style-2 .btn-primary, .smart-style-2 .smart-form .button {
+    background-color: #f39c12;
+    border-color: #f39c12;
+}
+.text-primary {
+    color: #f39c12;
+}
+.searchBtn{
+	border: 1px solid #ccc;
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-left-color: rgb(204, 204, 204);
+	border-left: 0;
+	margin-left: -1px;
+	border-radius: 0;
+	padding: 5px 12px;
+	float: right;
+	display: block;
+	height: 100%;
+}
+div.dataTables_filter input {
+    height: 100%;
+}
+.dataTables_filter{width: auto;}
+.DTTT.btn-group {
+    display: none;
+}
+div.dataTables_filter label {
+    height: 33px;
+}
+.dt-button {
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+}
+.dt-buttons{
+	padding: 6px 0;
+	margin-bottom: 15px;
+}
+#datatable_tabletools_filter{margin-bottom: 9px;}
+#datatable_tabletools_paginate .paginate_button{
+    box-shadow: inset 0 -2px 0 rgba(0,0,0,.05);
+    -moz-box-shadow: inset 0 -2px 0 rgba(0,0,0,.05);
+    -webkit-box-shadow: inset 0 -2px 0 rgba(0,0,0,.05);
+    padding: 6px 12px;
+    border: 1px solid #ddd;
+	border-radius: 0;
+	margin-left: -1px;
+	color: #f39c12 !important;
+}
+#datatable_tabletools_paginate .paginate_button:hover{
+	background: #f39c12;
+	border-color: #f39c12;
+	color: #fff !important;
+}
+#datatable_tabletools_paginate .paginate_button.current{
+	background: #f39c12;
+	border-color: #f39c12;
+	color: #fff !important;
+}
+.dataTables_wrapper .dataTables_paginate .ellipsis {
+    color: #f39c12;
+}
+.minifyme {
+    bottom: 0;
+}
+.form-control {min-height: 32px;height: auto;}
+img{
+    display: none;
+}
+img[src] {
+    display: block;
+}
+.dt-toolbar-footer {padding: 5px 0;}
+.dt-toolbar-footer .col-sm-6{padding: 0;}
+.dataTables_wrapper .dataTables_info{float: right;}
+.smart-style-2 .btn-danger {
+    background-color: #C4161C;
+    border-color: #C4161C;
+}
+.smart-rtl select[name=datatable_tabletools_length]{
+    padding: 1px 6px;
+}
+button.ColVis_Button, ul.ColVis_collection li {
+    border: 1px solid #ccc;
+    color: #69737a !important;
+    border-radius: 0;
+    box-shadow: none;
+    min-height: 32px;
+}
+.smart-style-2 .btn-primary.active, .smart-style-2 .btn-primary:active, .smart-style-2 .btn-primary:focus, .smart-style-2 .btn-primary:hover, .smart-style-2 .open .dropdown-toggle.btn-primary {
+    background-color: #f39c12;
+    border-color: #f39c12;
+}
+a:focus, a:hover {
+    color: #f39c12;
+}
+.ColVis_Button:hover, ul.ColVis_collection li:hover {
+    border: 1px solid #ccc;
+    box-shadow: none;
+}
+table.dataTable.no-footer {
+    border-bottom: 1px solid #2c3742;
+}
+table.dataTable thead th, table.dataTable thead td {
+    border-bottom: 1px solid #ddd;
+}
+.smart-rtl .dt-buttons .dt-button{
+    padding:2.5px 10px;
+}
+.form-control:focus {
+    border-color: #f39c12;
+}
+div.ColVis {
+    float: left;
+}
+.smart-rtl div.ColVis {
+    float: right;
+}
+.btn-labeled {
+    margin-bottom: 5px;
+}
+.ui-datepicker td .ui-state-highlight {background-color: #C4161C;}
+.ui-datepicker td .ui-state-hover{
+    background-color: #f39c12;
+    border-color: #f39c12;
+}
+.smart-rtl .form-horizontal .has-feedback .form-control-feedback {
+    left: 15px;
+    right: auto;
+}
+.smart-rtl .has-feedback .form-control {
+    padding-left: 40px;
+    padding-right: 15px;
+}
+.dots{
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		 -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+	}
+	.dot {
+		  width: 20px;
+		  height: 20px;
+		  border: 2px solid #8dc63f;
+		  border-radius: 50%;
+		  float: left;
+		  margin: 0 5px;
+		  -webkit-transform: scale(0);
+		          transform: scale(0);
+		  -webkit-animation: fx 1000ms ease infinite 0ms;
+		          animation: fx 1000ms ease infinite 0ms;
+		}
+		.dot:nth-child(2) {
+		  -webkit-animation: fx 1000ms ease infinite 300ms;
+		          animation: fx 1000ms ease infinite 300ms;
+		}
+		.dot:nth-child(3) {
+		  -webkit-animation: fx 1000ms ease infinite 600ms;
+		          animation: fx 1000ms ease infinite 600ms;
+		}
+		@-webkit-keyframes fx {
+		  50% {
+		    -webkit-transform: scale(1);
+		            transform: scale(1);
+		    opacity: 1;
+		  }
+		  100% {
+		    opacity: 0;
+		  }
+		}
+		@keyframes fx {
+		  50% {
+		    -webkit-transform: scale(1);
+		            transform: scale(1);
+		    opacity: 1;
+		  }
+		  100% {
+		    opacity: 0;
+		  }
+		}
+
+.spinWrap{
+            width: 100%;
+            height: 100%;
+            position: fixed;                                                                 
+            background: rgba(255,255,255,.3);
+            z-index: 999;
+            display:none;
+		}
+
+
+
+.new-drop .btn i.fa.fa-user {
+    color: #c5c6ca;
+    font-size: 20px;
+}
+.new-drop button {
+    background-color: rgba(0, 0, 0, 0);
+}
+.select2-display-none{
+    width: 200px !important;
+}
+.smart-rtl .input-group .form-control:first-child{
+    width: 200px !important;
+}

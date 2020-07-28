@@ -1,0 +1,46 @@
+﻿
+@{
+
+    int i = 1;
+}
+<script src="~/assets/js/plugin/select2/select2.min.js"></script>
+
+@if (ViewBag.Property != null)
+{
+    @*@Html.Label(WatanART.Localization.Resource.AddProperty, new { @class = "col-lg-2 control-label", style = "color:red;" })*@
+  
+    
+      <div class="clearfix"></div>
+    foreach (var item in ViewBag.Property as IEnumerable<WatanART.BLL.ViewModels.PropertiesVM>)
+    {
+        <div class="form-group">
+
+           
+
+            
+            <div class="col-lg-2 control-label">
+                @item.Name
+                <input id="Prop_@i" name="Prop_@i" type="hidden" value="@item.Prop_ID" />
+            </div>
+            <div class="col-lg-6">
+
+
+                <select id="Prop_Data_@i" name="Prop_Data_@i" multiple="multiple" style="width:100%" class="form-control  select2" data-select-search="true">
+
+                    @foreach (var item2 in item.Options as IEnumerable<WatanART.BLL.ViewModels.PropertyOptionsVM>)
+                    {
+                        <option value="@item2.Data_ID">@item2.Name</option>
+                    }
+
+                </select>
+
+
+
+            </div>
+
+        </div>
+        i++;
+    }
+    <input id="Prop_count" name="Prop_count" type="hidden" value="@i.ToString()" />
+}
+

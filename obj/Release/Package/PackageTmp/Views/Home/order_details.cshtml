@@ -1,0 +1,38 @@
+﻿
+@model IEnumerable<WatanART.BLL.ViewModels.OrderDetailsVM>
+
+@{
+    Layout = "~/Views/Shared/_WebSiteLayout.cshtml";
+    ViewBag.Title = "order_details";
+}
+
+<div class="page about">
+    <div class="container">
+        <h3 class="page-title">@WatanART.Localization.Resource.OrderDetails</h3>
+        <div class="order-details-head d-flex">
+
+            <p><i class="fa fa-hand-o-right" aria-hidden="true"></i><span>@WatanART.Localization.Resource.OrderNumber</span> : @ViewBag.OrderNumber</p>
+            <p><i class="fa fa-money" aria-hidden="true"></i><span>@WatanART.Localization.Resource.TotalPrice</span> : @ViewBag.TotalPric $</p>
+            <p><i class="fa fa-credit-card" aria-hidden="true"></i><span>@WatanART.Localization.Resource.PaymentMethod</span> : Cash</p>
+            <p class="date"><i class="fa fa-calendar"></i><span>@WatanART.Localization.Resource.date :</span> @ViewBag.orderData</p>
+            <p class="status"><b>@WatanART.Localization.Resource.Status</b><span> @ViewBag.StateValue</span></p>
+        </div>
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-3">
+                    <div class="card bg-dark text-white">
+                        <img class="card-img" src="@Url.Content("~/UploadedImages/" +@item.LowResultionImage)">
+                        <div class="card-img-overlay">
+                            <h5 class="card-title">@WatanART.Localization.Resource.Ratio : @item.Pattern</h5>
+                            <h5 class="card-title">@WatanART.Localization.Resource.Quantity : @item.Quantiy</h5>
+                        </div>
+                        <h4>@WatanART.Localization.Resource.Price : @item.PiecePrice $</h4>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+

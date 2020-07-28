@@ -1,0 +1,191 @@
+﻿@model WatanART.BLL.ViewModels.GeneralData
+@{
+    ViewBag.Title = "NewColor";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<link href="~/Areas/Admin/Js/select2-bootstrap.css" rel="stylesheet" />
+<link href="~/Areas/Admin/Js/select2.css" rel="stylesheet" />
+<div id="ribbon">
+    <span class="ribbon-button-alignment">
+        <span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh" rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true">
+            <i class="fa fa-refresh"></i>
+        </span>
+    </span>
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+        <li><a href="../../admin/Shared/Index">@WatanART.Localization.Resource.MenuHome</a></li>
+        <li><a href="@Url.Action("Index")">@WatanART.Localization.Resource.Styles</a></li>
+        <li>@WatanART.Localization.Resource.Update</li>
+    </ol>
+</div>
+<div id="content">
+    <!-- widget grid -->
+    <section id="widget-grid" class="">
+        <!-- START ROW -->
+        <div class="row">
+            <!-- NEW COL START -->
+            <article class="col-sm-12 col-md-12 col-lg-12">
+                <div class="jarviswidget" id="wid-id-4" data-widget-editbutton="false" data-widget-custombutton="false">
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                        <h2>@WatanART.Localization.Resource.Update </h2>
+
+                    </header>
+                    <!-- widget div-->
+                    <div>
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body">
+                            @*<form id="smart-form-register" class="smart-form">*@
+                            @using (Html.BeginForm("Update", "style", FormMethod.Post, new
+                            {
+                                @class = "form-horizontal",
+                                data_bv_message = "This value is not valid",
+                                data_bv_feedbackicons_valid = "glyphicon glyphicon-ok",
+                                data_bv_feedbackicons_invalid = "glyphicon glyphicon-remove",
+                                data_bv_feedbackicons_validating = "glyphicon glyphicon-refresh",
+                                role = "form",
+                                enctype = "multipart/form-data",
+                                id = "frmForm"
+                            }))
+                            {
+                               
+                                <fieldset>
+                                    <input type="hidden" id="ID" name="ID" value="@Model.ID"  />
+                     
+
+                                    @Html.Partial("ImageControlJS", (Model.Value == null ? "" : Model.Value.ToString()), new ViewDataDictionary(this.ViewData) { { "ID", "Image" } })
+
+                                   
+
+
+
+                                       
+
+
+
+</fieldset>
+
+                                <div class="form-actions">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <button type="button" onclick="Submit();" class="btn btn-primary" id="btnSubmit">
+                                                <i class="fa fa-floppy-o"></i> @WatanART.Localization.Resource.BtnSave
+                                            </button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            @*</form>*@
+
+                        </div>
+                        <!-- end widget content -->
+
+                    </div>
+                    <!-- end widget div -->
+
+                </div>
+                <!-- end widget -->
+            </article>
+            <!-- END COL -->
+        </div>
+        <!-- END ROW -->
+    </section>
+    <!-- end widget grid -->
+</div>
+<script type="text/javascript">
+    // DO NOT REMOVE : GLOBAL FUNCTIONS!
+
+    //$(document).ready(function () {
+
+
+    //    $(".SELECT2").select2();
+
+    //});
+
+    function Submit() {
+        $('#frmForm').bootstrapValidator('validate');
+
+        if ($('#frmForm').has('.has-error').length === 0) {
+            submitInsert();
+        } else {
+            // alert("notvalid");
+        }
+
+    }
+
+
+
+
+    function submitInsert() {
+        debugger;
+
+
+
+        var Value  = $("#hid_Image").val();
+        var ID = $("#ID").val();
+        
+   
+       
+      
+     
+        var url = '@Url.Action("UpdateGeneralData", "Settings")';
+        $.ajax({
+            url: url,
+            data: {
+              ID:ID,  KeyAR: 'ستايل', KeyEN: 'Style', Value: Value
+                        },
+
+
+            cache: false,
+            type: "POST",
+            success: function (data) {
+
+                var dataRes = data;
+                if (dataRes > 0) {
+
+
+                    swal({
+                        text: "@WatanART.Localization.Resource.DataSavedSuccessfully ",
+                        //timer: 5000
+                    }).then(
+                       function () {
+                           var href = "/Admin/Settings/StyleSetting/@ViewBag.catID";
+                           window.location.href = href;
+
+                       })
+
+
+                } else {
+                    swal("@WatanART.Localization.Resource.ErrorOccurred");
+                }
+
+
+            }
+        });
+        //}
+
+    }
+
+
+
+
+
+
+
+
+</script>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+

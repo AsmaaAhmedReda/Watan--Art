@@ -1,0 +1,89 @@
+﻿@using WatanART.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "تسجيل الدخول";
+    Layout = "~/Areas/Admin/Views/Shared/_LoginLayout.cshtml";
+}
+<div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
+    <div class="well no-padding">
+        @using (Html.BeginForm("LoginAdmin", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "smart-form client-form", role = "form", id = "LoginForm" }))
+        {
+            @Html.AntiForgeryToken()
+            <header>
+                @WatanART.Localization.Resource.LogIn
+            </header>
+            <fieldset>
+
+                <section>
+                    <label class="label">@WatanART.Localization.Resource.EMail</label>
+                    <label class="input">
+                        <i class="icon-append fa fa-user"></i>
+                        @Html.TextBoxFor(m => m.Email, new { @class = "" })
+                        <b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i> @WatanART.Localization.Resource.Required </b>
+                    </label>
+                </section>
+                <section>
+                    <label class="label">@WatanART.Localization.Resource.Password</label>
+                    <label class="input">
+                        <i class="icon-append fa fa-lock"></i>
+                        @Html.PasswordFor(m => m.Password, new { @class = "" })
+                        <b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> @WatanART.Localization.Resource.Required</b>
+                    </label>
+                    @*<div class="note">
+                            <a href="forgotpassword.html">Forgot password?</a>
+                        </div>*@
+                </section>
+                @*<section>
+                        <label class="checkbox">
+                            <input type="checkbox" name="remember" checked="">
+                            <i></i>Stay signed in
+                        </label>
+                    </section>*@
+            </fieldset>
+            <footer>
+                <input type="submit" class="btn btn-primary" value="@WatanART.Localization.Resource.LogIn">
+            </footer>
+        }
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var msg = '@ViewBag.Failure'
+        if (msg != undefined && msg !== "") {
+            if (msg == "False")
+                ViewMessagePopup('@WatanART.Localization.Resource.EnterCorrectLoginData');
+        }
+        // clears the variable if left blank
+        $("#LoginForm").validate({
+            // Rules for form validation
+            rules: {
+                Email: {
+                    required: true,
+                    email: true
+                },
+                Password: {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 20
+                }
+            },
+
+            // Messages for form validation
+            messages: {
+                Email: {
+                    required: '@WatanART.Localization.Resource.EnterEmail',
+                    email: '@WatanART.Localization.Resource.EnterVALIDEmailAddress'
+                },
+                Password: {
+                    required: '@WatanART.Localization.Resource.EnterPassword'
+                }
+            },
+
+            // Do not change code below
+            errorPlacement: function (error, element) {
+                error.insertAfter(element.parent());
+            }
+        });
+    })
+</script>

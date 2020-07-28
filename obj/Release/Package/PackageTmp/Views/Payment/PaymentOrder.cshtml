@@ -1,0 +1,41 @@
+﻿@model WatanART.Models.PaymentModel
+@{
+    Layout = "~/Views/Shared/_WebSiteLayout.cshtml";
+    Layout = "";
+    ViewBag.Title = "Payment Order";
+}
+<div class="page about">
+    <div class="container">
+        <h2>@ViewBag.Title</h2>
+
+        @using (Html.BeginForm("PaymentOrder", "Payment", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <h4>Purchase Process.</h4>
+            <hr />
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(m => m.OrderInfo, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.OrderInfo, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.PurchaseAmount, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.PurchaseAmount, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" class="btn btn-default" value="Pay" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

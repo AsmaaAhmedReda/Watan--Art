@@ -1,0 +1,25 @@
+﻿<ul class="nav navbar-nav navbar-right">
+    <li>
+        @if (WatanART.Helpers.CultureHelper.CurrentCulture == 0|| WatanART.Helpers.CultureHelper.CurrentCulture == 2)
+        {
+            <a href="/Home/ChangeCurrentCulture/1">
+                <i class="fa fa-globe" aria-hidden="true"></i><span class="chosen-lang">@WatanART.Localization.Resource.CurrentLangauge</span>
+            </a>
+                    <script>
+                        var Lang = "en";
+                        //$("link[href = '/css/en.css']").attr("href", "/css/arabic.css");
+                    </script>
+        }
+        else
+        {
+            <script>
+                        var Lang = "ar";
+                        //$("link[href = '/css/arabic.css']").attr("href", "/assets/css/en.css");
+            </script>
+                    <a href="/Home/ChangeCurrentCulture/0">
+                        <i class="fa fa-globe" aria-hidden="true"></i><span class="chosen-lang">@WatanART.Localization.Resource.CurrentLangauge</span>
+                    </a>
+        }
+
+    </li>
+</ul>

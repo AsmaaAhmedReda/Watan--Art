@@ -1,0 +1,192 @@
+﻿@model  WatanART.BLL.ViewModels.UsersVM
+@{
+    ViewBag.Title = WatanART.Localization.Resource.ChangeLoginData;
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+
+<div id="ribbon">
+    <span class="ribbon-button-alignment">
+        <span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh" rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true">
+            <i class="fa fa-refresh"></i>
+        </span>
+    </span>
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+        <li><a href="../../admin/Shared/Index">@WatanART.Localization.Resource.MenuHome</a></li>
+        <li>@WatanART.Localization.Resource.ChangeLoginData</li>
+    </ol>
+</div>
+<div id="content">
+
+    <!-- widget grid -->
+    <section id="widget-grid" class="">
+
+        <!-- START ROW -->
+        <div class="row">
+            <!-- NEW COL START -->
+            <article class="col-sm-12 col-md-12 col-lg-12">
+
+                <!-- Widget ID (each widget will need unique ID)-->
+                <div class="jarviswidget" id="wid-id-4" data-widget-editbutton="false" data-widget-custombutton="false">
+                    <!-- widget options:
+                        usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                        data-widget-colorbutton="false"
+                        data-widget-editbutton="false"
+                        data-widget-togglebutton="false"
+                        data-widget-deletebutton="false"
+                        data-widget-fullscreenbutton="false"
+                        data-widget-custombutton="false"
+                        data-widget-collapsed="true"
+                        data-widget-sortable="false"
+
+                    -->
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                        <h2>@WatanART.Localization.Resource.ChangeLoginData </h2>
+
+                    </header>
+                    <!-- widget div-->
+                    <div>
+
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body">
+
+                            @*<form id="smart-form-register" class="smart-form">*@
+                            @using (Html.BeginForm("EditUser", "EditUser", FormMethod.Post, new
+                            {
+                                @class = "form-horizontal",
+                                data_bv_message = "This value is not valid",
+                                data_bv_feedbackicons_valid = "glyphicon glyphicon-ok",
+                                data_bv_feedbackicons_invalid = "glyphicon glyphicon-remove",
+                                data_bv_feedbackicons_validating = "glyphicon glyphicon-refresh",
+                                role = "form",
+                                enctype = "multipart/form-data",
+                                id = "EditUserform"
+                            }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <fieldset>
+                                    <div class="form-group">
+
+                                        @Html.LabelFor(m => m.Email, new { @class = "col-lg-2 control-label" })
+                                        <div class="col-lg-10">
+                                            @Html.TextBoxFor(m => m.Email, new
+                                       {
+                                           @class = "form-control",
+                                           data_bv_notempty = "true",
+                                           data_bv_notempty_message = @WatanART.Localization.Resource.Required,
+                                           data_bv_regexp = "true",
+                                           @readonly = true,
+                                           pattern = @"[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$",
+                                           data_bv_regexp_message = @WatanART.Localization.Resource.EnterVALIDEmailAddress,
+                                           data_bv_emailaddress = "false",
+                                           data_bv_emailaddress_message = @WatanART.Localization.Resource.EnterVALIDEmailAddress,
+                                           placeholder = @WatanART.Localization.Resource.EMail,
+                                       })
+
+                                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                                        <div class="col-md-4">
+                                            @Html.PasswordFor(m => m.Password, new
+                                       {
+                                           @class = "form-control",
+                                           data_bv_notempty = "true",
+                                           data_bv_notempty_message = @WatanART.Localization.Resource.Required,
+                                           data_bv_identical = "true",
+                                           data_bv_identical_field = "ConfirmPassword",
+                                           data_bv_identical_message = @WatanART.Localization.Resource.ConfirmPasswordIdenticalMessage,
+                                           pattern = @"^.{8,}$",
+                                           data_bv_regexp_message = @WatanART.Localization.Resource.PasswordLengthMessage,
+                                           placeholder = @WatanART.Localization.Resource.Password,
+
+                                       })
+                                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                        </div>
+
+                                        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+                                        <div class="col-md-4">
+                                            @Html.PasswordFor(m => m.ConfirmPassword, new
+                                       {
+                                           @class = "form-control",
+                                           data_bv_identical = "true",
+                                           data_bv_identical_field = "Password",
+                                           data_bv_identical_message = @WatanART.Localization.Resource.ConfirmPasswordIdenticalMessage,
+                                           placeholder = @WatanART.Localization.Resource.ConfirmPassword
+
+                                       })
+                                            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+
+                              
+
+                                <div class="form-actions">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="fa fa-floppy-o"></i> @WatanART.Localization.Resource.BtnSave
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            @*</form>*@
+
+                        </div>
+                        <!-- end widget content -->
+
+                    </div>
+                    <!-- end widget div -->
+
+                </div>
+                <!-- end widget -->
+            </article>
+            <!-- END COL -->
+        </div>
+        <!-- END ROW -->
+    </section>
+    <!-- end widget grid -->
+</div>
+<script type="text/javascript">
+
+    // DO NOT REMOVE : GLOBAL FUNCTIONS!
+
+    $(document).ready(function () {
+        
+        var msg = '@ViewBag.ErrorMsg'
+        var ErrorID = '@ViewBag.ErrorID'
+        if (msg != undefined && msg !== "") {
+            if (msg == "True")
+                ViewMessagePopup("@WatanART.Localization.Resource.DataSavedSuccessfully");
+            else
+                ViewMessagePopup("@WatanART.Localization.Resource.ErrorOccurred");
+        }
+        $('#EditUserform').bootstrapValidator();
+        // end movie form
+    });
+
+    $(document).on('submit', '#EditUserform', function (e) {
+        $('#EditUserform').bootstrapValidator();
+        e.defaultPrevented();
+    });
+</script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,267 @@
+﻿
+
+@{
+    ViewBag.Title = "AboutUs";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@model  WatanART.BLL.ViewModels.IntroVM
+<div id="ribbon">
+    <span class="ribbon-button-alignment">
+        <span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh" rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true">
+            <i class="fa fa-refresh"></i>
+        </span>
+    </span>
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+        <li><a href="../../admin/Shared/Index">@WatanART.Localization.Resource.MenuHome</a></li>
+        <li>@WatanART.Localization.Resource.privacypolicy</li>
+    </ol>
+</div>
+<div id="content">
+    <!-- widget grid -->
+    <section id="widget-grid" class="">
+        <!-- START ROW -->
+        <div class="row">
+            <!-- NEW COL START -->
+            <article class="col-sm-12 col-md-12 col-lg-12">
+                <div class="jarviswidget" id="wid-id-4" data-widget-editbutton="false" data-widget-custombutton="false">
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                        <h2>@WatanART.Localization.Resource.privacypolicy </h2>
+
+                    </header>
+                    <!-- widget div-->
+                    <div>
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body">
+                            @*<form id="smart-form-register" class="smart-form">*@
+                            @using (Html.BeginForm(null, null, FormMethod.Post, new
+                            {
+                                @class = "form-horizontal",
+                                data_bv_message = "This value is not valid",
+                                data_bv_feedbackicons_valid = "glyphicon glyphicon-ok",
+                                data_bv_feedbackicons_invalid = "glyphicon glyphicon-remove",
+                                data_bv_feedbackicons_validating = "glyphicon glyphicon-refresh",
+                                role = "form",
+                                enctype = "multipart/form-data",
+                                id = "frmForm"
+                            }))
+                            {
+                                @*<input type="hidden" id="ModuleID" name="ModuleID" value="@Model.ModuleID" class="formdata" />
+                                    <input type="hidden" id="ModuleCatID" name="ModuleCatID" value="@Model.ModuleCatID" class="formdata" />*@
+
+                                <fieldset>
+
+
+
+
+
+
+                                    <div class="form-group">
+                                        <label class="control-label col-lg-2">@WatanART.Localization.Resource.DescriptionAr </label>
+
+                                        <div class="col-lg-4">
+
+
+                                            <textarea name="IntroTextar" id="IntroTextar" placeholder="@WatanART.Localization.Resource.DescriptionAr" class="form-control EditorBox" data-bv-notempty="true"
+                                                      data-bv-notempty-message="@WatanART.Localization.Resource.Required">@Model.IntroTextar</textarea>
+                                            @*<p id="text1" style="display:none">@WatanART.Localization.Resource.Required</p>*@
+
+
+                                        </div>
+
+
+
+                                        <label class="control-label col-lg-2">@WatanART.Localization.Resource.DescriptionEn </label>
+
+                                        <div class="col-lg-4">
+
+
+                                            <textarea name="IntroTexten" id="IntroTexten" placeholder="@WatanART.Localization.Resource.DescriptionEn" class="form-control EditorBox" data-bv-notempty="true"
+                                                      data-bv-notempty-message="@WatanART.Localization.Resource.Required">@Model.IntroTexten</textarea>
+                                            @*<p id="text2" style="display:none">@WatanART.Localization.Resource.Required</p>*@
+
+                                        </div>
+
+
+
+
+                                    </div>
+
+                                    @*<div class="form-group">
+                                              <label class="control-label col-lg-2">@WatanART.Localization.Resource.DescriptionAr </label>
+                                             <div class="col-lg-4">
+                                                 @Html.TextAreaFor(m => m.IntroTextar, new
+                                        {
+                                            @class = "formdata form-control EditorBox",
+                                            data_bv_notempty = "true",
+                                            data_bv_notempty_message = @WatanART.Localization.Resource.Required
+
+                                        })
+                                                 @Html.ValidationMessageFor(model => model.IntroTextar, "", new { @class = "text-danger" })
+                                             </div>
+
+                                              <label class="control-label col-lg-2">@WatanART.Localization.Resource.DescriptionEn </label>
+                                             <div class="col-lg-4">
+                                                 @Html.TextAreaFor(m => m.IntroTexten, new
+                                        {
+                                            @class = "formdata form-control EditorBox",
+                                            data_bv_notempty = "true",
+                                            data_bv_notempty_message = @WatanART.Localization.Resource.Required
+                                        })
+                                                 @Html.ValidationMessageFor(model => model.IntroTexten, "", new { @class = "text-danger" })
+                                             </div>
+                                         </div>*@
+
+
+                                </fieldset>
+
+
+                                <div class="form-actions">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <button type="button" onclick="Submit();" class="btn btn-primary" id="btnSubmit">
+                                                <i class="fa fa-floppy-o"></i> @WatanART.Localization.Resource.BtnSave
+                                            </button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            @*</form>*@
+
+                        </div>
+                        <!-- end widget content -->
+
+                    </div>
+                    <!-- end widget div -->
+
+                </div>
+                <!-- end widget -->
+            </article>
+            <!-- END COL -->
+        </div>
+        <!-- END ROW -->
+    </section>
+    <!-- end widget grid -->
+</div>
+<script type="text/javascript">
+    // DO NOT REMOVE : GLOBAL FUNCTIONS!
+
+    //function Submit() {
+    //    $('#frmForm').bootstrapValidator('validate');
+
+    //    if ($('#frmForm').has('.has-error').length === 0) {
+    //        if (hasValue("#IntroTextar")) {
+    //            $(".text1").hide();
+    //            if (hasValue("#IntroTexten")) {
+    //                $(".text2").hide();
+    //                submitInsert();
+    //            } else {
+    //                $(".text2").show();
+        
+    //            }
+        
+    //        } else {
+    //            $(".text1").show();
+    //            if (hasValue("#IntroTexten")) {
+    //                $(".text2").hide();
+    //            } else {
+    //                $(".text2").show();
+    //            }
+    //        }
+            
+    //    } else {
+    //        // alert("notvalid");
+    //    }
+
+    //}
+
+
+    function Submit() {
+        $('#frmForm').bootstrapValidator('validate');
+
+        if ($('#frmForm').has('.has-error').length === 0) {
+          
+                    submitInsert();
+              
+
+        } else {
+            // alert("notvalid");
+        }
+
+    }
+
+
+
+
+
+
+
+    function submitInsert() {
+        debugger;
+
+        var IntroTextar = $('#IntroTextar').val();
+        var IntroTexten = $('#IntroTexten').val();
+
+
+
+
+        var url = '@Url.Action("policyAJAX", "Settings")';
+        $.ajax({
+            url: url,
+            data: {
+                IntroTextar: IntroTextar, IntroTexten: IntroTexten
+
+
+                        },
+
+
+            cache: false,
+            type: "POST",
+            success: function (data) {
+
+                var dataRes = data;
+                if (dataRes > 0) {
+
+
+                    swal({
+                        text: "@WatanART.Localization.Resource.DataSavedSuccessfully ",
+                        //timer: 5000
+                    }).then(
+                       function () {
+                           var href = "/Admin/Settings/policy";
+                           window.location.href = href;
+
+                       })
+
+
+                } else {
+                    swal("@WatanART.Localization.Resource.ErrorOccurred");
+                }
+
+
+            }
+        });
+        //}
+
+    }
+
+
+
+
+
+    function hasValue(elem) {
+        return $(elem).filter(function () { return $(this).val(); }).length > 0;
+    }
+
+
+</script>
+
+
+

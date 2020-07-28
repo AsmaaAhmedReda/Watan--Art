@@ -1,0 +1,279 @@
+﻿
+@model WatanART.BLL.ViewModels.PatternVM
+@{
+    ViewBag.Title = "update";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Areas/Admin/Js/select2-bootstrap.css" rel="stylesheet" />
+<link href="~/Areas/Admin/Js/select2.css" rel="stylesheet" />
+<div id="ribbon">
+    <span class="ribbon-button-alignment">
+        <span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh" rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true">
+            <i class="fa fa-refresh"></i>
+        </span>
+    </span>
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+        <li><a href="../../admin/Shared/Index">@WatanART.Localization.Resource.MenuHome</a></li>
+        <li><a href="@Url.Action("Index")">@WatanART.Localization.Resource.pattern</a></li>
+        <li>@WatanART.Localization.Resource.Edit</li>
+    </ol>
+</div>
+<div id="content">
+    <!-- widget grid -->
+    <section id="widget-grid" class="">
+        <!-- START ROW -->
+        <div class="row">
+            <!-- NEW COL START -->
+            <article class="col-sm-12 col-md-12 col-lg-12">
+                <div class="jarviswidget" id="wid-id-4" data-widget-editbutton="false" data-widget-custombutton="false">
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                        <h2>@WatanART.Localization.Resource.Edit </h2>
+
+                    </header>
+                    <!-- widget div-->
+                    <div>
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body">
+                            @*<form id="smart-form-register" class="smart-form">*@
+                            @using (Html.BeginForm("Add", "Pattern", FormMethod.Post, new
+                            {
+                                @class = "form-horizontal",
+                                data_bv_message = "This value is not valid",
+                                data_bv_feedbackicons_valid = "glyphicon glyphicon-ok",
+                                data_bv_feedbackicons_invalid = "glyphicon glyphicon-remove",
+                                data_bv_feedbackicons_validating = "glyphicon glyphicon-refresh",
+                                role = "form",
+                                enctype = "multipart/form-data",
+                                id = "frmForm"
+                            }))
+                            {
+                                <input type="hidden" id="ID" name="ID" value="@Model.ID" class="formdata" />
+                              
+
+                                    <fieldset>
+
+
+                                        <div class="form-group">
+
+
+
+                                            @Html.Label(WatanART.Localization.Resource.TitleAr, new { @class = "col-lg-2 control-label" })
+                                            <div class="col-lg-4">
+                                                @Html.TextBoxFor(m => m.PatternTextAR, new
+                                       {
+                                           @class = "form-control",
+                                           data_bv_notempty = "true",
+                                           data_bv_notempty_message = @WatanART.Localization.Resource.Required,
+                                           data_bv_stringlength = "true",
+                                           data_bv_stringlength_min = "1",
+                                           data_bv_stringlength_max = "100",
+                                           data_bv_stringlength_message = @WatanART.Localization.Resource.StringLengthErrorMessage_100,
+                                           placeholder = @WatanART.Localization.Resource.TitleAr
+                                       })
+
+                                                @Html.ValidationMessageFor(model => model.PatternTextAR, "", new { @class = "text-danger" })
+                                            </div>
+
+                                            @Html.Label(WatanART.Localization.Resource.TitleEn, new { @class = "col-lg-2 control-label" })
+                                            <div class="col-lg-4">
+                                                @Html.TextBoxFor(m => m.PatternTextEN, new
+                                       {
+                                           @class = "formdata form-control",
+                                           data_bv_notempty = "true",
+                                           data_bv_notempty_message = @WatanART.Localization.Resource.Required,
+                                           data_bv_stringlength = "true",
+                                           data_bv_stringlength_min = "1",
+                                           data_bv_stringlength_max = "100",
+                                           data_bv_stringlength_message = @WatanART.Localization.Resource.StringLengthErrorMessage_100,
+                                           placeholder = @WatanART.Localization.Resource.TitleEn
+                                       })
+
+                                                @Html.ValidationMessageFor(model => model.PatternTextEN, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+
+
+                                            @Html.Label(WatanART.Localization.Resource.Localprice, new { @class = "col-lg-2 control-label", @type = "number" })
+                                            <div class="col-lg-4">
+                                                @Html.TextBoxFor(m => m.Price, new
+                                           {
+                                               @class = "formdata form-control",
+                                               data_bv_notempty = "true",
+                                               data_bv_notempty_message = @WatanART.Localization.Resource.Required,
+                                               //pattern = @"^[1-9][0-9]?$|^100$",
+                                               data_bv_regexp_message = @WatanART.Localization.Resource.NumericOnly,
+
+
+                                               placeholder = @WatanART.Localization.Resource.Localprice
+                                           })
+
+                                                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                                            </div>
+                                          
+
+                                            @Html.Label(WatanART.Localization.Resource.Worldprice, new { @class = "col-lg-2 control-label", @type = "number" })
+                                            <div class="col-lg-4">
+                                                @Html.TextBoxFor(m => m.OutPrice, new
+                                           {
+                                               @class = "formdata form-control",
+                                               data_bv_notempty = "true",
+                                               data_bv_notempty_message = @WatanART.Localization.Resource.Required,
+                                               //pattern = @"^[1-9][0-9]?$|^100$",
+                                               data_bv_regexp_message = @WatanART.Localization.Resource.NumericOnly,
+
+
+                                               placeholder = @WatanART.Localization.Resource.Worldprice
+                                           })
+
+                                                @Html.ValidationMessageFor(model => model.OutPrice, "", new { @class = "text-danger" })
+                                            </div>
+
+
+                                        </div>
+
+
+
+                                    </fieldset>
+
+                                    <div class="form-actions">
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <button type="button" onclick="Submit();" class="btn btn-primary" id="btnSubmit">
+                                                    <i class="fa fa-floppy-o"></i> @WatanART.Localization.Resource.BtnSave
+                                                </button>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                            }
+                            @*</form>*@
+
+                        </div>
+                        <!-- end widget content -->
+
+                    </div>
+                    <!-- end widget div -->
+
+                </div>
+                <!-- end widget -->
+            </article>
+            <!-- END COL -->
+        </div>
+        <!-- END ROW -->
+    </section>
+    <!-- end widget grid -->
+</div>
+<script type="text/javascript">
+    // DO NOT REMOVE : GLOBAL FUNCTIONS!
+
+    //$(document).ready(function () {
+
+
+    //    $(".SELECT2").select2();
+
+    //});
+
+    function Submit() {
+        $('#frmForm').bootstrapValidator('validate');
+
+        if ($('#frmForm').has('.has-error').length === 0) {
+            submitInsert();
+        } else {
+            // alert("notvalid");
+        }
+
+    }
+
+
+
+
+    function submitInsert() {
+        debugger;
+
+
+        var ID = $("#ID").val();
+        var PatternTextAR = $("#PatternTextAR").val();
+        var PatternTextEN = $("#PatternTextEN").val();
+        var Price = $('#Price').val();
+        var OutPrice = $('#OutPrice').val();
+        //var DollarExchangeRate = $("#DollarExchangeRate").val();
+
+
+        var url = '@Url.Action("Updateajax", "Pattern")';
+        $.ajax({
+            url: url,
+            data: {
+                PatternTextAR: PatternTextAR, PatternTextEN: PatternTextEN, Price: Price, OutPrice: OutPrice,
+                ID: ID
+
+                        },
+
+
+            cache: false,
+            type: "POST",
+            success: function (data) {
+
+                var dataRes = data;
+                if (dataRes > 0) {
+
+
+                    swal({
+                        text: "@WatanART.Localization.Resource.DataSavedSuccessfully ",
+                        //timer: 5000
+                    }).then(
+                       function () {
+                           var href = "/Admin/Pattern/Index";
+                           window.location.href = href;
+
+                       })
+
+
+                } else {
+                    swal("@WatanART.Localization.Resource.ErrorOccurred");
+                }
+
+
+            }
+        });
+        //}
+
+    }
+
+
+
+
+
+
+
+
+</script>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

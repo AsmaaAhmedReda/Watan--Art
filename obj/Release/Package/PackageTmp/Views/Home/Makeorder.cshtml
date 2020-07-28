@@ -1,0 +1,1498 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_WebSiteLayout.cshtml";
+    ViewBag.Title = "register";
+}
+
+<link rel="stylesheet" href="~/css/cropper.css">
+<link rel="stylesheet" href="~/css/main.css">
+
+<style>
+    .cropper-modal {
+        background-color: #808080;
+        opacity: 1;
+    }
+
+    .cropper-dashed.dashed-h {
+        border-bottom-width: 0;
+        border-top-width: 0;
+    }
+
+    .cropper-dashed.dashed-v {
+        border-left-width: 5px;
+        border-right-width: 5px;
+        opacity: 1;
+    }
+
+   input[type=range][orient=vertical]
+{
+    writing-mode: bt-lr; /* IE */
+    -webkit-appearance: slider-vertical; /* WebKit */
+    width: 8px;
+    height: 175px;
+    padding: 0 5px;
+}
+
+
+   .zoom-slider {
+    position: absolute;
+    left: 15px;
+    top: 30px;
+    z-index: 99;
+ 
+}
+
+   .loader-gif {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.75);
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 9999999;
+    text-align: center;
+}
+.imageloader{margin-top:19%}
+
+    /*.cropper-container img {
+    *    width: 300px !important;
+        height: 300px !important;
+    }*/
+ /*.cropper-crop-box{width: 280px !important;height: 280px !important;}
+   
+    .cropper-container img {
+   
+}*/
+ /*transform: translateX(506.667px) translateY(41.6667px) !important;*/
+  /*width: 100% !important;*/
+    /*transform: translateY(0) !important;*/
+ 
+</style>
+
+
+@{ 
+    var itemlis = ViewBag.pattern as IEnumerable<WatanART.BLL.ViewModels.PatternVM>;
+
+}
+
+<div class="page order">
+    <div class="container">
+        <div style="display:none"  class="loader-gif"><img class="imageloader" src="~/layout/img/30.gif" /></div>
+																											   
+        <input type="hidden" id="langid" value="@WatanART.Helpers.CultureHelper.CurrentCulture" />
+        @*<h3 class="page-title">@WatanART.Localization.Resource.MakeOrder</h3>*@
+        <div class="container">
+           
+            <div id="actions">
+                <div class="img-container">
+
+                    <div class="size-buttons docs-toggles">
+                        <div class="btn-group d-flex flex-row btunratio"  data-toggle="buttons">
+                            <label @*onclick="getRatio('8_8');"*@ class="btn btn-primary active">
+                                <div class="size-icons">
+                                    <div class="size-icon">
+                                    </div>
+                                </div>
+                                <input type="radio" class="sr-only" id="aspectRatio1" name="aspectRatio" value="1">
+                                <span class="docs-tooltip" data-toggle="tooltip" id="8_8" title="aspectRatio: 8 X 8">
+                                    @itemlis.Where(x => x.ID == 1).FirstOrDefault().PatternText
+                                </span>
+                            </label>
+                            <label @*onclick="getRatio('12_8');"*@ class="btn btn-primary">
+                                <div class="size-icons">
+                                    <div class="size-icon rectangle">
+                                    </div>
+                                </div>
+                                <input type="radio" class="sr-only" id="aspectRatio2" name="aspectRatio" value=".666666667">
+                                <span class="docs-tooltip" data-toggle="tooltip" id="12_8" title="aspectRatio: 12 X 8">
+                                    @itemlis.Where(x => x.ID == 5).FirstOrDefault().PatternText
+                                </span>
+                            </label>
+                            <label @*onclick="getRatio('8_12');"*@ class="btn btn-primary">
+                                <div class="size-icons">
+                                    <div class="size-icon h-rectangle">
+                                    </div>
+                                </div>
+                                <input type="radio" class="sr-only" id="aspectRatio3" name="aspectRatio" value="1.5">
+                                <span class="docs-tooltip" id="8_12" data-toggle="tooltip" title="aspectRatio: 8 X 12">
+                                  @itemlis.Where(x => x.ID == 2).FirstOrDefault().PatternText
+                                </span>
+                            </label>
+                            <label @*onclick="getRatio('8_24');"*@ class="btn btn-primary">
+                                <div class="size-icons small-squire">
+                                    <div class="size-icon">
+                                    </div>
+                                    <div class="size-icon">
+                                    </div>
+                                    <div class="size-icon">
+                                    </div>
+                                </div>
+                                <input type="radio" class="sr-only" id="aspectRatio4" name="aspectRatio" value="3">
+                                <span class="docs-tooltip" id="8_24" data-toggle="tooltip" title="aspectRatio: 8 X 24">
+                                    @itemlis.Where(x => x.ID == 3).FirstOrDefault().PatternText
+                                </span>
+                            </label>
+                            <label @*onclick="getRatio('12_24');"*@ class="btn btn-primary">
+                                <div class="size-icons small-rectangle">
+                                    <div class="size-icon">
+                                    </div>
+                                    <div class="size-icon">
+                                    </div>
+                                    <div class="size-icon">
+                                    </div>
+                                </div>
+                                <input type="radio" class="sr-only" id="aspectRatio5" name="aspectRatio" value="2">
+                                <span class="docs-tooltip" data-toggle="tooltip" id="12_24" title="aspectRatio: 12 X 24">
+                                    @itemlis.Where(x => x.ID == 6).FirstOrDefault().PatternText
+                                </span>
+                            </label>
+                            <label @*onclick="getRatio('8_36');"*@ class="btn btn-primary">
+                                <div class="size-icons small-h-rectangle">
+                                    <div class="size-icon">
+                                    </div>
+                                    <div class="size-icon">
+                                    </div>
+                                    <div class="size-icon">
+                                    </div>
+                                </div>
+                                <input type="radio" class="sr-only" id="aspectRatio6" name="aspectRatio" value="4.5">
+                                <span class="docs-tooltip" id="8_36" data-toggle="tooltip" title="aspectRatio: 8 X 36">
+                                    @itemlis.Where(x => x.ID == 4).FirstOrDefault().PatternText
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="docs-buttons">
+                            <div class="buttons-control">
+                                <div class="btn-group">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-primary" data-method="rotate" data-option="90" title="">
+                                            <span class="docs-tooltip" data-toggle="tooltip" title="Rotate(90)">
+                                                <span class="fa fa-rotate-right"></span>
+                                            </span>
+                                        </button>
+
+                                        @*<button type="button" class="btn btn-primary" data-method="clear" title="Clear">
+                                            <span class="docs-tooltip" data-toggle="tooltip" title="cropper.clear()">
+                                                <span class="fa fa-remove"></span>
+                                            </span>
+                                        </button>*@
+
+                                    </div>
+                                    <div class="btn-group">
+                                        <label class="btn btn-primary btn-upload" id="btnUploadImage" style="display:none;" for="inputImageReplace" title="Replace">
+                                            <input type="file" class="sr-only" id="inputImageReplace" name="file" accept=".jpg,.jpeg,.png,.gif,.bmp,.tiff">
+                                            <span class="docs-tooltip" data-toggle="tooltip" title="Replace">
+                                                <span class="fa fa-upload"></span>
+                                            </span>
+                                        </label>
+                                        @*<label class="btn btn-primary"  for="delete" >
+                                            <span id="imagecroppercancel666" onclick="deleteImage();" class="fa fa-trash"></span>
+                                           
+                                        </label>*@
+                                        <button type="button" onclick="deleteImage();" class="btn btn-primary">
+                                           
+                                            <span data-toggle="tooltip" title="close">
+                                                <span id="imagecroppercancel66" class="fa fa-close"></span>
+                                                <span id="imagedelete"></span>
+                                            </span>
+                                        </button>
+                                        
+                                        <div class="btn-group" style="display:none">
+                                            <button type="button" class="btn btn-primary zoom-in" data-method="zoom" data-option="0.05" title="Zoom In">
+                                                <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="cropper.zoom(0.05)">
+                                                    <span class="fa fa-search-plus"></span>
+                                                </span>
+                                            </button>
+                                            <button type="button" class="btn btn-primary zoom-out" data-method="zoom" data-option="-0.05" title="Zoom Out">
+                                                <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="cropper.zoom(-0.05)">
+                                                    <span class="fa fa-search-minus"></span>
+                                                </span>
+                                            </button>
+
+
+																																																																																																																				   
+																																																																																																																												 
+																							
+													   
+													 
+
+
+                                            <button type="button" class="btn btn-primary scale-out" data-method="scale" data-option="1" title="scale">
+                                                <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="cropper.scale(1)">
+                                                    <span class="fa fa-search-minus"></span>
+                                                </span>
+                                            </button>
+
+                                            <div class="btn-group btn-group-crop">
+                                                <button type="button" class="btn btn-success  cropedbutton" data-method="UpdateCropedImade">
+                                                    <span class="docs-tooltip" data-toggle="tooltip" data-original-title="" title="">
+                                                        Get Cropped Canvas
+                                                    </span>
+                                                </button>
+
+                                            </div>
+
+
+
+                                            <div class="btn-group btn-group-crop">
+                                                <button type="button" class="btn btn-success  cropedbutton2" data-method="Updateaddimage">
+                                                    <span class="docs-tooltip" data-toggle="tooltip" data-original-title="" title="">
+                                                        Get Cropped Canvas
+                                                    </span>
+                                                </button>
+
+                                            </div>
+
+                                            <input type="hidden" id="indeximage" />
+
+                                            <button type="button" class="btn btn-primary setolddata" data-method="setolddata" >
+                                                <span class="docs-tooltip" data-toggle="tooltip"  >
+                                                    <span class="fa fa-search-minus"></span>
+                                                </span>
+                                            </button>
+                                        </div>
+                                      
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div id="image-preview_dragdrop-container">
+                        <div id="image-preview_dragdrop">
+
+                            <input type="file" id="inputImage" class="append-item" name="files[]" multiple accept=".jpg,.jpeg,.png,.gif,.bmp,.tiff">
+                            <p><i class="fa fa-picture-o fa-5x" aria-hidden="true"></i></p>
+                            Click
+                            <i class="fa fa-upload"></i> to upload images here
+                        </div>
+                    </div>
+                    @*<img class="default-img" src="layout/img/picture.jpg" alt="Picture">*@
+                    <img src="" class="default-img" id="main_image" alt="Picture">
+
+                </div>
+
+
+                <div style="display:none;">
+                    <div class="docs-data">
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-prepend">
+                                <label class="input-group-text" for="dataX">X</label>
+                            </span>
+                            <input type="text" class="form-control" id="dataX" placeholder="x">
+                            <span class="input-group-append">
+                                <span class="input-group-text">px</span>
+                            </span>
+                        </div>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-prepend">
+                                <label class="input-group-text" for="dataY">Y</label>
+                            </span>
+                            <input type="text" class="form-control" id="dataY" placeholder="y">
+                            <span class="input-group-append">
+                                <span class="input-group-text">px</span>
+                            </span>
+                        </div>
+                        <div class="input-group input-group-sm">
+                            <input type="hidden" id="imagevalid" value="@WatanART.Localization.Resource.ValidateImage" />
+                            <span class="input-group-prepend">
+                                <label class="input-group-text" for="dataWidth">Width</label>
+                            </span>
+                            <input type="text" class="form-control" id="dataWidth" placeholder="width">
+                            <span class="input-group-append">
+                                <span class="input-group-text">px</span>
+                            </span>
+                        </div>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-prepend">
+                                <label class="input-group-text" for="dataHeight">Height</label>
+                            </span>
+                            <input type="text" class="form-control" id="dataHeight" placeholder="height">
+                            <span class="input-group-append">
+                                <span class="input-group-text">px</span>
+                            </span>
+                        </div>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-prepend">
+                                <label class="input-group-text" for="dataRotate">Rotate</label>
+                            </span>
+                            <input type="text" class="form-control" id="dataRotate" placeholder="rotate">
+                            <span class="input-group-append">
+                                <span class="input-group-text">deg</span>
+                            </span>
+                        </div>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-prepend">
+                                <label class="input-group-text" for="dataScaleX">ScaleX</label>
+                            </span>
+                            <input type="text" class="form-control" id="dataScaleX" placeholder="scaleX">
+                        </div>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-prepend">
+                                <label class="input-group-text" for="dataScaleY">ScaleY</label>
+                            </span>
+                            <input type="text" class="form-control" id="dataScaleY" placeholder="scaleY">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-9 docs-buttons">
+                    <div class="btn-group btn-group-crop" style="display:none;">
+                        <button type="button" class="btn btn-success" id="btntest" data-method="getCroppedCanvas">
+                            <span class="docs-tooltip" data-toggle="tooltip">
+                                Get Cropped Canvas
+                            </span>
+                        </button>
+                    </div>
+
+
+                    <div style="display:none !important" class="modal fade docs-cropped" id="getCroppedCanvasModal" role="dialog" aria-hidden="true" aria-labelledby="getCroppedCanvasTitle" tabindex="-1">
+                        <div class="modal-dialog" id="modelTest">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="getCroppedCanvasTitle">Cropped</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body"></div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <a class="btn btn-primary" id="download" href="javascript:void(0);" download="cropped.jpg">Download</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <textarea class="form-control" style="display:none;" id="putData" rows="1" placeholder="Get data to here or set data with this value"></textarea>
+                </div>
+
+
+
+                <div class="modal fade" style="display:none;" id="deleteModal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">@WatanART.Localization.Resource.Delete</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>@WatanART.Localization.Resource.DeleteImageConfirmationMessage</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">@WatanART.Localization.Resource.Close</button>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="deleteCurrentImage()">@WatanART.Localization.Resource.Ok</button>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div>
+
+
+
+
+                <div class="modal fade" style="display:none;" id="deleteALLModal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">@WatanART.Localization.Resource.DeleteAll</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>@WatanART.Localization.Resource.DeleteImageConfirmationMessage</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">@WatanART.Localization.Resource.Close</button>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="deleteallImagelist()">@WatanART.Localization.Resource.Ok</button>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div>
+
+
+                <div class="number-slider">
+                    <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
+                    <div class="numbers">
+                        0
+                    </div>
+                    @*<span>/ 2</span>*@
+                    <i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
+                </div>
+
+
+                <div class="thumbnails">
+                    <div class="row">
+                        @*<div class="col-md-1 print-num-container">
+                            <div class="print-num">
+                                <p>
+                                    Print Num
+                                </p>
+                            </div>
+                        </div>*@
+
+                        <div class="col-md-11" id="new-images">
+                            <div class="selectedImg clearfix row" style="flex-direction:row-reverse">
+                                <div class="col-md-1 align-right">
+                                    <div class="icons">
+                                        <i class="fa fa-trash" onclick="deleteallImage();" data-toggle="tooltip" title="delete All" aria-hidden="true"></i>
+                                        <label class="btn btn-primary btn-" for="inputFileToLoad_makeOrder" title="" image file">
+                                            <input type="file" class="sr-only" id="inputFileToLoad_makeOrder" class="append-item" name="files[]" multiple accept=".jpg,.jpeg,.png,.gif,.bmp,.tiff">
+                                            <span class="docs-tooltip" data-toggle="tooltip" title="image file">
+                                                <i class="fa fa-plus-circle"></i>
+                                            </span>
+                                        </label>
+
+
+                                        <i class="fa fa-floppy-o" onclick="uploadAllImages();" data-toggle="tooltip" title="save" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+          
+            </div>
+        </div>
+    </div>
+</div>
+
+<textarea id="textAreaFileContents" style="display:none;"></textarea><br>
+<textarea id="textAreaFileContents2" style="display:none;"></textarea>
+<textarea id="getconvaceimage" style="display:none;"></textarea>
+
+@section scripts{
+
+    <script>
+
+
+       
+
+        @*$('#inputFileToLoad_makeOrder').change(function (event) {
+            debugger;
+            if (event.target.files.length>0) {
+                debugger;
+                for  (var i=0;i<event.target.files.length;i++){
+                    (function(){
+                        var ii = i;
+                       // alert(ii);
+                        setTimeout(function(){
+
+            $(".cropper-container").css("display", "block");
+            $("#image-preview_dragdrop-container").css("display", "none");
+            var newpath = "";
+            var firstImageload = 0;
+            var file, img;
+            if ((file = event.target.files[ii])) {
+                img = new Image();
+                img.onload = function () {
+                    firstImageload=1;
+                    //alert(this.width + " " + this.height);
+                };
+                img.onerror = function () {
+                    alert("not a valid file: " + file.type);
+                };
+            }
+
+            var tmppath = URL.createObjectURL(event.target.files[ii]);
+            if (tmppath != "") {
+                newpath = tmppath.split('/')[3];
+            }
+            var img2 = new Image();
+            img2.src = window.URL.createObjectURL(file);
+            img2.onload = function () {
+                var width = img2.naturalWidth, height = img2.naturalHeight;
+
+                if (width < 600 || height < 600) {
+                    Show_Alert('Confirmation', 'info', "@WatanART.Localization.Resource.ValidateImage", true, 'Ok', '', false, '', '', false, '', '', null, null, null);
+
+
+                    return false;
+                }
+                else {
+                    $('.selectedImg').append('<div class="col-md-2 selectedImgDiv clearfix"><img  id=Image_' + newpath + '  class="img-fluid" ondblclick="test(this);" alt="Picture"><p><input class="patternNumber" id="number_' + newpath + '" type="number" min="1" value="1"></p><textarea class="makeorder_imageUploaded" id="' + newpath + '" style="display:none;"> </textarea><span id="dimemnsion_' + newpath + '"></span> <span class="patternid" id="patternId_' + newpath + '"></span> </div>');
+                    $(".selectedImg .selectedImgDiv:last-child img").attr('src', tmppath);
+
+                    debugger;
+                    $(".thumbnails .col-md-2 img").removeClass("selected");
+                    $(".thumbnails .col-md-2:last img").addClass("selected");
+                    var this_src = $(".thumbnails .col-md-2:last img").attr("src");
+                    $(".default-img").attr("src", this_src);
+                    $(".cropper-canvas img").attr("src", this_src);
+                    $(".cropper-view-box img").attr("src", this_src);
+
+                    var items = $(".thumbnails .col-md-2").length;
+                    if (items > 0) {
+                        var index = $(".selected").closest(".col-md-2").index() - 1;
+
+                    } else {
+                        var index = -1;
+                    }
+                    var count = $(".numbers").text();
+                    count++;
+                    $(".numbers").text(count)
+                    $(".thumbnails .col-md-2:eq(" + index + ") img").addClass("selected");
+                    $('.thumbnails .col-md-2:eq(' + index + ') img').dblclick();
+
+                    //$("#dimemnsion_" + newpath).text(width + ":" + height);
+                    $("#btnUploadImage").show();
+
+                    if ((width < 1000 || height < 1000) && (width > 600 || height > 600)) {
+                        $("#aspectRatio1").click();
+                    }
+                    else if (width / height == 1) {
+                        $("#aspectRatio1").click();
+                    }
+                    else if (height / width > 1) {
+                        $("#aspectRatio2").click();
+                    }
+                    else if (height / width < 1) {
+                        $("#aspectRatio3").click();
+                    }
+                    encodeImageFileAsURL(tmppath, "inputFileToLoad_makeOrder");
+
+                    $("zoom-out2").click();
+
+                    //if (event.target.files.length>1) {
+            
+                    //    debugger;
+                    //    for  ( i=1;i<event.target.files.length;i++){
+                    //        myFunctionofupdate2()
+                    //        //for(var update in <event.target.files) {
+                    //        (function(){
+                    //        var ii = i;
+                    //        setTimeout(function(){
+                    //        //$('.loader-gif').show();
+                    //        var tmppath2 = URL.createObjectURL(event.target.files[ii]);
+                    //        var len=event.target.files.length;
+                    //        var newpath2="";
+                    //        if (tmppath2 != "") {
+                    //            newpath2 = tmppath2.split('/')[3];
+                    //        }
+                    //        var img22 = new Image();
+                    //        img22.src = window.URL.createObjectURL(event.target.files[ii]);
+                    //        img22.onload = function () {
+                    //            var width2 = img22.naturalWidth, height2 = img22.naturalHeight;
+
+                    //            if (width2 < 600 || height2 < 600) {
+                                   
+
+
+                    //                return false;
+                    //            }
+                    //            else {
+                    //                $('.selectedImg').append('<div class="col-md-2 selectedImgDiv clearfix"><img  id=Image_' + newpath2 + '  class="img-fluid" ondblclick="test(this);" alt="Picture"><p><input class="patternNumber" id="number_' + newpath2 + '" type="number" min="1" value="1"></p><textarea class="makeorder_imageUploaded" id="' + newpath2 + '" style="display:none;"> </textarea><span id="dimemnsion_' + newpath2 + '"></span> <span class="patternid" id="patternId_' + newpath2 + '"></span> </div>');
+                    //                $(".selectedImg .selectedImgDiv:last-child img").attr('src', tmppath2);
+
+                    //                debugger;
+                                 
+                    //                var this_src2 = $(".thumbnails .col-md-2:last img").attr("src");
+                                  
+
+        
+                    //                $(".thumbnails .col-md-2 img").removeClass("selected");
+                    //                $(".thumbnails .col-md-2:last img").addClass("selected");
+                                   
+                                   
+
+                    //                var items2 = $(".thumbnails .col-md-2").length;
+                    //                if (items2 > 0) {
+                    //                    var index2 = $(".selected").closest(".col-md-2").index() - 1;
+
+                    //                } else {
+                    //                    var index2 = -1;
+                    //                }
+                      
+                                   
+                    //                $(".thumbnails .col-md-2:eq(" + index2 + ") img").addClass("selected");
+                    //                $('.thumbnails .col-md-2:eq(' + index2 + ') img').dblclick();
+
+                    //                patrenID="";
+                    //                if ((width2 < 1000 || height2 < 1000) && (width2 > 600 || height2 > 600)) {
+                    //                    $("#aspectRatio1").click();
+                    //                    patrenID="aspectRatio1";
+                    //                }
+                    //                else if (width2 / height2 == 1) {
+                    //                    $("#aspectRatio1").click();
+                    //                    patrenID="aspectRatio1";
+                    //                }
+                    //                else if (height2 / width2 > 1) {
+                    //                    $("#aspectRatio2").click();
+                    //                    patrenID="aspectRatio2";
+                    //                }
+                    //                else if (height2 / width2 < 1) {
+                    //                    $("#aspectRatio3").click();
+                    //                    patrenID="aspectRatio3";
+                    //                }
+                                   
+                    //                var imagesrc = this_src2;
+                                  
+                    //                var cropimage = this_src2;
+                    //                var reader = new FileReader();
+                    //                reader.readAsDataURL(readAsDataURL);
+                    //                reader.onload = function () {
+                    //                    cropimage=reader.result;
+                                        
+                    //                };
+                    //                var can = {};
+                    //                var patrenIDOBJ = patrenID;
+                    //                var zoomvalue = 1;
+                    //                var rotate = 0;
+                    //                //var object = { image: imagesrc, crop: cropimage, patern: patrenIDOBJ, can: can, zomm: cropBox.getElementsByClassName('zoom-slider')[0].value }
+                    //                //console.log("object" + JSON.stringify(object));
+                                  
+                    //                IOBreadcrumb.add(imagesrc, cropimage, patrenIDOBJ, can, zoomvalue, rotate);
+                                  
+                    //                //if (i>0 &&firstImageload==1) {
+                    //                //    $('.loader-gif').show();
+                    //                    myFunctionofupdate2()
+                    //                //}
+                                 
+                    //                //$(".cropedbutton2").click();
+                    //                //$("#dimemnsion_" + newpath).text(width + ":" + height);
+                                   
+
+                    //            }
+                    
+
+
+                    //        }
+        
+                    //        //if (len==(i)) {
+                    //        //    setTimeout(myFunctionofupdate2, 3000)
+                               
+                    //            //} 
+                    //        },1000);
+                    //        })();
+                    //    }
+               
+
+                    //}
+
+
+                    debugger;
+                }};
+                 
+
+                        },1000);
+                    })();
+                }
+            }
+                    //var index5 = $(".selected").closest(".col-md-2:visible").index();
+                    //$('.thumbnails .col-md-2:eq(' + (index5) + ') img').dblclick();
+
+                        //var indeximage = $(".thumbnails .selected").closest(".col-md-2").index();
+                        //var imagesrc = $(".thumbnails .selected").closest(".col-md-2").find("img").attr("src");
+                        //var patrenIDOBJ = $(".docs-toggles label.active").find("input").attr("id");
+                        //var zoomvalue = $('.zoom-slider').val();
+                        //IOBreadcrumb.add(imagesrc, '',patrenIDOBJ,'',zoomvalue);
+           
+            
+        });*@
+        function myFunctionofupdate2() {
+          
+            $("#indeximage").val();
+            
+            $(".cropedbutton2").click();
+            $('.loader-gif').hide();
+       
+        }
+        $('#inputImageReplace').change(function (event) {
+            debugger;
+            $("#inputImage3Pattern").text("");
+            $("#inputImage3Dim").text("");
+
+            $(".cropper-container").css("display", "block");
+            $("#image-preview_dragdrop-container").css("display", "none");
+            var img = document.getElementById('inputImageReplace');
+            //or however you get a handle to the IMG
+            var width = img.clientWidth;
+            var height = img.clientHeight;
+            var newpath = "";
+            var file, img;
+            if ((file = this.files[0])) {
+                img = new Image();       
+                img.onload = function () {
+                    //alert(this.width + " " + this.height);
+                };
+                img.onerror = function () {
+                   // alert("not a valid file: " + file.type);
+                };
+            }
+            var tmppath = URL.createObjectURL(event.target.files[0]);
+            if (tmppath != "") {
+                newpath = tmppath.split('/')[3];
+            }
+
+            var img2 = new Image();
+            img2.src = window.URL.createObjectURL(file);
+            img2.onload = function () {
+                var width = img2.naturalWidth, height = img2.naturalHeight;
+                if (width < 600 || height < 600) {
+                    Show_Alert('Confirmation', 'info', "@WatanART.Localization.Resource.ValidateImage", true, 'Ok', '', false, '', '', false, '', '',null, null, null);
+                    return false;
+                }
+                else {
+                    //if (images3 == undefined) {
+                    //    $('.selectedImg').append('<div class="col-md-2 selectedImgDiv clearfix"><img id="inputImage3"  class="img-fluid" ondblclick="test(this);" alt="Picture"><p><input class="patternNumber" id="number" type="number" min="1" value="1"></p><textarea class="makeorder_imageUploaded" id="' + newpath + '" style="display:none;"></textarea> <span id="inputImage3Dim"></span> <span class="patternid" id="inputImage3Pattern"></span> </div>');
+                    //    $(".selectedImg .selectedImgDiv:last-child img").attr('src', tmppath);
+                    //    debugger;
+                    //    $(".thumbnails .col-md-2 img").removeClass("selected");
+                    //    $(".thumbnails .col-md-2:last img").addClass("selected");
+                    //    var this_src = $(".thumbnails .col-md-2:last img").attr("src");
+                    //    $(".default-img").attr("src", this_src);
+                    //    $(".cropper-canvas img").attr("src", this_src);
+                    //    $(".cropper-view-box img").attr("src", this_src);
+                    //}
+                    //else {
+
+                        debugger;
+                        var txtid = $('.selected').attr('src').split('/')[3];
+                        $('.selected').attr('src', tmppath);
+                        $("#"+txtid).text("");
+                       // $("#number_'" + txtid).text("");
+
+                       // $('<textarea class="makeorder_imageUploaded" id="' + txtid + '" ').replaceAll('<textarea class="makeorder_imageUploaded" id="' + newpath + '" style="display:none;"></textarea> <span id="inputImage3Dim"></span> <span class="patternid" id="inputImage3Pattern"></span> ');
+
+                        $('.selectedImg').append('<textarea class="makeorder_imageUploaded" id="' + newpath + '" style="display:none;"></textarea>  <span id="inputImage3Dim"></span> <span class="patternid" id="inputImage3Pattern"></span> ');
+
+                        // $("#inputImage3").attr('src', tmppath);
+
+                        $(".thumbnails .col-md-2 img").removeClass("selected");
+                        $(".thumbnails .col-md-2:last img").addClass("selected");
+                        $(".default-img").attr("src", tmppath);
+                        $(".cropper-canvas img").attr("src", tmppath);
+                        $(".cropper-view-box img").attr("src", tmppath);
+                  //  }
+
+                    //$("#inputImage3Dim").text(width + ":" + height);
+
+                    if ((width < 1000 || height < 1000) && (width > 600 || height > 600)) {
+                        $("#aspectRatio1").click();
+                       
+
+                    }
+                    else if (width / height == 1) {
+                        $("#aspectRatio1").click();
+                      
+                    }
+                    else if (height / width > 1) {
+                        $("#aspectRatio2").click();
+                       
+                    }
+                    else if (height / width < 1) {
+                        $("#aspectRatio3").click();
+                       
+                    }
+
+
+                    encodeImageFileAsURL(tmppath, "inputImageReplace");
+											  
+                }
+            };
+        });
+       @*$('#inputImage').change(function (event) {
+            debugger;
+            
+            if (event.target.files.length>0) {
+                debugger;
+                for  (var i=0;i<event.target.files.length;i++){
+                    (function(){
+                        var ii = i;
+                        //alert(ii);
+                        setTimeout(function(){
+            //var img = document.getElementById('inputImage');
+            ////or however you get a handle to the IMG
+            //var width = img.clientWidth;
+            //var height = img.clientHeight;
+
+           // var images3 = $('#inputImage3').attr('src');
+            var newpath = "";
+
+            var file, img;
+            if ((file = event.target.files[ii])) {
+                img = new Image();
+                img.onload = function () {
+                    //alert(this.width + " " + this.height);
+                };
+                img.onerror = function () {
+                    //alert("not a valid file: " + file.type);
+                };
+            }
+            var tmppath = URL.createObjectURL(event.target.files[ii]);
+            if (tmppath != "") {
+                newpath = tmppath.split('/')[3];
+            }
+
+            var img2 = new Image();
+            img2.src = window.URL.createObjectURL(file);
+            img2.onload = function () {
+                var width = img2.naturalWidth, height = img2.naturalHeight;
+                if (width < 600 || height < 600) {
+                    Show_Alert('Confirmation', 'info', "@WatanART.Localization.Resource.ValidateImage", true, 'Ok', '', false, '', '', false, '', '', null, null, null);
+                    return false;
+                }
+                else {
+
+                   
+
+                    $(".cropper-container").css("display", "block");
+                    $("#image-preview_dragdrop-container").css("display", "none");
+
+                   // if (images3 == undefined) {
+                    //$('.selectedImg').append('<div class="col-md-2 selectedImgDiv clearfix"><img id=Image_' + newpath + '   class="img-fluid" ondblclick="test(this);" alt="Picture"><p><input class="patternNumber" id="number" type="number" min="1" value="1"></p><textarea class="makeorder_imageUploaded" id="' + newpath + '" style="display:none;"></textarea> <span id="inputImage3Dim"></span> <span class="patternid" id="inputImage3Pattern"></span> </div>');
+                    //$(".selectedImg .selectedImgDiv:last-child img").attr('src', tmppath);
+
+
+
+                    $('.selectedImg').append('<div class="col-md-2 selectedImgDiv clearfix"><img  id=Image_' + newpath + '  class="img-fluid" ondblclick="test(this);" alt="Picture"><p><input class="patternNumber" id="number_' + newpath + '" type="number" min="1" value="1"></p> <textarea class="makeorder_imageUploaded" id="' + newpath + '" style="display:none;"></textarea><span id="dimemnsion_' + newpath + '"></span> <span class="patternid" id="patternId_' + newpath + '"></span> </div>');
+                    $(".selectedImg .selectedImgDiv:last-child img").attr('src', tmppath);
+
+
+                        debugger;
+                        $(".thumbnails .col-md-2 img").removeClass("selected");
+                        $(".thumbnails .col-md-2:last img").addClass("selected");
+                        var this_src = $(".thumbnails .col-md-2:last img").attr("src");
+                        $(".default-img").attr("src", this_src);
+                        $(".cropper-canvas img").attr("src", this_src);
+                        $(".cropper-view-box img").attr("src", this_src);
+
+                        var items = $(".thumbnails .col-md-2").length;
+                        if (items > 0) {
+                            var index = $(".selected").closest(".col-md-2").index() - 1;
+
+                        } else {
+                            var index = -1;
+                        }
+                      
+                        var count = $(".numbers").text();
+                        count++;
+                        $(".numbers").text(count)
+                        $(".thumbnails .col-md-2:eq(" + index + ") img").addClass("selected");
+                        $('.thumbnails .col-md-2:eq(' + index + ') img').dblclick();
+                    //$(".thumbnails .col-md-2:eq("+index +") img").addClass("selected");
+
+
+
+                    //}
+                    //else {
+                    //    $('.selectedImg').append('<textarea class="makeorder_imageUploaded" id="' + newpath + '" style="display:none;"></textarea> <span id="inputImage3Dim"></span> <span class="patternid" id="inputImage3Pattern"></span> ');
+                    //    $("#inputImage3").attr('src', tmppath);
+
+                    //    $(".thumbnails .col-md-2 img").removeClass("selected");
+                    //    $(".thumbnails .col-md-2:last img").addClass("selected");
+                    //    var this_src = $(".thumbnails .col-md-2:last img").attr("src");
+                    //    $(".default-img").attr("src", this_src);
+                    //    $(".cropper-canvas img").attr("src", this_src);
+                    //    $(".cropper-view-box img").attr("src", this_src);
+
+                    //    var items = $(".thumbnails .col-md-2").length;
+                    //    if (items > 0) {
+                    //        var index = $(".selected").closest(".col-md-2").index() - 1;
+
+                    //    } else {
+                    //        var index = -1;
+                    //    }
+                    //    var count = $(".numbers").text();
+                    //    count++;
+                    //    $(".numbers").text(count)
+                    //    $(".thumbnails .col-md-2:eq(" + index + ") img").addClass("selected");
+                    //}
+
+                    // $("#dimemnsion_" + newpath).text(width + ":" + height);
+                    //$("#inputImage3Dim").text(width + ":" + height);
+                    $("#btnUploadImage").show();
+
+                    if ((width < 1000 || height < 1000) && (width > 600 || height > 600)) {
+                        $("#aspectRatio1").click();
+                    }
+                    else if (width / height == 1) {
+                        $("#aspectRatio1").click();
+                    }
+                    else if (height / width > 1) {
+                        $("#aspectRatio2").click();
+                    }
+                    else if (height / width < 1) {
+                        $("#aspectRatio3").click();
+                    }
+                 
+                    encodeImageFileAsURL(tmppath, "inputImage");
+
+                    //if (event.target.files.length>1) {
+                    //    debugger;
+                    //    for  ( i=1;i<event.target.files.length;i++){
+                    //        (function(){
+                    //            var ii = i;
+                    //            setTimeout(function(){
+                    //                var tmppath2 = URL.createObjectURL(event.target.files[ii]);
+                    //        var newpath2="";
+                    //        if (tmppath2 != "") {
+                    //            newpath2 = tmppath2.split('/')[3];
+                    //        }
+                    //        var img22 = new Image();
+                    //        img22.src = window.URL.createObjectURL(event.target.files[ii]);
+                    //        img22.onload = function () {
+                    //            var width2 = img22.naturalWidth, height2 = img22.naturalHeight;
+
+                    //            if (width2 < 600 || height2 < 600) {
+                                   
+
+
+                    //                return false;
+                    //            }
+                    //            else {
+                    //                $('.selectedImg').append('<div class="col-md-2 selectedImgDiv clearfix"><img  id=Image_' + newpath2 + '  class="img-fluid" ondblclick="test(this);" alt="Picture"><p><input class="patternNumber" id="number_' + newpath2 + '" type="number" min="1" value="1"></p><textarea class="makeorder_imageUploaded" id="' + newpath2 + '" style="display:none;"> </textarea><span id="dimemnsion_' + newpath2 + '"></span> <span class="patternid" id="patternId_' + newpath2 + '"></span> </div>');
+                    //                $(".selectedImg .selectedImgDiv:last-child img").attr('src', tmppath2);
+
+                    //                debugger;
+                                 
+                    //                var this_src2 = $(".thumbnails .col-md-2:last img").attr("src");
+                                  
+
+
+                    //                $(".thumbnails .col-md-2 img").removeClass("selected");
+                    //                $(".thumbnails .col-md-2:last img").addClass("selected");
+                                   
+                                   
+
+                    //                var items2 = $(".thumbnails .col-md-2").length;
+                    //                if (items2 > 0) {
+                    //                    var index2 = $(".selected").closest(".col-md-2").index() - 1;
+
+                    //                } else {
+                    //                    var index2 = -1;
+                    //                }
+                      
+                                   
+                    //                $(".thumbnails .col-md-2:eq(" + index2 + ") img").addClass("selected");
+                    //                $('.thumbnails .col-md-2:eq(' + index2 + ') img').dblclick();
+
+
+                    //                patrenID="";
+                    //                if ((width2 < 1000 || height2 < 1000) && (width2 > 600 || height2 > 600)) {
+                    //                    $("#aspectRatio1").click();
+                    //                    patrenID="aspectRatio1";
+                    //                }
+                    //                else if (width2 / height2 == 1) {
+                    //                    $("#aspectRatio1").click();
+                    //                    patrenID="aspectRatio1";
+                    //                }
+                    //                else if (height2 / width2 > 1) {
+                    //                    $("#aspectRatio2").click();
+                    //                    patrenID="aspectRatio2";
+                    //                }
+                    //                else if (height2 / width2 < 1) {
+                    //                    $("#aspectRatio3").click();
+                    //                    patrenID="aspectRatio3";
+                    //                }
+
+                    //                var imagesrc = this_src2;
+                    //                var cropimage = this_src2
+                    //                var reader = new FileReader();
+                    //                reader.readAsDataURL(tmppath2);
+                    //                reader.onload = function () {
+                    //                    cropimage=reader.result;
+                                        
+                    //                };
+                                   
+                    //                var can = "";
+                    //                var patrenIDOBJ = patrenID;
+                    //                var zoomvalue = 1;
+                    //                var rotate = 0
+                    //                //var object = { image: imagesrc, crop: cropimage, patern: patrenIDOBJ, can: can, zomm: cropBox.getElementsByClassName('zoom-slider')[0].value }
+                    //                //console.log("object" + JSON.stringify(object));
+                                  
+                    //                IOBreadcrumb.add(imagesrc, cropimage, patrenIDOBJ, can, zoomvalue, rotate);
+                    //                myFunctionofupdate2()
+                    //                //$("#dimemnsion_" + newpath).text(width + ":" + height);
+                                   
+
+                    //            }
+                    
+
+
+                    //        }
+                    //            },1000);
+                    //        })();
+                    //    }
+                    //}
+
+
+                }};
+
+                        },1000);
+                    })();
+                }
+            }
+                  
+
+
+                    //var index5 = $(".selected").closest(".col-md-2:visible").index();
+                    //$(".thumbnails .col-md-2:eq("+index5+") img").dblclick();
+                
+            
+        });*@
+
+       
+
+
+        var ExperiencesImagesArr = [];
+        var makeorderImagesArr = [];
+        var extensionArr = [];
+        var newImagesArr = [];
+        function encodeImageFileAsURL(newpath,fileid) {
+            if (newImagesArr.length < 5) {
+                var filesSelected = document.getElementById(fileid).files;
+                if (filesSelected.length > 0) {
+                    var fileToLoad = filesSelected[0];
+                    var fileReader = new FileReader();
+                    fileReader.onload = function (fileLoadedEvent) {
+                        var textAreaFileContents = document.getElementById("textAreaFileContents");
+                        var srcData = fileLoadedEvent.target.result;
+                        $("#textAreaFileContents").text(fileLoadedEvent.target.result);
+                        var newVal = $("#textAreaFileContents").text();
+                        var base64Content = newVal.split('base64,')[1];
+                        $("#textAreaFileContents2").text(base64Content);
+                        var x = $("#textAreaFileContents2").text();
+                        newImagesArr.push({ name: newpath, pathVal: x });
+                        ExperiencesImagesArr.push(x);
+                        extensionArr.push(".jpeg");
+                        var newpathqq = newpath.split('/')[3];
+                        $("#" + newpathqq).text(base64Content);
+                    };
+
+                    fileReader.readAsDataURL(fileToLoad);
+                }
+            }
+            else {
+               // swal("Warning", "you must upload only 5 images", "warning");
+                return false;
+            }
+        }
+
+        var patternArr = [];
+        var NumbersArr = [];
+        function uploadAllImages() {
+            debugger;
+            var userid = getCookie("UserID");
+
+            if (userid == undefined) {
+                //Show_Alert('Confirmation', 'info', "من فضلك قم بتسجيل الدخول اولا", true, 'Ok', '', false, '', '', false, '', '', null, null, null);
+
+                var checktotal = 0;
+                var m=0;
+                $('input.patternNumber').each(function (index) {
+                    debugger;
+                     m = parseInt($(this).val());
+                    IOBreadcrumb.breadcrumbs[index].imagecount=m;
+                    if (IOBreadcrumb.breadcrumbs[index].pattern == "aspectRatio4" || IOBreadcrumb.breadcrumbs[index].pattern == "aspectRatio5" || IOBreadcrumb.breadcrumbs[index].pattern == "aspectRatio6") {
+                        m = m * 3;
+
+                    }
+                    
+                    
+                    checktotal += parseInt(m);
+                });
+
+                if (checktotal < 3) {
+                    Show_Alert('Confirmation', 'info', "@WatanART.Localization.Resource.MoreImagesRequired", true, 'Ok', '', false, '', '', false, '', '', null, null, null);
+                    return false;
+                } else {
+                    $("#login-model-makeorder").show();
+                }
+
+                return false;
+            }
+
+            debugger;
+            //$('textarea.makeorder_imageUploaded').each(function () {
+            //    debugger;
+            //    var x = $(this).text();
+            //    if (x!="") {
+            //        makeorderImagesArr.push(x);
+            //    }
+
+            //});
+            var extensionArrnew=[];
+            for (var item in  IOBreadcrumb.breadcrumbs) {
+                debugger;
+                makeorderImagesArr.push(IOBreadcrumb.breadcrumbs[item].croppedimage);
+                extensionArrnew.push( IOBreadcrumb.breadcrumbs[item].croppedimage.substring(IOBreadcrumb.breadcrumbs[item].croppedimage.indexOf('/') + 1, IOBreadcrumb.breadcrumbs[item].croppedimage.indexOf(';base64')));
+                //extensionArrnew.push(item.croppedimage.substring(item.croppedimage.indexOf('/') + 1, item.croppedimage.indexOf(';base64')));
+            }
+
+
+            $('span.patternid').each(function () {
+                var y = $(this).text(); 
+                if (y!="") {
+                    patternArr.push(y);
+                }
+            });
+
+            @*var total = 0;
+
+            $('.selectedImgDiv > p > input.patternNumber').each(function (index) {
+                var m = $(this).val();
+                if (patternArr[index] == "3" || patternArr[index] == "4" || patternArr[index] == "6") {
+                    m = m * 3;
+                }
+
+                total += parseInt(m);
+                NumbersArr.push(m);
+            });
+
+           *@
+            if (checktotal < 3) {
+                Show_Alert('Confirmation', 'info', "@WatanART.Localization.Resource.MoreImagesRequired", true, 'Ok', '', false, '', '', false, '', '', null, null, null);
+                return false;
+            } else {
+                $('.loader-gif').show();
+                window.localStorage.setItem("arryobj", JSON.stringify(IOBreadcrumb.breadcrumbs));
+                window.location.href = "/home/shipping_order";
+            }
+
+          
+
+            //var uploadedImages=[];
+            //var url = "/api/FileUploader/SaveFileLst";
+            //if (makeorderImagesArr.length > 0) {
+            //    var addExperienceImageParam = { filePath: makeorderImagesArr, imageExten: extensionArrnew }
+            //    var jsonObj2 = JSON.stringify(addExperienceImageParam);
+            //    $.ajax({
+            //        type: 'POST',
+            //        contentType: "application/json; charset=utf-8",
+            //        dataType: "json",
+            //        url: url,
+            //        async: false,
+            //        data: jsonObj2,
+            //        success: function (data) {
+            //            //alert(data.result)
+            //            uploadedImages=data.result;
+            //           // window.localStorage.setItem("arrImages", JSON.stringify(data.result)); // Saving
+            //            //window.localStorage.setItem("arrPattern", JSON.stringify(patternArr));
+            //            //window.localStorage.setItem("arrNumbers", JSON.stringify(NumbersArr));
+            //            //window.localStorage.setItem("totalPrice", JSON.stringify(total));
+            //            for (var item in  uploadedImages) {
+            //                IOBreadcrumb.breadcrumbs[item].croppedimage=uploadedImages[item];
+               
+            //            }
+
+            //            window.localStorage.setItem("arryobj", JSON.stringify(IOBreadcrumb.breadcrumbs));
+            //            window.location.href = "/home/shipping_order";
+            //        },
+            //        error: function () {
+            //            alert("Error");
+            //        }
+            //    });
+            //}
+            //window.localStorage.setItem("arryobj", JSON.stringify(IOBreadcrumb.breadcrumbs));
+            //window.location.href = "/home/shipping_order";
+        }
+
+
+
+        function loginMakeorder()
+        {
+            debugger;
+            var Email = $("#Login_Email_makeorder").val();
+            var Password = $("#Login_Password_makeorder").val();
+
+
+            if (Email.trim()=="" || Password.trim()=="") {
+                if (Email.trim()=="") {
+                    $('#Login_Email_makeorder').css('border-color', 'red');
+                }
+                else {
+                    $('#Login_Email_makeorder').css('border-color', '');
+                }
+
+                if (Password.trim()=="") {
+                    $('#Login_Password_makeorder').css('border-color', 'red');
+                }
+                else {
+                    $('#Login_Password_makeorder').css('border-color', '');
+                }
+
+                return false;
+            }
+
+            var MethodParam = { "Email": Email, "Password": Password, "Language":  @WatanART.Helpers.CultureHelper.CurrentCulture };
+            $.ajax({
+                type: 'POST',
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                data: JSON.stringify(MethodParam),
+                url: "/api/Users/Login",
+                success: function (data) {
+                    debugger;
+                    if (data.result.success == false) {
+                        alert("error occured");
+                    }
+                    else {
+                        setCookie('UserID',data.result.obj.UserID,1);
+                        setCookie('UserName',data.result.obj.FullName,1);
+                        $("#btnlogin").hide();
+                        $("#profile").show();
+                        $("#profileMenu").show();
+                        $("#userMenu").show();
+                        $("#loggedname").text(data.result.obj.FullName);
+
+                        uploadAllImages();
+
+
+                    }
+                }
+            });
+        }
+
+        function test(srcimg) {
+            var index = $(".selected").closest(".col-md-2").index() - 1;
+            var this_src = $(srcimg).attr("src");
+            $(".cropper-canvas img").attr("src", this_src);
+            $(".cropper-view-box img").attr("src", this_src);
+            $(".thumbnails .col-md-2 img").removeClass("selected");
+            $(srcimg).addClass("selected");
+            $(".default-img").attr("src", this_src);
+        }
+
+        @*function getRatio(id)
+        {
+            debugger;
+            var dimImage = $("#" + id).text().trim();
+            var src = $('.selected').attr('src');
+            var src3 = $('.selected').attr('id');
+            var newpathqq = src.split('/')[3];
+            var Dimensiones = ""; var imgWidth = ""; var imgHeight = "";
+            if (src3 == "inputImage3") {
+                Dimensiones = $("#inputImage3Dim").text();
+                imgWidth = Dimensiones.split(':')[0];
+                imgHeight = Dimensiones.split(':')[1];
+            }
+            else {
+                Dimensiones = $("#dimemnsion_" + newpathqq).text();
+                imgWidth = Dimensiones.split(':')[0];
+                imgHeight = Dimensiones.split(':')[1];
+            }
+
+
+
+
+
+            
+
+            debugger;
+            switch (dimImage) {
+                case "8X8":
+                    $('.cropper-dashed.dashed-v').hide();
+                    $('.cropper-crop-box').attr('style', 'transform: translateX(310px) translateY(35px) !important');
+                   
+                    if (src3 == "inputImage3") {
+                        $("#inputImage3Pattern").text("1");
+                    }
+                    else {
+                        //$("#patternId_" + newpathqq).text("1");
+                    }
+                    break;
+                case "8X12":
+                    $('.cropper-dashed.dashed-v').hide();
+                    if (src3 == "inputImage3") {
+                        $("#inputImage3Pattern").text("2");
+                    }
+                    else {
+                        //$("#patternId_" + newpathqq).text("2");
+                    }
+
+                    break;
+                case "8X24":
+                    debugger;
+                    $('.cropper-dashed.dashed-v').show();
+                    
+                    if (src3 == "inputImage3") {
+                        $("#inputImage3Pattern").text("3");
+                    }
+                    else {
+                        //$("#patternId_" + newpathqq).text("3");
+                    }
+                    break;
+                case "8X36":
+                    $('.cropper-dashed.dashed-v').show();
+                    if (src3 == "inputImage3") {
+                        $("#inputImage3Pattern").text("4");
+                    }
+                    else {
+                        //$("#patternId_" + newpathqq).text("4");
+                    }
+
+
+                    break;
+                case "12X8":
+                    $('.cropper-dashed.dashed-v').hide();
+                    if (src3 == "inputImage3") {
+                        $("#inputImage3Pattern").text("5");
+                    }
+                    else {
+                       // $("#patternId_" + newpathqq).text("5");
+                    }
+
+
+                    break;
+                case "12X24":
+                    $('.cropper-dashed.dashed-v').show();
+                    if (src3 == "inputImage3") {
+                        $("#inputImage3Pattern").text("6");
+                    }
+                    else {
+                        //$("#patternId_" + newpathqq).text("6");
+                    }
+                    break;
+            }
+
+           
+            
+
+            if (src == undefined) {
+                Show_Alert('Confirmation', 'info', "@WatanART.Localization.Resource.ImageMessage", true, 'Ok', '', false, '', '', false, '', '', null, null, null);
+                return false;
+            }
+            //$("#btntest").trigger("click");
+        }*@
+
+
+        function deleteImage()
+        {
+            var src = $('.selected').attr('src');
+            //var txtid = $('.selected').attr('src').split('/')[3];
+
+            //$(".cropper-view-box > img").attr('src','');
+            //$('.cropper-canvas> img').attr('src','');
+            //$("#main_image").attr('src','');
+
+           // $("#Image_"+txtid).attr('src','');
+         
+            debugger;
+         
+         
+            if (src==undefined) {
+                Show_Alert('Confirmation', 'info', "@WatanART.Localization.Resource.imageRequired", true, 'Ok', '', false, '', '', false, '', '', null, null, null);
+                return false;
+            }else {
+                $("#deleteModal").modal('show');
+            }
+        }
+
+
+        function deleteCurrentImage()
+        {
+            debugger;
+            $("#imagedelete").click();
+           
+            $(".thumbnails .col-md-2:eq(0) img").dblclick();
+            debugger;
+            //deleteoneimage();
+          
+            
+
+            //var items = $('.thumbnails .col-md-2:visible').length;
+         
+            //var i = index + 1;
+
+           
+
+            //if (index < $(".thumbnails .col-md-2:visible").length - 1) {
+            //    index++;
+            //    if (i < items) {
+            //        i++;
+            //    }
+            //    $(".numbers").text(i);
+            //    $(".thumbnails .col-md-2 img").removeClass("selected");
+               
+            //    var src = $(".thumbnails .col-md-2:eq(" + (index-1) + ") img").attr("src");
+            //    $(".thumbnails .col-md-2:eq(" + (index-1) + ") img").dblclick();
+            //    $(".cropper-canvas img").attr("src", src);
+            //    $(".cropper-view-box img").attr("src", src);
+            //    $(".default-img").attr("src", src);
+
+
+
+           
+
+            }
+        
+
+        function deleteallImage(){
+            debugger;
+            if ($('.thumbnails .col-md-2').length>0) {
+                $("#deleteALLModal").modal('show');
+            }
+           
+        }
+        function deleteallImagelist(){
+            var numItems = $('.selectedImgDiv').length;
+            if (numItems &&numItems>0) {
+                IOBreadcrumb.breadcrumbs=[];
+                location.reload();
+            }
+           
+        }
+
+        var zoomvalue = -.25;
+        function deepdive(){ 
+            debugger;
+            $('.cropper-view-box img').css({
+                '-webkit-transform' : 'scale(' + $('.zoom-slider').val() + ')',
+                '-moz-transform'    : 'scale(' + $('.zoom-slider').val() + ')',
+                '-ms-transform'     : 'scale(' + $('.zoom-slider').val() + ')',
+                '-o-transform'      : 'scale(' + $('.zoom-slider').val() + ')',
+                'transform'         : 'scale(' + $('.zoom-slider').val()+ ')'
+            });
+            $(".scale-out").attr('data-option', '' + $('.zoom-slider').val() + '');
+            $(".scale-out").click();
+            //if ($('.zoom-slider').val() > zoomvalue && $('.zoom-slider').val() > 0) {
+            //    $(".scale-out").attr('data-option', '' + $('.zoom-slider').val() + '');
+
+            //} else if ($('.zoom-slider').val() < zoomvalue) {
+            //    $(".zoom-in").attr('data-option', '' + -$('.zoom-slider').val() + '');
+           
+            //}
+            //else{
+            //    $(".zoom-in").attr('data-option', '' + -zoomvalue + '');
+            //}
+            //$(".zoom-in").click();
+            //zoomvalue=$('.zoom-slider').val();
+        }
+
+
+        //$(document).ready(function (){
+        //    var scroll_zoom = new ScrollZoom($('.cropper-view-box'),6,0.1)
+        //})
+
+
+      
+
+
+
+      
+    </script>
+
+}
+
+@*<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://fengyuanchen.github.io/js/common.js"></script>*@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/es6-promise/4.1.1/es6-promise.js"></script>
+<script src="~/js/jquery-3.3.1.slim.min.js"></script>
+<script src="~/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/common.js"></script>
+<script src="~/js/main.js"></script>
+@*<script>
+    $(document).ready(function(){
+        debugger;
+      
+        console.log("gfdgfdg");
+    });
+</script>*@

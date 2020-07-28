@@ -1,0 +1,362 @@
+﻿
+@model  WatanART.BLL.ViewModels.CareerVM
+@{
+
+    if (Model.CareerID > 0)
+    {
+        ViewBag.Title = WatanART.Localization.Resource.MenuEditCareer;
+    }
+    else
+    {
+        ViewBag.Title = WatanART.Localization.Resource.MenuAddCareer;
+
+    }
+
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/assets/css/kendo.common.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="//kendo.cdn.telerik.com/2016.2.607/styles/kendo.default.min.css" />
+<script src="~/assets/js/kendo.all.min.js"></script>
+
+
+<div id="ribbon">
+    <span class="ribbon-button-alignment">
+        <span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh" rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true">
+            <i class="fa fa-refresh"></i>
+        </span>
+    </span>
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+        <li><a href="../../admin/Shared/Index">@WatanART.Localization.Resource.MenuHome</a></li>
+        <li><a href="@Url.Action("Index")">@WatanART.Localization.Resource.MenuCareers</a></li>
+        <li>@ViewBag.Title</li>
+    </ol>
+</div>
+<div id="content">
+
+    <!-- widget grid -->
+    <section id="widget-grid" class="">
+
+        <!-- START ROW -->
+        <div class="row">
+            <!-- NEW COL START -->
+            <article class="col-sm-12 col-md-12 col-lg-12">
+
+                <!-- Widget ID (each widget will need unique ID)-->
+                <div class="jarviswidget" id="wid-id-4" data-widget-editbutton="false" data-widget-custombutton="false">
+                    <!-- widget options:
+                        usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                        data-widget-colorbutton="false"
+                        data-widget-editbutton="false"
+                        data-widget-togglebutton="false"
+                        data-widget-deletebutton="false"
+                        data-widget-fullscreenbutton="false"
+                        data-widget-custombutton="false"
+                        data-widget-collapsed="true"
+                        data-widget-sortable="false"
+
+                    -->
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                        <h2>@ViewBag.Title </h2>
+
+                    </header>
+                    <!-- widget div-->
+                    <div>
+
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body">
+
+                            @*<form id="smart-form-register" class="smart-form">*@
+                            @using (Html.BeginForm("Edit", "Careers_CMS", FormMethod.Post, new
+                            {
+                                @class = "form-horizontal",
+                                data_bv_message = "This value is not valid",
+                                data_bv_feedbackicons_valid = "glyphicon glyphicon-ok",
+                                data_bv_feedbackicons_invalid = "glyphicon glyphicon-remove",
+                                data_bv_feedbackicons_validating = "glyphicon glyphicon-refresh",
+                                role = "form",
+                                enctype = "multipart/form-data",
+                                id = "CareerForm"
+                            }))
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <fieldset>
+                                    @Html.HiddenFor(model => model.CareerID, new { htmlAttributes = new { @class = "form-control" } })
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.CareerPositionID, new { @class = "col-lg-2 control-label" })
+                                        <div class="col-lg-4">
+                                            @Html.DropDownListFor(model => model.CareerPositionID, (IEnumerable<SelectListItem>)ViewData["CareersPositions"], @WatanART.Localization.Resource.Select,
+                                         new
+                                         {
+                                             @class = "select2",
+                                             data_bv_notempty = "true",
+                                             data_bv_notempty_message = @WatanART.Localization.Resource.Required,
+
+                                         })
+                                        </div>
+
+                                        @Html.LabelFor(m => m.WorkTypeID, new { @class = "col-lg-2 control-label" })
+                                        <div class="col-lg-4">
+                                            @Html.DropDownListFor(model => model.WorkTypeID, (IEnumerable<SelectListItem>)ViewData["WorkTypes"], @WatanART.Localization.Resource.Select,
+                                         new
+                                         {
+                                             @class = "select2",
+                                             data_bv_notempty = "true",
+                                             data_bv_notempty_message = @WatanART.Localization.Resource.Required,
+
+                                         })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.GenderID, new { @class = "col-lg-2 control-label" })
+                                        <div class="col-lg-4">
+                                            @Html.DropDownListFor(model => model.GenderID, (IEnumerable<SelectListItem>)ViewData["Gender"], @WatanART.Localization.Resource.Select,
+                                         new
+                                         {
+                                             @class = "select2",
+                                             data_bv_notempty = "true",
+                                             data_bv_notempty_message = @WatanART.Localization.Resource.Required,
+
+                                         })
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.LocationAR, new { @class = "col-lg-2 control-label" })
+                                        <div class="col-lg-10">
+                                            @Html.TextBoxFor(m => m.LocationAR, new
+                                       {
+                                           @class = "form-control",
+                                           data_bv_notempty = "true",
+                                           data_bv_notempty_message = @WatanART.Localization.Resource.Required,
+                                           data_bv_stringlength = "true",
+                                           data_bv_stringlength_min = "1",
+                                           data_bv_stringlength_max = "100",
+                                           data_bv_stringlength_message = @WatanART.Localization.Resource.StringLengthErrorMessage_150,
+                                           placeholder = @WatanART.Localization.Resource.LocationAR
+                                       })
+
+                                            @Html.ValidationMessageFor(model => model.LocationAR, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.LocationEN, new { @class = "col-lg-2 control-label" })
+                                        <div class="col-lg-10">
+                                            @Html.TextBoxFor(m => m.LocationEN, new
+                                       {
+                                           @class = "form-control",
+                                           data_bv_notempty = "true",
+                                           data_bv_notempty_message = @WatanART.Localization.Resource.Required,
+                                           data_bv_stringlength = "true",
+                                           data_bv_stringlength_min = "1",
+                                           data_bv_stringlength_max = "100",
+                                           data_bv_stringlength_message = @WatanART.Localization.Resource.StringLengthErrorMessage_150,
+                                           placeholder = @WatanART.Localization.Resource.LocationEN
+                                       })
+
+                                            @Html.ValidationMessageFor(model => model.LocationEN, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ExperienceAR, new { @class = "col-lg-2 control-label" })
+                                        <div class="col-lg-4">
+                                            @Html.TextBoxFor(m => m.ExperienceAR, new
+                                       {
+                                           @class = "form-control",
+                                           data_bv_notempty = "true",
+                                           data_bv_notempty_message = @WatanART.Localization.Resource.Required,
+                                           data_bv_stringlength = "true",
+                                           data_bv_stringlength_min = "1",
+                                           data_bv_stringlength_max = "50",
+                                           data_bv_stringlength_message = @WatanART.Localization.Resource.StringLengthErrorMessage_50,
+                                           placeholder = @WatanART.Localization.Resource.ExperienceAR
+                                       })
+                                            @Html.ValidationMessageFor(model => model.ExperienceAR, "", new { @class = "text-danger" })
+                                        </div>
+
+                                        @Html.LabelFor(m => m.ExperienceEN, new { @class = "col-lg-2 control-label" })
+                                        <div class="col-lg-4">
+                                            @Html.TextBoxFor(m => m.ExperienceEN, new
+                                       {
+                                           @class = "form-control",
+                                           data_bv_notempty = "true",
+                                           data_bv_notempty_message = @WatanART.Localization.Resource.Required,
+                                           data_bv_stringlength = "true",
+                                           data_bv_stringlength_min = "1",
+                                           data_bv_stringlength_max = "50",
+                                           data_bv_stringlength_message = @WatanART.Localization.Resource.StringLengthErrorMessage_50,
+                                           placeholder = @WatanART.Localization.Resource.ExperienceEN
+                                       })
+                                            @Html.ValidationMessageFor(model => model.ExperienceEN, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ResponsibilitiesAR, new { @class = "col-lg-2 control-label" })
+                                        <div class="col-lg-10">
+                                            @Html.TextAreaFor(m => m.ResponsibilitiesAR, new
+                                       {
+                                           @class = "EditorBox form-control",
+                                           data_bv_notempty = "true",
+                                           data_bv_notempty_message = @WatanART.Localization.Resource.Required,
+                                           placeholder = @WatanART.Localization.Resource.ResponsibilitiesAR
+                                       })
+                                            @Html.ValidationMessageFor(model => model.ResponsibilitiesAR, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ResponsibilitiesEN, new { @class = "col-lg-2 control-label" })
+                                        <div class="col-lg-10">
+                                            @Html.TextAreaFor(m => m.ResponsibilitiesEN, new
+                                       {
+                                           @class = "EditorBox form-control",
+                                           data_bv_notempty = "true",
+                                           data_bv_notempty_message = @WatanART.Localization.Resource.Required,
+                                           placeholder = @WatanART.Localization.Resource.ResponsibilitiesEN
+                                       })
+                                            @Html.ValidationMessageFor(model => model.ResponsibilitiesEN, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.QualificationsAR, new { @class = "col-lg-2 control-label" })
+                                        <div class="col-lg-10">
+                                            @Html.TextAreaFor(m => m.QualificationsAR, new
+                                       {
+                                           @class = "EditorBox form-control",
+                                           data_bv_notempty = "true",
+                                           data_bv_notempty_message = @WatanART.Localization.Resource.Required,
+                                           placeholder = @WatanART.Localization.Resource.QualificationsAR
+                                       })
+                                            @Html.ValidationMessageFor(model => model.QualificationsAR, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.QualificationsEN, new { @class = "col-lg-2 control-label" })
+                                        <div class="col-lg-10">
+                                            @Html.TextAreaFor(m => m.QualificationsEN, new
+                                       {
+                                           @class = "EditorBox form-control",
+                                           data_bv_notempty = "true",
+                                           data_bv_notempty_message = @WatanART.Localization.Resource.Required,
+                                           placeholder = @WatanART.Localization.Resource.QualificationsEN
+                                       })
+                                            @Html.ValidationMessageFor(model => model.QualificationsEN, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.WorkingConditionsAR, new { @class = "col-lg-2 control-label" })
+                                        <div class="col-lg-10">
+                                            @Html.TextAreaFor(m => m.WorkingConditionsAR, new
+                                       {
+                                           @class = "EditorBox form-control",
+                                           data_bv_notempty = "true",
+                                           data_bv_notempty_message = @WatanART.Localization.Resource.Required,
+                                           placeholder = @WatanART.Localization.Resource.WorkingConditionsAR
+                                       })
+                                            @Html.ValidationMessageFor(model => model.WorkingConditionsAR, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.WorkingConditionsEN, new { @class = "col-lg-2 control-label" })
+                                        <div class="col-lg-10">
+                                            @Html.TextAreaFor(m => m.WorkingConditionsEN, new
+                                       {
+                                           @class = "EditorBox form-control",
+                                           data_bv_notempty = "true",
+                                           data_bv_notempty_message = @WatanART.Localization.Resource.Required,
+                                           placeholder = @WatanART.Localization.Resource.WorkingConditionsEN
+                                       })
+                                            @Html.ValidationMessageFor(model => model.WorkingConditionsEN, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.MailToApply, new { @class = "col-lg-2 control-label" })
+                                        <div class="col-lg-4">
+                                            @Html.TextBoxFor(m => m.MailToApply, new
+                                       {
+                                           @class = "form-control",
+                                           data_bv_notempty = "true",
+                                           data_bv_notempty_message = @WatanART.Localization.Resource.Required,
+                                           data_bv_regexp = "true",
+
+                                           pattern = @"[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$",
+                                           data_bv_regexp_message = @WatanART.Localization.Resource.EnterVALIDEmailAddress,
+                                           data_bv_emailaddress = "false",
+                                           data_bv_emailaddress_message = @WatanART.Localization.Resource.EnterVALIDEmailAddress,
+                                           placeholder = @WatanART.Localization.Resource.MailToApply,
+                                       })
+
+                                            @Html.ValidationMessageFor(model => model.MailToApply, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.IsActive, new { @class = "col-lg-2 control-label" })
+                                        <div class="col-lg-4">
+                                            <div class="checkbox">
+                                                <label>
+                                                    @*<input type="checkbox" id="IsActive" name="IsActive" class="checkbox style-0" checked="checked">*@
+                                                    @Html.CheckBoxFor(model => model.IsActive, new
+                                               {
+                                                   htmlAttributes = new
+                                                   {
+                                                       @class = "checkbox style-1",
+                                                       @checked = "checked"
+                                                   }
+                                               })
+                                                    <span></span>
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </fieldset>
+
+                                <div class="form-actions">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button type="submit" id="btnCareerSubmit" class="btn btn-primary">
+                                                <i class="fa fa-floppy-o"></i> @WatanART.Localization.Resource.BtnSave
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            @*</form>*@
+
+                        </div>
+                        <!-- end widget content -->
+
+                    </div>
+                    <!-- end widget div -->
+
+                </div>
+                <!-- end widget -->
+            </article>
+            <!-- END COL -->
+        </div>
+        <!-- END ROW -->
+    </section>
+    <!-- end widget grid -->
+</div>
+<script type="text/javascript">
+ 
+
+      
+
+    $(document).on('submit', '#CareerForm', function (e) {
+        $('#CareerForm').bootstrapValidator();
+        e.defaultPrevented();
+    });
+</script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

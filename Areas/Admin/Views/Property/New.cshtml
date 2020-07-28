@@ -1,0 +1,334 @@
+﻿@model WatanART.BLL.ViewModels.PropertiesVM
+@{
+    ViewBag.Title = "New";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    
+}
+
+<div id="ribbon">
+    <span class="ribbon-button-alignment">
+        <span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh" rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true">
+            <i class="fa fa-refresh"></i>
+        </span>
+    </span>
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+        <li><a href="../../admin/Shared/Index">@WatanART.Localization.Resource.MenuHome</a></li>
+        <li><a href="@Url.Action("Index")">@WatanART.Localization.Resource.PropertyList</a></li>
+        <li>@WatanART.Localization.Resource.Add</li>
+    </ol>
+</div>
+<div id="content">
+    <!-- widget grid -->
+    <section id="widget-grid" class="">
+        <!-- START ROW -->
+        <div class="row">
+            <!-- NEW COL START -->
+            <article class="col-sm-12 col-md-12 col-lg-12">
+                <div class="jarviswidget" id="wid-id-4" data-widget-editbutton="false" data-widget-custombutton="false">
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                        <h2>@WatanART.Localization.Resource.Add </h2>
+
+                    </header>
+                    <!-- widget div-->
+                    <div>
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body">
+                            @*<form id="smart-form-register" class="smart-form">*@
+                            @using (Html.BeginForm("Add", "Property", FormMethod.Post, new
+                            {
+                                @class = "form-horizontal",
+                                data_bv_message = "This value is not valid",
+                                data_bv_feedbackicons_valid = "glyphicon glyphicon-ok",
+                                data_bv_feedbackicons_invalid = "glyphicon glyphicon-remove",
+                                data_bv_feedbackicons_validating = "glyphicon glyphicon-refresh",
+                                role = "form",
+                                enctype = "multipart/form-data",
+                                id = "frmForm"
+                            }))
+                            {
+                                @*<input type="hidden" id="ModuleID" name="ModuleID" value="@Model.ModuleID" class="formdata" />
+                                    <input type="hidden" id="ModuleCatID" name="ModuleCatID" value="@Model.ModuleCatID" class="formdata" />*@
+
+                                <fieldset>
+
+                                    <div class="form-group">
+
+
+
+                                        @Html.Label(WatanART.Localization.Resource.Category, new { @class = "col-lg-2 control-label" })
+                                        <div class="col-lg-10">
+                                            <select id="categorylist" class="form-control  SELECT2" name="categorylist" data-bv-notempty="true" data-bv-notempty-message="@WatanART.Localization.Resource.Required">
+                                                <option >@WatanART.Localization.Resource.Select</option>
+
+                                                @if (ViewBag.cat != null)
+                                                {
+                                                    foreach (var item in ViewBag.cat as IEnumerable<WatanART.BLL.ViewModels.CategoryVM>)
+                                                    {
+                                                        <option value="@item.Cat_ID">@item.Name</option>
+                                                    }
+                                                }
+                                            </select>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+
+
+
+                                        @Html.Label(WatanART.Localization.Resource.NameAr, new { @class = "col-lg-2 control-label" })
+                                        <div class="col-lg-4">
+                                            @Html.TextBoxFor(m => m.NameAR, new
+                                           {
+                                               @class = "form-control",
+                                               data_bv_notempty = "true",
+                                               data_bv_notempty_message = @WatanART.Localization.Resource.Required,
+                                               data_bv_stringlength = "true",
+                                               data_bv_stringlength_min = "1",
+                                               data_bv_stringlength_max = "100",
+                                               data_bv_stringlength_message = @WatanART.Localization.Resource.StringLengthErrorMessage_100,
+                                               placeholder = @WatanART.Localization.Resource.NameAr
+                                           })
+
+                                            @Html.ValidationMessageFor(model => model.NameAR, "", new { @class = "text-danger" })
+                                        </div>
+
+                                        @Html.Label(WatanART.Localization.Resource.NameEn, new { @class = "col-lg-2 control-label" })
+                                        <div class="col-lg-4">
+                                            @Html.TextBoxFor(m => m.NameEN, new
+                                           {
+                                               @class = "formdata form-control",
+                                               data_bv_notempty = "true",
+                                               data_bv_notempty_message = @WatanART.Localization.Resource.Required,
+                                               data_bv_stringlength = "true",
+                                               data_bv_stringlength_min = "1",
+                                               data_bv_stringlength_max = "100",
+                                               data_bv_stringlength_message = @WatanART.Localization.Resource.StringLengthErrorMessage_100,
+                                               placeholder = @WatanART.Localization.Resource.NameEn
+                                           })
+
+                                            @Html.ValidationMessageFor(model => model.NameEN, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    
+                                              
+                                                    <fieldset>
+                                                        <input id="hdn_count" type="hidden" value="0" />
+                                                        <input id="hdn_namear" type="hidden" value="" />
+                                                        <input id="hdn_nameen" type="hidden" value="" />
+                                                    <label style="color:red;">    @WatanART.Localization.Resource.AddOption </label >
+                                                        <div class="form-group">
+                                                            @Html.Label(WatanART.Localization.Resource.NameAr, new { @class = "col-lg-2 control-label" })
+
+                                                            <div class="col-lg-3">
+                                                                <input id="txt_name_ar_0" name="txt_name_ar_0" type="text" class="form-control" placeholder="@WatanART.Localization.Resource.NameAr" />
+
+
+                                                            </div>
+
+                                                            @Html.Label(WatanART.Localization.Resource.NameEn, new { @class = "col-lg-2 control-label" })
+                                                            <div class="col-lg-3">
+                                                                <input id="txt_name_en_0" name="txt_name_en_0" type="text" class="form-control" placeholder="@WatanART.Localization.Resource.NameEn" />
+                                                            </div>
+                                                            <div class="col-lg-2">
+                                                                <a  class="btn btn-success btn-sm" style="font-size:15px;font-weight:bold;"   onclick="AddOption('@WatanART.Localization.Resource.NameAr','@WatanART.Localization.Resource.NameEn');return false;">+</a>
+                                                                @*<a class="btn btn-danger btn-sm" style="font-size:15px;font-weight:bold;" onclick="RemoveOption('@WatanART.Localization.Resource.NameAr','@WatanART.Localization.Resource.NameEn');return false;">-</a>*@
+
+
+                                                            </div>
+
+                                                        </div>
+                                                        <div id="Div_options" name="Div_options">
+
+
+                                                        </div>
+
+                                                    </fieldset>
+                                                
+                                              
+
+
+
+</fieldset>
+
+                                    <div class="form-actions">
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <button type="button" onclick="Submit();" class="btn btn-primary" id="btnSubmit">
+                                                    <i class="fa fa-floppy-o"></i> @WatanART.Localization.Resource.BtnSave
+                                                </button>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    }
+                                    @*</form>*@
+
+</div>
+                        <!-- end widget content -->
+
+                    </div>
+                    <!-- end widget div -->
+
+                </div>
+                <!-- end widget -->
+            </article>
+            <!-- END COL -->
+        </div>
+        <!-- END ROW -->
+    </section>
+    <!-- end widget grid -->
+</div>
+<script type="text/javascript">
+    // DO NOT REMOVE : GLOBAL FUNCTIONS!
+
+    //$(document).ready(function () {
+
+
+    //    $(".SELECT2").select2();
+
+    //});
+    function AddOption(namear, nameen)
+    {
+     
+        if ((namear == '' || namear == undefined) && (nameen == '' || nameen == undefined)) {
+           
+            namear = document.getElementById('hdn_namear').value;
+            nameen = document.getElementById('hdn_nameen').value;
+        }
+        else {
+           
+            document.getElementById('hdn_namear').value = namear;
+            document.getElementById('hdn_nameen').value = nameen;
+        }
+
+        var x = document.getElementById('hdn_count').value;
+
+        var count = parseInt(x) + 1;
+        document.getElementById('hdn_count').value = count;
+        var Data = document.getElementById('Div_options').innerHTML
+        +"<div class='form-group'>"
+         + "<label class='col-lg-2 control-label' >"+namear+"</label>"
+
+         +"<div class='col-lg-3'>"
+         +" <input id='txt_name_ar_"+count+"' name='txt_name_ar_"+count+"' type='text' class='form-control' placeholder='"+namear+"' />"
+         +"</div>"
+            + "<label class='col-lg-2 control-label' >"+nameen+"</label>"
+          +"<div class='col-lg-3'>"
+          +" <input id='txt_name_en_"+count+"' name='txt_name_en_"+count+"' type='text' class='form-control' placeholder='"+nameen+"' />"
+          +"</div>"
+          +" <div class='col-lg-2'>"
+          + "  <a  class='btn btn-success btn-sm' style='font-size:15px;font-weight:bold;'  onclick='AddOption();'>+</a>"
+          //+ "&nbsp;<a class='btn btn-danger btn-sm' style='font-size:15px;font-weight:bold;'>-</a>"
+
+          + "</div> </div>";
+        document.getElementById('Div_options').innerHTML = Data;
+
+    }
+   
+   
+    function Submit() {
+        $('#frmForm').bootstrapValidator('validate');
+
+        if ($('#frmForm').has('.has-error').length === 0) {
+            submitInsert();
+        } else {
+            // alert("notvalid");
+        }
+
+    }
+
+
+
+
+    function submitInsert() {
+        debugger;
+
+
+
+        var NameAR = $("#NameAR").val();
+        var NameEN = $("#NameEN").val();
+        var Cat_ID = $("#categorylist option:selected").val();
+        //var ChargePeriodAR = $('#ChargePeriodAR').val();
+        //var ChargePeriodEN = $('#ChargePeriodEN').val();
+        //var ChargePrice = $("#ChargePrice").val();
+        //var parent = $("#categorylist option:selected").val();
+        //var Image = $("#hid_Image").val();
+
+        var OptionsData;
+        var x = document.getElementById('hdn_count').value;
+
+        var count = parseInt(x) ;
+     
+        for (var i = 0; i <= count; i++) {
+           
+            var optionar = document.getElementById("txt_name_ar_"+i.toString()).value;
+            var optionen = document.getElementById("txt_name_en_" + i.toString()).value;
+            if (i==0) {
+                OptionsData = optionar + "&" + optionen + ",";
+
+            }
+            else
+            {
+                OptionsData += optionar + "&" + optionen + ",";
+
+            }
+            
+        }
+        var url = '@Url.Action("Insertajax", "Property")';
+        $.ajax({
+            url: url,
+            data: {
+                NameAR: NameAR, NameEN: NameEN, OptionsData: OptionsData, Cat_ID: Cat_ID
+                  },
+
+
+            cache: false,
+            type: "POST",
+            success: function (data) {
+
+                var dataRes = data;
+                if (dataRes > 0) {
+
+
+                    swal({
+                        text: "@WatanART.Localization.Resource.DataSavedSuccessfully ",
+                        //timer: 5000
+                    }).then(
+                       function () {
+                           var href = "/Admin/Property/Index/@ViewBag.catID";
+                           window.location.href = href;
+
+                       })
+
+
+                } else {
+                    swal("@WatanART.Localization.Resource.ErrorOccurred");
+                }
+
+
+            }
+        });
+        //}
+
+    }
+
+
+
+
+
+
+
+
+</script>
+
+
+

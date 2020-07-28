@@ -1,0 +1,72 @@
+﻿@model IEnumerable<WatanART.BLL.ViewModels.AlbumVM>
+
+@{
+    var Pageobj = ViewBag.PageObj as WatanART.BLL.ViewModels.PaggingVM;
+    Pageobj = Pageobj == null ? new WatanART.BLL.ViewModels.PaggingVM() { CurrentPage = 1, TotalPages = 1 } : Pageobj;
+
+    Pageobj.AjaxMetod = "ReloadTable(this)";
+}@if (Model != null && Model.Count() > 0)
+{
+
+<table id="datatable_tabletools" class="table table-striped table-bordered table-hover" width="100%">
+    <thead>
+        <tr class="header">
+            <th class="hasinput" width="8%">
+                <input type="text" class="form-control" placeholder="@WatanART.Localization.Resource.ID" />
+            </th>
+            <th class="hasinput">
+                <input type="text" class="form-control" placeholder="@WatanART.Localization.Resource.AlbumNameAR">
+            </th>
+            <th class="hasinput">
+                <input type="text" class="form-control" placeholder="@WatanART.Localization.Resource.AlbumNameEN" />
+            </th>
+
+            <th class="hasinput">
+            </th>
+            <th class="hasinput">
+            </th>
+            <th class="hasinput">
+            </th>
+        </tr>
+        <tr class="header">
+            <th data-class="expand">@Html.DisplayNameFor(model => model.AlbumID)</th>
+            <th data-hide="phone">@Html.DisplayNameFor(model => model.AlbumNameAR)</th>
+            <th data-hide="phone">@Html.DisplayNameFor(model => model.AlbumNameEN)</th>
+            <th data-hide="phone">@Html.DisplayNameFor(model => model.AlbumImage)</th>
+            <th data-hide="phone">@WatanART.Localization.Resource.Operations</th>
+            <th data-hide="phone">@WatanART.Localization.Resource.Activate</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.AlbumID)</td>
+                <td>@Html.DisplayFor(modelItem => item.AlbumNameAR)</td>
+                <td>@Html.DisplayFor(modelItem => item.AlbumNameEN)</td>
+
+                <td>
+                    @Html.Partial("ImageDisplayPV", item.AlbumImage + "")
+                </td>
+                <td>
+                    <a href="@Url.Action("EditAlbum", new { id = item.AlbumID})" class="btn btn-labeled btn-success"> <span class="btn-label"><i class="fa fa-edit"></i></span>@WatanART.Localization.Resource.Edit </a>
+                    <a href="javascript:void(0);" onclick="DeleteItem(@item.AlbumID,this);" class="btn btn-labeled btn-danger"> <span class="btn-label"><i class="fa fa-trash-o"></i></span>@WatanART.Localization.Resource.Delete </a>
+                </td>
+                <td>
+                    @Html.CheckBoxFor(modelItem => item.IsActive, new { @onchange = "ActiveDective(" + @item.AlbumID + ",this)" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+@Html.Partial("LazyPaggingPV")
+
+}
+else
+{
+<div> @WatanART.Localization.Resource.NoDataFound </div>
+}

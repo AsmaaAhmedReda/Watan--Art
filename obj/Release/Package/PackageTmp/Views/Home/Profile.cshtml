@@ -1,0 +1,292 @@
+﻿@model WatanART.BLL.ViewModels.UserObjVM
+@{
+    Layout = "~/Views/Shared/_WebSiteLayout.cshtml";
+    ViewBag.Title = "Profile";
+}
+
+
+@Html.HiddenFor(model => model.RegisterType, new { htmlAttributes = new { @class = "form-control" } })
+@Html.HiddenFor(model => model.UserID, new { htmlAttributes = new { @class = "form-control" } })
+
+@Html.HiddenFor(model => model.Fcm_Token, new { htmlAttributes = new { @class = "form-control" } })
+@Html.HiddenFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+<div class="page profile">
+    <div class="container">
+        <h3 class="page-title">@WatanART.Localization.Resource.Profile</h3>
+        
+        <!--
+    <div class="form-group">
+        <b>@WatanART.Localization.Resource.EMail: </b><span id="Email">@Model.Email</span>
+    </div>
+    -->
+
+        <b>@WatanART.Localization.Resource.EMail: </b>
+        <div class="form-group">
+            <span>
+                <input type="text" class="form-control" id="Email" value="@Model.Email" disabled="disabled">
+            </span>
+        </div>
+
+        <b>@WatanART.Localization.Resource.FullName * : </b>
+        <div class="form-group">
+            <span>
+                <input type="text" class="form-control" id="fullname" value="@Model.FullName" placeholder="First Name">
+            </span>
+        </div>
+        @*<span class="requirtxt">*</span>*@
+
+
+        <b>@WatanART.Localization.Resource.country * : </b>
+        <div class="form-group">
+
+            <span>
+                @Html.DropDownListFor(model => model.CountryID, (IEnumerable<SelectListItem>)ViewData["allcountries"]@*, @WatanART.Localization.Resource.Select*@,
+                                         new
+                                         {
+                                             @class = "form-control select2",
+                                             data_bv_notempty = "true",
+                                             data_bv_notempty_message = @WatanART.Localization.Resource.Required,
+                                             onchange = "viewCities();"
+                                         })
+
+
+            </span>
+        </div>
+        @*<span class="requirtxt">*</span>*@
+
+
+        <b>@WatanART.Localization.Resource.city * : </b>
+        <div class="form-group">
+            <span>
+                <select class="form-control select2" id="cityid"
+                        data-bv-notempty="true"
+                        data-bv-notempty-message=@WatanART.Localization.Resource.Required>
+                    @*<option value="-1">@WatanART.Localization.Resource.ChooseCity</option>*@
+                </select>
+            </span>
+
+        </div>
+
+        @*<span class="requirtxt">*</span>*@
+        <b>@WatanART.Localization.Resource.PhoneNumber * : </b>  <div class="form-group">
+            <span>
+                <input type="text" class="form-control" id="phone" value="@Model.Phone" placeholder="@WatanART.Localization.Resource.PhoneNumber">
+            </span>
+        </div>
+        @*<span class="requirtxt">*</span>*@
+
+
+
+        <button class="btn btn-primary changepass-btn">@WatanART.Localization.Resource.ChangePassword</button>
+        <br /><br />
+        <div class="changepass">
+            <div class="form-group">
+                <b>@WatanART.Localization.Resource.OldPassword * : </b><span><input class="form-control" required id="txt_OldPassword" type="Password" value="" /></span>
+            </div>
+            <div class="form-group">
+                <b>@WatanART.Localization.Resource.NewPassword * : </b><span><input class="form-control" required id="txt_NewPassword" type="Password" value="" /></span>
+            </div>
+            <div class="form-group">
+                <b>@WatanART.Localization.Resource.ConfirmPassword * : </b><span><input class="form-control" required id="txt_ConfirmPassword" type="password" value="" /></span>
+            </div>
+
+            <div class="form-group">
+                <button onclick="ChangePassword();" class="btn btn-primary">@WatanART.Localization.Resource.Complete</button>
+
+            </div>
+
+            
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <button type="button" onclick="register();" class="btn btn-primary">@WatanART.Localization.Resource.Edit</button>
+            </div>
+            <div class="col-sm-12">
+                <button type="button" onclick="register();" class="btn btn-primary">@WatanART.Localization.Resource.Edit</button>
+            </div>
+            <div class="col-sm-12">
+                <button type="button" onclick="register();" class="btn btn-primary">@WatanART.Localization.Resource.Edit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+    $(document).ready(function () {
+        obj = document.getElementById('CountryID');
+        if ("createEvent" in document) {
+            var evt = document.createEvent("HTMLEvents");
+            evt.initEvent("change", false, true);
+            obj.dispatchEvent(evt);
+        }
+        else
+            obj.fireEvent("onchange");
+        $("#cityid").val(@Model.cityID);
+    });
+
+    function register()
+    {
+        debugger;
+        var FullName=$("#fullname").val();
+        var Email= $("#Email").val();
+        var Password= $("#password").val();
+        var Phone=$("#phone").val();
+        var RegisterType=@Model.RegisterType;
+        var cityID = $("#cityid").val();
+        var CountryID=$("#CountryID").val();
+        var UserId='@Model.UserID';
+
+
+        if (FullName.trim()=="") {
+            $('#fullname').css('border-color', 'red');
+        }
+        else {
+            $('#fullname').css('border-color', '');
+        }
+
+        if (Phone.trim()=="") {
+            $('#phone').css('border-color', 'red');
+        }
+        else {
+            $('#phone').css('border-color', '');
+        }
+
+
+        if (CountryID==null ||CountryID==""||  CountryID=="-1") {
+            $('#CountryID').css('border-color', 'red');
+        }
+        else {
+            $('#CountryID').css('border-color', '');
+        }
+
+        if (cityID==null||cityID==""||cityID=="-1") {
+            $('#cityid').css('border-color', 'red');
+        }
+        else {
+            $('#cityid').css('border-color', '');
+        }
+
+        if(FullName.includes("#")||FullName.includes("=")){
+            Show_Alert('Confirmation', 'info', "@WatanART.Localization.Resource.validateFullName", true, 'Ok', '', false, '', '', false, '', '', null, null, null);
+            return false;
+        }
+        if (FullName.trim()=="" || Phone.trim()=="" || CountryID==null ||CountryID=="" ||  CountryID=="-1"|| cityID=="-1" ||cityID==null||cityID=="" ) {
+            debugger
+            //return false;
+        }else {
+            debugger
+
+            var chkPhone= telephoneCheck(Phone);
+            if (chkPhone==false) {
+                $('#phone').css('border-color', 'red');
+                Show_Alert('Confirmation', 'info', "@WatanART.Localization.Resource.validateMobileNumber", true, 'Ok', '', false, '', '', false, '', '', null, null, null);
+
+                return false;
+            }else {
+                $('#phone').css('border-color', '');
+            }
+
+            debugger;
+            @*var checkEmail=isValidEmailAddress(Email);
+        if (checkEmail==false) {
+            Show_Alert('Confirmation', 'info', "@WatanART.Localization.Resource.EnterVALIDEmailAddress", true, 'Ok', '', false, '', '', false, '', '', null, null, null);
+            return false;
+        }*@
+
+
+
+
+            var MethodParam = {"UserID":UserId, "FullName": FullName, "Email": Email, "Password": Password, "Phone": Phone, "RegisterType": RegisterType, "cityID": cityID, "CountryID": CountryID, "FB": "", "Fcm_Token": "", "Language": @WatanART.Helpers.CultureHelper.CurrentCulture };
+            $.ajax({
+                type: 'POST',
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                data: JSON.stringify(MethodParam),
+                url: "/api/Users/UpdateProfile",
+                success: function (data) {
+                    debugger;
+                    if (data.result.message != "") {
+                        Show_Alert('Confirmation', 'info', "@WatanART.Localization.Resource.DoneSuccessfully", true, 'Ok', '', false, '', '', false, '', '', null, null, null);
+
+                        $("#loggedname").text(FullName);
+                        setCookie('UserName',FullName,1);
+                    }
+                    else {
+                        Show_Alert('Confirmation', 'info', "@WatanART.Localization.Resource.ErrorOccurred", true, 'Ok', '', false, '', '', false, '', '', null, null, null);
+
+                    }
+                }
+            });
+        }
+    }
+
+    function ChangePassword() {
+        var userid = '@Model.UserID';
+        var NewPassword=$("#txt_NewPassword").val();
+        var ConfirmPassword=$("#txt_ConfirmPassword").val();
+        var OldPassword=$("#txt_OldPassword").val();
+
+        if (NewPassword.trim()=="") {
+            $('#txt_NewPassword').css('border-color', 'red');
+        }
+        else {
+            $('#txt_NewPassword').css('border-color', '');
+        }
+
+        if (ConfirmPassword.trim()=="") {
+            $('#txt_ConfirmPassword').css('border-color', 'red');
+        }
+        else {
+            $('#txt_ConfirmPassword').css('border-color', '');
+        }
+
+
+        if (OldPassword.trim()=="") {
+            $('#txt_OldPassword').css('border-color', 'red');
+        }
+        else {
+            $('#txt_OldPassword').css('border-color', '');
+        }
+
+
+        if (NewPassword.trim()!=""&&ConfirmPassword.trim()!=""&&OldPassword.trim()!="") {
+
+            if (NewPassword.trim()!=ConfirmPassword.trim()) {
+                Show_Alert('Confirmation', 'info', "@WatanART.Localization.Resource.ConfirmPasswordIdenticalMessage", true, 'Ok', '', false, '', '', false, '', '', null, null, null);
+
+                return false;
+            }
+
+
+            var MethodParam = { 'id': userid, 'NewPassword': NewPassword, 'ConfirmPassword': ConfirmPassword,"OldPassword":  OldPassword  };
+            $.ajax({
+                type: 'POST',
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                data: JSON.stringify(MethodParam),
+                url: "/api/Users/changePassWord",
+                success: function (data) {
+                    if (data.result) {
+                        $(".changepass").slideToggle(500);
+                        $("#txt_OldPassword").val('');
+                        $("#txt_ConfirmPassword").val('');
+                        $("#txt_NewPassword").val('');
+                        Show_Alert('Confirmation', 'info', "@WatanART.Localization.Resource.DoneSuccessfully", true, 'Ok', '', false, '', '', false, '', '', null, null, null);
+
+                    }
+                    else {
+                        Show_Alert('Confirmation', 'info', "@WatanART.Localization.Resource.ErrorOccurred", true, 'Ok', '', false, '', '', false, '', '', null, null, null);
+                        //alert("");
+                    }
+                }
+            });
+        }
+    }
+
+
+
+
+    </script>
+}

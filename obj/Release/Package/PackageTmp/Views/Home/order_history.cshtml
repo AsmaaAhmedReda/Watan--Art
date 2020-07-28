@@ -1,0 +1,28 @@
+﻿
+@model IEnumerable<WatanART.BLL.ViewModels.OrderVM>
+@{
+    Layout = "~/Views/Shared/_WebSiteLayout.cshtml";
+    ViewBag.Title = "order_history";
+    var count = 1;
+}
+
+<div class="page order-history">
+    <div class="container">
+        <h3 class="page-title">@WatanART.Localization.Resource.OrderHistory</h3>
+
+        @foreach (var item in Model)
+        {
+            <div class="order-history-list">
+                <b class="num">@count</b>
+                <p><span>@WatanART.Localization.Resource.OrderNumber</span> : @item.ID</p>
+                <p><span>@WatanART.Localization.Resource.NumberOfCanvas</span>: @item.ItemCount</p>
+                <p><span>@WatanART.Localization.Resource.Status :</span> @item.StateValue</p>
+                <p><span>@WatanART.Localization.Resource.date :</span> @item.CreatedDate.ToString("dd/MM/yyyy")</p>
+                <p><span>@WatanART.Localization.Resource.Price :</span> @item.ItemsCost $</p>
+                <a href="@Url.Action("order_details", "Home",new {ID=@item.ID })" class="btn btn-primary order-details-btn">@WatanART.Localization.Resource.Details</a>
+            </div>
+            count++;
+        }    
+    </div>
+</div>
+

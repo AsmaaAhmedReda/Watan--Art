@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @*@Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")*@
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink(WatanART.Localization.Resource.HomePage, "Index", "Home")</li>
+                    <li>@Html.ActionLink(WatanART.Localization.Resource.AboutUS, "About", "Home")</li>
+                    <li>@Html.ActionLink(WatanART.Localization.Resource.ContactUS, "Contact", "Home")</li>
+                </ul>
+                @*@Html.Partial("_Languages")
+                @Html.Partial("_LoginPartial")*@
+
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <div id="BodyContent">
+
+        </div>
+    </div>
+    <hr />
+    <footer>
+        <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+    </footer>
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+    <script type="text/javascript">
+        $('body').click(function (evt) {
+            if (evt.target.id == "profileMenu")
+                return;
+            //For descendants of menu_content being clicked, remove this check if you do not want to put constraint on descendants.
+            if ($(evt.target).closest('#profileMenu').length)
+                return;
+            var sf_menu_sub = $('.account-dropdown');
+            sf_menu_sub.hide();
+            //Do processing of click event here for every element except with id menu_content
+
+        });
+    </script>
+</body>
+</html>

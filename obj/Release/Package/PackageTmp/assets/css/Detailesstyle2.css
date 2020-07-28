@@ -1,0 +1,135 @@
+body {
+text-align: left;
+ }
+.block{
+  border-bottom: 2px solid #16a085;
+  padding: 10px 10px 0px 0px;
+  margin: 10px 0px;
+  display: flex;
+  align-items: center;
+}
+.block i{
+  background: #16a085;
+  color: #fff;
+width: 35px;
+height: 35px;
+text-align: center;
+line-height: 35px;
+margin-right: 10px;
+float: left;
+}
+
+.block p{
+  margin-bottom: 0px;
+}
+.block span{
+  margin-left: 5px;
+}
+.block label{
+  font-weight: bold;
+  color: #444;
+}
+table img{
+  border: 1px solid #ddd;
+  display: block;
+    padding: 30px;
+}
+table p{
+  margin-bottom: 0px;
+}
+table label{
+  font-weight: bold;
+  color: #444;
+}
+.download{
+background: #fff;
+border-color: #fff;
+color: #444;
+font-weight: bold;
+}
+.download i{
+  color: #e74c3c !important;
+}
+.download:hover{
+  background: #444;
+  color: #fff;
+  border-color: #444;
+}
+.list-group{
+  padding-left: 0px;
+}
+.title{
+  background: #e74c3c;
+  color: #fff;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.card{
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  border-bottom: 5px solid #34495e;
+  margin-bottom: 50px;
+  width: 100% !important;
+}
+.card i{
+  color: #f39c12;
+  margin-right: 5px;
+}
+.card b{
+  color: #34495e;
+}
+.card span{
+  color: #888;
+}
+.card-title{
+  margin-left: 15px;
+}
+.list-group-flush .list-group-item:nth-child(odd){
+  background: #eee;
+}
+.list-group-flush .list-group-item:first-child{
+margin-top: 15px;
+border-top: none;
+}
+.cards .col-md-3{
+  padding: 5px;
+}
+.card-img-top{
+  width: 100%;
+}
+/***/
+header p{text-align: center;text-transform: capitalize;margin-top: 0}
+header p:first-of-type{color: #f5a43b;font-size: 26px; margin-bottom: 30px;
+    margin-top: 10px;}
+.widget-icon,#ribbon{display: none}
+.block i{background: #f5a43b}
+.block{border-bottom: 2px solid #f5a43b }
+.widget-body {
+    max-width: 720px;
+    margin:20px auto;
+    box-shadow: 5px 5px 13px rgba(166, 164, 164, 0.36);
+    padding: 15px 30px;background-color: #fff
+}
+body{overflow-x: hidden;padding-top: 20px;background-color: #fbfbfb;background-image: url(../img/pattern/pattern-bg.png);color: #6b6b6b}
+header p{display: none}
+header p:first-of-type{display: block}
+header p .fa{margin-right: 5px}
+p.title-widget {
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 15px;
+    margin-top: 10px;
+}
+.block i {
+    background: rgba(245, 164, 59, 0);
+    color: #6b6b6b;
+    height: auto;
+    width: auto;
+    line-height: initial;
+    margin-right: 5px;
+    font-size: 12px;
+    line-height: 17px
+}
+.block{border-bottom: 0;padding: 0}

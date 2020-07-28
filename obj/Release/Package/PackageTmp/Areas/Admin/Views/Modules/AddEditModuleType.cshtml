@@ -1,0 +1,207 @@
+﻿
+@model  WatanART.BLL.ViewModels.ModulesCatagoryVM
+@{
+    ViewBag.Title = WatanART.Localization.Resource.AddEdit;
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+
+
+    
+
+}
+
+<div id="ribbon">
+    <span class="ribbon-button-alignment">
+        <span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh" rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true">
+            <i class="fa fa-refresh"></i>
+        </span>
+    </span>
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+        <li><a href="../../admin/Shared/Index">@WatanART.Localization.Resource.MenuHome</a></li>
+        <li><a href="@Url.Action("ModulesTypes")">@WatanART.Localization.Resource.ModulesList</a></li>
+        <li>@WatanART.Localization.Resource.AddEdit</li>
+    </ol>
+</div>
+<div id="content">
+
+    <!-- widget grid -->
+    <section id="widget-grid" class="">
+
+        <!-- START ROW -->
+        <div class="row">
+            <!-- NEW COL START -->
+            <article class="col-sm-12 col-md-12 col-lg-12">
+
+                <!-- Widget ID (each widget will need unique ID)-->
+                <div class="jarviswidget" id="wid-id-4" data-widget-editbutton="false" data-widget-custombutton="false">
+                    
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                        <h2>@WatanART.Localization.Resource.Edit </h2>
+
+                    </header>
+                    <!-- widget div-->
+                    <div>
+
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body">
+
+                            @*<form id="smart-form-register" class="smart-form">*@
+                            @using (Html.BeginForm("AddEditModuleType", "Modules", FormMethod.Post, new
+                            {
+                                @class = "form-horizontal",
+                                data_bv_message = "This value is not valid",
+                                data_bv_feedbackicons_valid = "glyphicon glyphicon-ok",
+                                data_bv_feedbackicons_invalid = "glyphicon glyphicon-remove",
+                                data_bv_feedbackicons_validating = "glyphicon glyphicon-refresh",
+                                role = "form",
+                                enctype = "multipart/form-data",
+                                id = "frmForm"
+                            }))
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <fieldset>
+                                     @Html.HiddenFor(model => model.CatagoryID, new { htmlAttributes = new { @class = "form-control" } })
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.CatagoryNameAr, new { @class = "col-lg-2 control-label" })
+                                        <div class="col-lg-10">
+                                            @Html.TextBoxFor(m => m.CatagoryNameAr, new
+                                       {
+                                           @class = "form-control",
+                                           data_bv_notempty = "true",
+                                           data_bv_notempty_message = @WatanART.Localization.Resource.Required,
+                                           data_bv_stringlength = "true",
+                                           data_bv_stringlength_min = "1",
+                                           data_bv_stringlength_max = "100",
+                                           data_bv_stringlength_message = @WatanART.Localization.Resource.StringLengthErrorMessage_100,
+                                           placeholder = @WatanART.Localization.Resource.NameAr
+                                       })
+
+                                            @Html.ValidationMessageFor(model => model.CatagoryNameAr, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div> 
+                                    <div class="form-group">
+    @Html.LabelFor(m => m.CatagoryNameEn, new { @class = "col-lg-2 control-label" })
+                                               <div class="col-lg-10">
+                                                   @Html.TextBoxFor(m => m.CatagoryNameEn, new
+   {
+       @class = "form-control",
+       data_bv_notempty = "true",
+       data_bv_notempty_message = @WatanART.Localization.Resource.Required,
+       data_bv_stringlength = "true",
+       data_bv_stringlength_min = "1",
+       data_bv_stringlength_max = "100",
+       data_bv_stringlength_message = @WatanART.Localization.Resource.StringLengthErrorMessage_100,
+       placeholder = @WatanART.Localization.Resource.NameEn
+   })
+
+                                                   @Html.ValidationMessageFor(model => model.CatagoryNameEn, "", new { @class = "text-danger" })
+                                               </div>   </div>
+                                     <div class="form-group">
+                                        @Html.LabelFor(m => m.LinksCount, new { @class = "col-lg-2 control-label" })
+                                        <div class="col-lg-4">
+                                            @Html.TextBoxFor(m => m.LinksCount, new
+                                       {
+                                           @class = "form-control",
+                                           data_bv_notempty = "true",
+                                           data_bv_notempty_message = @WatanART.Localization.Resource.Required,
+                                           min=0,max=10,
+                                           onblur="LoadLinksDiv( this.value);"
+                                       })
+
+                                            @Html.ValidationMessageFor(model => model.LinksCount, "", new { @class = "text-danger" })
+                                        </div>
+                                 
+                                    
+                                       </div>
+                                    <div class="form-group">
+                                        <div class="col-lg-2"></div>
+                                        <div id="div_Links" class="col-lg-4">
+                                            @Html.Hidden("h_link", @WatanART.Localization.Resource.Link,new { @id = "h_link" })
+                                            @if (Model.Links != null)
+                                            {
+                                                for(int i = 0; i <  Model.Links.Length;i++)
+                                                {
+                                                    var step = i + 1;
+                                                      <span>    @WatanART.Localization.Resource.Link   @step :    </span><input type="text" value="@Model.Links[i]" id="Link_ @step" name="Links"/> <br> 
+
+
+                                                }
+
+                                            }
+
+                                        </div>
+                                    </div>
+
+                                    @Html.Partial("ImageControlPV", "" + Model.CatagoryLogo + "", new ViewDataDictionary(this.ViewData) {  { "ID", "CatagoryLogo" } })
+
+
+
+
+</fieldset>
+
+                                <div class="form-actions">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="fa fa-floppy-o"></i> @WatanART.Localization.Resource.BtnSave
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            @*</form>*@
+
+                        </div>
+                        <!-- end widget content -->
+
+                    </div>
+                    <!-- end widget div -->
+
+                </div>
+                <!-- end widget -->
+            </article>
+            <!-- END COL -->
+        </div>
+        <!-- END ROW -->
+    </section>
+    <!-- end widget grid -->
+</div>
+ 
+
+
+<script type="text/javascript">
+    function LoadLinksDiv(num) {
+               
+        var html = "";
+        var link = $("#h_link").val();
+        for(var i=1;i<=num;i++)
+        {
+
+            html += ' <span>    ' +link+'  '+ i +    ':    </span><input type="text" id=Link_' + i + '" name="Links"/> <br>';
+
+        }
+
+        $("#div_Links").html(html);
+
+
+ 
+    }
+  
+   
+</script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+
+
+

@@ -1,0 +1,93 @@
+﻿@model IEnumerable<WatanART.BLL.ViewModels.AlbumGalleryVM>
+@{
+    ViewBag.Title = WatanART.Localization.Resource.MenuPhotos;
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div id="ribbon">
+    <span class="ribbon-button-alignment">
+        <span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh" rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true">
+            <i class="fa fa-refresh"></i>
+        </span>
+    </span>
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+        <li><a href="../../admin/Shared/Index">@WatanART.Localization.Resource.MenuHome</a></li>
+        <li>@WatanART.Localization.Resource.MenuGalleries</li>
+        <li>@WatanART.Localization.Resource.MenuPhotos</li>
+    </ol>
+</div>
+<div id="content">
+
+    <!-- widget grid -->
+    <section id="widget-grid" class="">
+
+        <!-- START ROW -->
+        <div class="row">
+            <!-- NEW COL START -->
+            <article class="col-sm-12 col-md-12 col-lg-12">
+                <!-- Widget ID (each widget will need unique ID)-->
+                <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-2" data-widget-editbutton="false">
+                    <!-- widget options:
+                        usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+                        data-widget-colorbutton="false"
+                        data-widget-editbutton="false"
+                        data-widget-togglebutton="false"
+                        data-widget-deletebutton="false"
+                        data-widget-fullscreenbutton="false"
+                        data-widget-custombutton="false"
+                        data-widget-collapsed="true"
+                        data-widget-sortable="false"
+                    -->
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                        <h2>@WatanART.Localization.Resource.MenuPhotos </h2>
+                    </header>
+                    <!-- widget div-->
+                    <div>
+
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body widget-body1">
+                            <a href="@Url.Action("EditPhoto")" class="btn btn-labeled btn-primary"> <span class="btn-label"><i class="fa fa-plus-square-o"></i></span>@WatanART.Localization.Resource.AddNewRecord </a>
+                        </div>
+                        <div class="widget-body">
+                            @{Html.RenderPartial("ViewPhotos", Model);}
+                        </div>
+                        <!-- end widget content -->
+                    </div>
+                    <!-- end widget div -->
+                </div>
+                <!-- end widget -->
+            </article>
+            <!-- END COL -->
+        </div>
+        <!-- END ROW -->
+    </section>
+    <!-- end widget grid -->
+</div>
+<script type="text/javascript">
+    function ReloadTable(e) {
+
+        General_ReloadTable(e, "/Admin/Galleries/ViewPhotos?CurrentPage=", "");
+        
+    }
+    function DeleteItem(MediaID, control) {
+
+
+        var data = { 'MediaID': MediaID };
+        var url = "/admin/Galleries/DeletePhoto";
+        General_DeleteItem(MediaID, control, data, url, "@WatanART.Localization.Resource.DeleteMessageConfirmation", "@WatanART.Localization.Resource.RecordDeletedSuccessfully", "@WatanART.Localization.Resource.ErrorOccurred");
+
+      
+    }
+</script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

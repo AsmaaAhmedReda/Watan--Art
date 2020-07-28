@@ -1,0 +1,28 @@
+﻿@model string
+@{    
+    WatanART.BLL.BussinessLayer.Generic _Generic = new WatanART.BLL.BussinessLayer.Generic();
+    var ImagePath = Model;
+
+
+    if (ViewData["IsYoutube"] == null||  (ViewData["IsYoutube"] != null && !(bool)ViewData["IsYoutube"]))
+    {
+
+
+        if (!string.IsNullOrEmpty(Model))
+        { ImagePath = _Generic.GetFilePath("UploadedImages", Model); }
+        else
+        { ImagePath = _Generic.GetFilePath("UploadedImages", "No_image_available.jpg"); }
+    }
+    else
+    {
+        ImagePath = Model;
+    }
+}
+
+<div class="gallery" id="links">
+    <a class="gallery-item" href="@ImagePath" name="aViewManagerPhoto" id="aViewManagerPhoto" data-gallery>
+        <div class="image">
+            <img src="@ImagePath" alt="Nature Image 1" class="header-avatar" width="100px" height="100px" name="ViewManagerPhoto" id="ViewManagerPhoto" />
+        </div>
+    </a>
+</div>
