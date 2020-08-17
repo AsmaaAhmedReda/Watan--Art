@@ -96,7 +96,7 @@
     <main role="main">
       <div class="auto-content">
           <!-- start add new work -->
-            <div class="upload-new-work text-center">
+            <div class="edit-work upload-new-work text-center">
               <div class="setting-container container">
                 <h3 class="title">Add new work</h3>
                 <div class="row">
@@ -124,7 +124,7 @@
                       <div class="form-input">
                         <label for="basic-url">Title</label>
                         <div class="input-group form-group">
-                          <input type="text" class="form-control" placeholder="">
+                          <input type="text" class="form-control" placeholder="Cat Galaxy">
                         </div>
                       </div>
                       <div class="form-input">
@@ -136,12 +136,8 @@
                       <div class="form-input">
                         <label for="basic-url">Description</label>
                         <div class="input-group form-group">
-                          <textarea class="form-control" rows="3" placeholder=""></textarea>
+                          <textarea class="form-control" rows="3" placeholder="Cat Galaxy simple design and creative "></textarea>
                         </div>
-                      </div>
-
-                      <div class="text-center">
-                        <button type="button" class="btn btn-default apply"><span>Apply</span></button>
                       </div>
                     </div>
                     
@@ -149,7 +145,7 @@
                       <div class="form-input">
                         <label for="basic-url">العنوان</label>
                         <div class="input-group form-group">
-                          <input type="text" class="form-control" placeholder="">
+                          <input type="text" class="form-control" placeholder="Cat Galaxy">
                         </div>
                       </div>
                       <div class="form-input">
@@ -161,17 +157,180 @@
                       <div class="form-input">
                         <label for="basic-url">Description</label>
                         <div class="input-group form-group">
-                          <textarea class="form-control" rows="3" placeholder=""></textarea>
+                          <textarea class="form-control" rows="3" placeholder="Cat Galaxy simple design and creative "></textarea>
                         </div>
-                      </div>
-
-                      <div class="text-center">
-                        <button type="button" class="btn btn-default apply"><span>Apply</span></button>
                       </div>
                     </div>
                   </div>
                 </div>
-            </div>
+              </div>
+              <!-- product previews -->
+              <div class="shop-products pt-5">
+                <div class="container setting-container py-5">
+                  <h3 class="title">Product Previews</h3>
+                <div class="row">
+                  <div class="col-sm-6 col-md-4">
+                    <div class="card">
+                      <div class="card-img">
+                          <img src="./layout/img/products/001.png" alt="Card image">
+                          <button type="button" class="btn upload-btn">Upload</button>
+                          <div class="two-btns">
+                            <button type="button" class="btn btn-warning edit-btn">Edit</button>
+                            <button type="button" class="btn btn-outline-dark cancel-btn">Cancel</button>
+                          </div>
+                      </div>
+                      <div class="card-body">
+                         <h3>T-shirt Man Classic</h3>
+                      </div>
+                    </div>
+                  </div>
+      
+                  <div class="col-sm-6 col-md-4">
+                    <div class="card">
+                      <div class="card-img">
+                          <img src="./layout/img/products/002.png" alt="Card image">
+                          <button type="button" class="btn upload-btn">Upload</button>
+                          <div class="two-btns">
+                            <button type="button" class="btn btn-warning edit-btn">Edit</button>
+                            <button type="button" class="btn btn-outline-dark cancel-btn">Cancel</button>
+                          </div>
+                      </div>
+                      <div class="card-body">
+                         <h3>Cover Mobile Samsung</h3>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="col-sm-6 col-md-4">
+                    <div class="card">
+                      <div class="card-img">
+                          <img src="./layout/img/products/003.png" alt="Card image">
+                          <button type="button" class="btn upload-btn">Upload</button>
+                          <div class="two-btns">
+                            <button type="button" class="btn btn-warning edit-btn">Edit</button>
+                            <button type="button" class="btn btn-outline-dark cancel-btn">Cancel</button>
+                          </div>
+                      </div>
+                      <div class="card-body">
+                         <h3>Cover Mobile Samsung</h3>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+      
+                <!--start details-->
+                <div class="item-details mt-3">
+                  <div class="row">
+                     <div class="col-sm-6 prod-slider">
+                        <div id="product-slider" class="carousel slide" data-ride="carousel">
+                          <ol class="carousel-indicators">
+                            <li data-target="#product-slider" data-slide-to="0" class="active"></li>
+                            <li data-target="#product-slider" data-slide-to="1"></li>
+                          </ol>
+                          <div class="carousel-inner">
+                            <div class="carousel-item active">
+                              <img class="d-block w-100" src="./layout/img/products/003.png" alt="First slide">
+                              <div class="carousel-caption">
+                                  <h5>T-shirt Man Classic</h5>
+                              </div>
+                            </div>
+      
+                            <div class="carousel-item">
+                              <img class="d-block w-100" src="./layout/img/products/003.png" alt="First slide">
+                              <div class="carousel-caption">
+                                  <h5>T-shirt Man Classic</h5>
+                              </div>
+                            </div>
+                         
+                            <!--progress bar-->
+                            <div class="progress mx-auto" data-value='80'>
+                              <span class="progress-left">
+                                  <span class="progress-bar"></span>
+                              </span>
+                              <span class="progress-right">
+                                  <span class="progress-bar"></span>
+                              </span>
+                              <div class="progress-value">
+                                <div><span>Upload</span>80%</div>
+                              </div>
+                            </div>
+                            <!-- END -->
+                          </div>
+                        </div>
+                     </div>
+                     <div class="col-sm-6 item-description text-left">
+                       <h3>Upload Mockups</h3>
+      
+                       <div class="color-size mb-2">
+                          <p class="details-title">Product Settings</p>
+                          <div class="color">
+                              <p>Available color from products</p>
+                              <div class="color-list">
+                                <div class="form-check form-check-inline">
+                                  <input class="form-check-input" name="color" type="radio" id="white" checked>
+                                  <label class="form-check-label" for="white">#0000</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                  <input class="form-check-input" name="color" type="radio" id="red">
+                                  <label class="form-check-label" for="red">#f1f1f1</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                  <input class="form-check-input" name="color" type="radio" id="green">
+                                  <label class="form-check-label" for="green">#fff</label>
+                                </div>
+                              </div>
+                          </div>
+                          <div class="size">
+                              <p>Available Size</p>
+                              <div class="color-list">
+                                <div class="form-check form-check-inline">
+                                  <input class="form-check-input" name="size" type="radio" id="medium" >
+                                  <label class="form-check-label" for="medium">M</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                  <input class="form-check-input" name="size" type="radio" id="large" checked>
+                                  <label class="form-check-label" for="large">L</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                  <input class="form-check-input" name="size" type="radio" id="xl">
+                                  <label class="form-check-label" for="xl">XL</label>
+                                </div>
+                              </div>
+                          </div>
+                       </div>
+      
+                       <div class="color-size mb-2">
+                          <p class="details-title">Get a cut</p>
+                          <table class="table">
+                            <thead>
+                              <tr>
+                                <th scope="col">Base Price</th>
+                                <th scope="col">Sold Price</th>
+                                <th scope="col">Profit</th>
+                                <th scope="col">Precentage</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                              <td>20$</td>
+                              <td>22$</td>
+                              <td>2$</td>
+                              <td><span class="percent">20%</span></td>
+                            </tr>
+                            </tbody>
+                          </table>
+                          
+                       </div>
+                      
+                       <div class="text-center">
+                          <button type="button" class="btn btn-warning edit-btn">Apply</button>
+                       </div>
+                     </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+
           <!-- end add new work -->
         <!-- FOOTER -->
         <footer id="footer">
@@ -343,4 +502,5 @@
   </script>
   <script src="./layout/js/bootstrap-tagsinput.js"></script>
   <script src="./layout/js/bootstrap-tagsinput-angular.min.js"></script>
+  <script src="./layout/js/javascript.js"></script>
 </html>
