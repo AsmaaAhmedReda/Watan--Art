@@ -1576,6 +1576,7 @@ input[type="range"][disabled] {
   padding: 85px 80px 50px;
   margin: 0 auto;
   width: 100%;
+  min-height: 470px;
   display: inline-block;
 }
 .setting-content .title,
@@ -1715,8 +1716,8 @@ input[type="range"][disabled] {
   opacity: 0.5;
   color: #6b6b6b;
 }
-.setting-content .save-btn {
-  padding: 0.4rem 1.7rem;
+.save-btn {
+  padding: 0.4rem 2.2rem;
   margin: 0 auto;
   border-radius: 9px;
   color: #ffffff;
@@ -1724,8 +1725,9 @@ input[type="range"][disabled] {
   letter-spacing: 1px;
   background-color: #f5a43b;
   margin-top: 20px;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
 }
-.setting-content .save-btn.btn:focus {
+.save-btn.btn:focus {
   box-shadow: none;
   background: #f5a43b;
   border-color: transparent;
@@ -2008,6 +2010,23 @@ input[type="range"][disabled] {
 .item-details .row {
   margin: 0;
 }
+.color-bg {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 4px;
+  display: inline-block;
+  border: solid 0.5px #707070;
+}
+.black-color {
+  background-color: #000;
+}
+.red-color {
+  background-color: #ca1c1c;
+}
+.white-color {
+  background-color: white;
+}
 .prod-slider {
   border-right: 1px solid #212529;
 }
@@ -2027,7 +2046,11 @@ input[type="range"][disabled] {
   width: 7px;
   height: 7px;
   border-radius: 50%;
+  opacity: 0.5;
   background-color: #f5a43b;
+}
+.prod-slider .carousel-indicators li.active {
+  opacity: 1;
 }
 .progress {
   width: 120px;
@@ -2119,12 +2142,16 @@ input[type="range"][disabled] {
   color: #fff;
   padding: 2px 20px;
   margin-bottom: 5px;
-  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
 }
 .color p,
 .size p {
   margin-bottom: 5px;
-  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
 }
 .color,
 .size {
@@ -2137,7 +2164,9 @@ input[type="range"][disabled] {
   padding: 0.5rem;
   border-top: none;
   font-weight: normal;
-  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
 }
 .table td {
   padding: 0.5rem;
@@ -2162,4 +2191,153 @@ input[type="range"][disabled] {
 }
 .color-size .form-check-inline .form-check-input:checked + label {
   border: 1px solid #f5a43b;
+}
+.terms-condtions label,
+.terms-condtions .list-group-item {
+  color: #212529;
+  font-size: 13px;
+  margin-bottom: 0;
+}
+.terms-condtions input[type="checkbox"] {
+  margin: 0 7px;
+  vertical-align: middle;
+}
+.terms-condtions .list-group-item {
+  padding: 0 1.25rem;
+}
+/* manage my work */
+.manage-my-work .card {
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+}
+.manage-my-work .card-img-top {
+  height: 185px;
+  object-fit: cover;
+}
+.manage-my-work .card-body {
+  padding: 0.6rem 1rem;
+}
+.manage-my-work .card-title {
+  margin-bottom: 0.4rem;
+  font-size: 1.1rem;
+  color: #212529;
+}
+.like-number,
+.work-status {
+  font-size: 13px;
+}
+.pending {
+  color: #f5a43b;
+}
+.published {
+  color: #14966a;
+}
+.card-img-options {
+  position: relative;
+}
+.card-img-options .more-options {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  color: #f5a43b;
+  background-color: white;
+}
+.popover-body {
+  width: 125px;
+}
+.popover-body p {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+/* view-my-work */
+.view-my-work .image-area,
+.view-my-work .image-area img {
+  width: 100%;
+  height: 310px;
+}
+.view-my-work .image-area img {
+  object-fit: cover;
+}
+.view-my-work .my-new-product h3 {
+  color: #212529;
+  font-size: 2.4rem;
+  font-weight: normal;
+  margin-top: 50px;
+}
+.view-my-work .my-new-product p {
+  color: #6b6b6b;
+  font-size: 16px;
+  font-family: arial;
+}
+.available-products {
+  width: 150px;
+  border-radius: 14px;
+  padding: 0.6rem 0.2rem 0.1rem;
+  font-size: 14px;
+  margin-bottom: 20px;
+  background-color: #f0eeee;
+}
+.edit-btn {
+  width: 145px;
+  padding: 0.3rem 2.2rem;
+}
+.view-my-work .shop-products .card-img {
+  height: auto;
+  border: 1px solid #f5a43b !important;
+}
+
+/* sales history */
+.total-balance {
+  width: 60%;
+  margin: 0 auto;
+  padding: 0.7rem 1rem 0.5rem;
+  border-radius: 15px;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+  border: solid 2px #f5a43b;
+}
+.total-balance h4 {
+  color: #f5a43b;
+  font-size: 1.3rem;
+  font-family: arial;
+}
+.total-balance h4 span,
+.total-balance p span {
+  float: right;
+}
+.total-balance h4 img {
+  width: 23px;
+  margin-right: 8px;
+}
+.sales-history .table th,
+.sales-history .table td {
+  border-top: none;
+}
+.sales-history .table td {
+  font-size: 17px;
+  color: #6b6b6b;
+}
+.sales-history .table thead th {
+  font-weight: normal;
+  font-size: 18px;
+  border-bottom: 1px solid #212529;
+}
+.total-balance-from {
+  width: 100%;
+  padding: 0.5rem 1rem 0.3rem;
+  border: solid 2px #212529;
+}
+.total-balance-from h4 {
+  color: #212529;
+  margin-bottom: 5px !important;
+}
+.total-balance-from p {
+  color: #6b6b6b;
+  font-size: 0.75rem;
 }
