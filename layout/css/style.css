@@ -1519,6 +1519,7 @@ input[type="range"][disabled] {
   margin: 5px 0 10px;
 }
 .card-product {
+  width: 100%;
   border: none;
   border-radius: 16px;
   overflow: hidden;
@@ -2368,7 +2369,7 @@ input[type="range"][disabled] {
   }
 }
 /* // Small devices (landscape phones, 576px and up) */
-@media (min-width: 280px) {
+@media (min-width: 280px) and (max-width: 767.98px) {
   .setting-container {
     padding: 105px 10px 50px;
   }
@@ -2377,8 +2378,9 @@ input[type="range"][disabled] {
   .title {
     font-size: 1.4rem;
   }
-  .setting-content .tab button, .setting-content .profile-img h5{
-    font-size: .9rem;
+  .setting-content .tab button,
+  .setting-content .profile-img h5 {
+    font-size: 0.9rem;
   }
   .setting-content .profile-img .media {
     flex-direction: column;
@@ -2394,30 +2396,54 @@ input[type="range"][disabled] {
     padding: 0.5rem 1.5rem;
     font-size: 0.8rem;
   }
-  .add-new-work .col-md-6{
+  .add-new-work .col-md-6 {
     padding: 50px 40px;
     margin-bottom: 30px;
     flex: 0 0 calc(85% - 30px);
     max-width: calc(85% - 30px);
   }
-  .add-new-work .row img{
+  .add-new-work .row img {
     width: 40px;
     height: 40px;
   }
-  .add-new-work .row h5{
+  .add-new-work .row h5 {
     font-size: 18px;
   }
-  .total-balance{
+  .total-balance {
     width: 100%;
   }
-  .total-balance h4{
-    font-size: .9rem;
+  .total-balance h4 {
+    font-size: 0.9rem;
   }
-  .total-balance h4 img{
+  .total-balance h4 img {
     width: 17px;
   }
-  .total-balance-from p{
+  .total-balance-from p {
     font-size: 0.6rem;
+  }
+  .image-area {
+    margin-bottom: 28px;
+    width: 100%;
+  }
+  .edit-work .setting-container::before {
+    bottom: -475px;
+  }
+  .profile-info .more-info {
+    padding: 40px 25px;
+  }
+  .profile-banner .avatar {
+    width: 180px;
+    height: 180px;
+  }
+  .sales-history .table thead th {
+    font-size: 16px;
+    padding: 5px;
+  }
+  .sales-history .table td {
+    font-size: 14px;
+  }
+  .view-my-work.edit-work .setting-container::before {
+    bottom: -248px;
   }
 }
 
